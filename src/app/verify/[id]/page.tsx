@@ -2,7 +2,7 @@
 
 import { useState, useEffect, use } from 'react';
 import { db, Product, BlockchainNode } from '@/lib/store/nosql-sim';
-import { ArrowLeft, ShieldCheck, MapPin, FileText, ImageIcon, ExternalLink, Hash, Clock, Globe, Fingerprint, Activity, Layers, Sparkles, Leaf } from 'lucide-react';
+import { ArrowLeft, ShieldCheck, MapPin, FileText, ImageIcon, ExternalLink, Hash, Clock, Globe, Fingerprint, Activity, Layers, Sparkles, Leaf, Package, Zap } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
