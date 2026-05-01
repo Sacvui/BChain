@@ -22,6 +22,14 @@ const products = [
     description: "Cà phê specialty từ vùng nguyên liệu cao 1600m tại Đà Lạt.",
     attributes: { origin: "Đà Lạt", roast: "Medium", altitude: "1600m" },
     color: "amber"
+  },
+  {
+    id: "TRA-003",
+    category: "Trà Thảo Mộc",
+    name: "Mát Gang Tea - Atisô Đà Lạt",
+    description: "Sản phẩm trà túi lọc từ hoa Atisô tươi vùng cao nguyên Lạc Dương.",
+    attributes: { origin: "Lâm Đồng", weight: "50g", grade: "Premium" },
+    color: "emerald"
   }
 ];
 

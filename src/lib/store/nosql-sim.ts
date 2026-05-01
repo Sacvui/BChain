@@ -142,6 +142,65 @@ class NoSQLSim {
             hash: "0x4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b"
           }
         ]
+      },
+      {
+        id: "TRA-003",
+        category: "Trà Thảo Mộc",
+        name: "Mát Gang Tea - Atisô Đà Lạt",
+        image: "/assets/matgang.png",
+        attributes: {
+          origin: "Lạc Dương, Lâm Đồng",
+          weight: "50g (20 túi lọc)",
+          process: "Sấy lạnh công nghệ cao",
+          grade: "Premium Organic",
+          blockchain: "Ethereum (ERC-721)",
+          smart_contract: "0x9c3d...e4a2"
+        },
+        sustainability: {
+          score: 95,
+          carbon_footprint: "0.15kg CO2e",
+          water_saved: "320L",
+          social_impact: "Hỗ trợ 20 hộ nông dân dân tộc thiểu số",
+          ai_insight: "Sản phẩm sử dụng công nghệ sấy lạnh tiết kiệm 40% năng lượng so với sấy nhiệt truyền thống. Vùng nguyên liệu đạt chuẩn GlobalGAP."
+        },
+        nodes: [
+          {
+            id: "node-7",
+            type: 'FARM',
+            title: "Nông trại Atisô Lạc Dương",
+            location: "Lạc Dương, Lâm Đồng",
+            coordinates: "11.9844° N, 108.4309° E",
+            timestamp: "2026-04-01T06:00:00Z",
+            documents: [{ name: "Chứng nhận GlobalGAP", url: "#" }],
+            images: ["https://images.unsplash.com/photo-1515471209610-dae1c9a581c5?w=400&q=80"],
+            description: "Thu hoạch hoa Atisô vào sáng sớm để đảm bảo dược tính cao nhất.",
+            hash: "0x3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e"
+          },
+          {
+            id: "node-8",
+            type: 'PROCESSING',
+            title: "Nhà máy Sấy Lạnh Đà Lạt",
+            location: "Phường 12, Đà Lạt",
+            coordinates: "11.9444° N, 108.4509° E",
+            timestamp: "2026-04-03T09:00:00Z",
+            documents: [{ name: "Hồ sơ sấy lạnh", url: "#" }],
+            images: ["https://images.unsplash.com/photo-1550989460-0adf9ea622e2?w=400&q=80"],
+            description: "Chế biến bằng công nghệ sấy lạnh giúp giữ nguyên màu sắc và hoạt chất Cynarin.",
+            hash: "0x7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c"
+          },
+          {
+            id: "node-9",
+            type: 'RETAIL',
+            title: "Hệ thống Farm-to-Table",
+            location: "Quận 1, TP.HCM",
+            coordinates: "10.7769° N, 106.7009° E",
+            timestamp: "2026-04-10T08:00:00Z",
+            documents: [{ name: "Chứng nhận ATVSTP", url: "#" }],
+            images: ["https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&q=80"],
+            description: "Phân phối chính ngạch tại các cửa hàng nông sản cao cấp.",
+            hash: "0x1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2"
+          }
+        ]
       }
     ]
   };
