@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { db, Product, BlockchainNode } from '@/lib/store/nosql-sim';
 import { ArrowLeft, ShieldCheck, MapPin, FileText, ImageIcon, ExternalLink, Hash, Clock, Globe, Fingerprint, Activity, Layers } from 'lucide-react';
 import Link from 'next/link';
@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 
 export default function VerifyPage({ params }: { params: Promise<{ id: string }> }) {
+  const unwrappedParams = use(params);
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedNode, setSelectedNode] = useState<BlockchainNode | null>(null);
   const [loading, setLoading] = useState(true);
@@ -15,7 +16,7 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
 
   useEffect(() => {
     const fetchData = async () => {
-      const { id } = await params;
+      const { id } = unwrappedParams;
       const data = await db.findOne('products', { id });
       
       // Simulate scanning animation
