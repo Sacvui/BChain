@@ -101,8 +101,16 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
               animate={{ opacity: 1, x: 0 }}
             >
               {product.image && (
-                <div className="mb-6 rounded-3xl overflow-hidden border border-slate-100 shadow-lg aspect-square bg-white">
-                  <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                <div className="mb-6 rounded-[2.5rem] overflow-hidden border border-slate-100 shadow-2xl aspect-square bg-white relative group">
+                  <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  {/* High-tech scanning beam */}
+                  <motion.div 
+                    initial={{ top: '-10%' }}
+                    animate={{ top: '110%' }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                    className="absolute left-0 right-0 h-[2px] bg-emerald-400 shadow-[0_0_15px_rgba(52,211,153,0.8)] z-10 opacity-50"
+                  ></motion.div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-natural-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
               )}
               <div className="inline-block px-2 py-0.5 md:px-3 md:py-1 rounded-lg bg-natural-100 text-natural-600 text-[8px] md:text-[10px] font-black uppercase tracking-widest mb-3 md:mb-4">
@@ -137,52 +145,96 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                 </div>
 
                 {product.sustainability && (
-                  <div className="space-y-4">
-                    <div className="p-6 rounded-[2rem] bg-emerald-900 text-white shadow-xl shadow-emerald-900/20 relative overflow-hidden">
-                       <div className="absolute top-0 right-0 p-4 opacity-10">
-                          <Leaf size={40} />
+                  <div className="space-y-6">
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.8, ease: "easeOut" }}
+                      className="p-8 rounded-[2.5rem] bg-gradient-to-br from-emerald-900 via-emerald-950 to-black text-white shadow-2xl shadow-emerald-900/40 relative overflow-hidden group"
+                    >
+                       {/* Animated Glow */}
+                       <div className="absolute -top-24 -right-24 w-48 h-48 bg-emerald-400 rounded-full blur-[80px] opacity-20 group-hover:opacity-40 transition-opacity duration-1000"></div>
+                       
+                       <div className="relative z-10">
+                         <div className="flex items-center gap-3 mb-6">
+                            <div className="w-10 h-10 rounded-2xl bg-emerald-400/10 flex items-center justify-center text-emerald-400 border border-emerald-400/20 shadow-[0_0_15px_rgba(52,211,153,0.2)]">
+                               <Leaf size={20} />
+                            </div>
+                            <span className="text-xs font-black uppercase tracking-[0.2em] text-emerald-400">Sustainability Index</span>
+                         </div>
+                         
+                         <div className="flex items-end gap-3 mb-4">
+                            <motion.span 
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              className="text-6xl font-black tracking-tighter"
+                            >
+                              {product.sustainability.score}
+                            </motion.span>
+                            <span className="text-xl font-bold text-emerald-400/60 mb-2">/100</span>
+                         </div>
+                         
+                         <div className="w-full h-3 bg-white/5 rounded-full overflow-hidden backdrop-blur-md border border-white/5 p-0.5">
+                            <motion.div 
+                              initial={{ width: 0 }}
+                              animate={{ width: `${product.sustainability.score}%` }}
+                              transition={{ duration: 2, ease: "circOut" }}
+                              className="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 rounded-full shadow-[0_0_20px_rgba(52,211,153,0.5)]"
+                            ></motion.div>
+                         </div>
+                         
+                         <div className="mt-8 flex items-center justify-between">
+                            <div className="flex -space-x-2">
+                               {[1,2,3].map(i => (
+                                 <div key={i} className="w-6 h-6 rounded-full border-2 border-emerald-950 bg-emerald-800 flex items-center justify-center">
+                                    <ShieldCheck size={10} className="text-emerald-400" />
+                                 </div>
+                               ))}
+                            </div>
+                            <p className="text-[10px] font-bold text-emerald-400/80 uppercase tracking-widest">Global Verified</p>
+                         </div>
                        </div>
-                       <div className="flex items-center gap-3 mb-4">
-                          <div className="w-8 h-8 rounded-full bg-emerald-400/20 flex items-center justify-center text-emerald-400">
-                             <Leaf size={16} />
-                          </div>
-                          <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400">Green Score</span>
-                       </div>
-                       <div className="flex items-end gap-2 mb-2">
-                          <span className="text-4xl font-black">{product.sustainability.score}</span>
-                          <span className="text-sm font-bold text-emerald-400 mb-1">/100</span>
-                       </div>
-                       <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
-                          <motion.div 
-                            initial={{ width: 0 }}
-                            animate={{ width: `${product.sustainability.score}%` }}
-                            transition={{ duration: 1, delay: 0.5 }}
-                            className="h-full bg-emerald-400"
-                          ></motion.div>
-                       </div>
-                    </div>
+                    </motion.div>
 
-                    <div className="p-6 rounded-[2rem] bg-white border border-natural-100 shadow-xl shadow-natural-900/5">
-                       <div className="flex items-center gap-3 mb-4">
-                          <div className="w-8 h-8 rounded-full bg-natural-100 flex items-center justify-center text-natural-600">
-                             <Sparkles size={16} />
-                          </div>
-                          <span className="text-[10px] font-black uppercase tracking-widest text-natural-500">AI Sustainability Insight</span>
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className="p-8 rounded-[2.5rem] bg-white border border-slate-100 shadow-2xl shadow-natural-900/5 relative overflow-hidden"
+                    >
+                       <div className="absolute -bottom-12 -left-12 w-32 h-32 bg-natural-50 rounded-full blur-[40px] opacity-50"></div>
+                       
+                       <div className="relative z-10">
+                         <div className="flex items-center gap-3 mb-6">
+                            <div className="w-10 h-10 rounded-2xl bg-natural-900 text-white flex items-center justify-center shadow-lg shadow-natural-900/20">
+                               <Sparkles size={18} />
+                            </div>
+                            <span className="text-xs font-black uppercase tracking-[0.2em] text-natural-900">AI Deep Analysis</span>
+                         </div>
+                         
+                         <div className="relative p-5 bg-natural-50/50 rounded-2xl border border-natural-100/50">
+                            <div className="absolute -left-1 top-4 w-1 h-8 bg-natural-900 rounded-full"></div>
+                            <p className="text-sm text-natural-900 font-medium leading-relaxed italic">
+                              "{product.sustainability.ai_insight}"
+                            </p>
+                         </div>
+                         
+                         <div className="mt-8 grid grid-cols-2 gap-4">
+                            {[
+                              { label: "Carbon", value: product.sustainability.carbon_footprint, icon: Globe },
+                              { label: "Water", value: product.sustainability.water_saved, icon: Activity }
+                            ].map((m, i) => (
+                              <div key={i} className="group p-4 bg-white rounded-2xl border border-slate-100 hover:border-natural-900/20 transition-all hover:shadow-lg">
+                                 <div className="flex items-center gap-2 mb-2">
+                                    <m.icon size={12} className="text-slate-300" />
+                                    <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">{m.label}</span>
+                                 </div>
+                                 <p className="text-sm font-black text-natural-900">{m.value}</p>
+                              </div>
+                            ))}
+                         </div>
                        </div>
-                       <p className="text-xs text-natural-900 font-medium leading-relaxed italic">
-                         "{product.sustainability.ai_insight}"
-                       </p>
-                       <div className="mt-6 grid grid-cols-2 gap-3">
-                          <div className="bg-natural-50 p-3 rounded-xl border border-natural-100">
-                             <p className="text-[8px] font-bold text-natural-400 uppercase mb-1">Carbon</p>
-                             <p className="text-[10px] font-bold text-natural-900">{product.sustainability.carbon_footprint}</p>
-                          </div>
-                          <div className="bg-natural-50 p-3 rounded-xl border border-natural-100">
-                             <p className="text-[8px] font-bold text-natural-400 uppercase mb-1">Water Saved</p>
-                             <p className="text-[10px] font-bold text-natural-900">{product.sustainability.water_saved}</p>
-                          </div>
-                       </div>
-                    </div>
+                    </motion.div>
                   </div>
                 )}
               </div>
@@ -346,20 +398,28 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                            </div>
                         </div>
 
-                        <div className="p-4 md:p-6 rounded-2xl md:rounded-[2rem] bg-slate-900 text-white relative overflow-hidden group">
-                           <div className="flex justify-between items-start mb-2">
-                             <p className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">Blockchain Signature</p>
-                             <button 
-                               onClick={() => setShowHashModal(true)}
-                               className="text-[10px] font-bold text-natural-900 bg-emerald-400 px-3 py-1.5 rounded-full hover:bg-emerald-300 transition-colors shadow-[0_0_15px_rgba(52,211,153,0.3)] flex items-center gap-1"
-                             >
-                               <Hash size={12} /> KIỂM CHỨNG ETH
-                             </button>
-                           </div>
-                           <p className="text-[9px] md:text-xs font-mono text-emerald-400/80 break-all leading-relaxed group-hover:text-emerald-400 transition-colors">
-                             {selectedNode.hash}
-                           </p>
-                        </div>
+                        <div className="p-6 md:p-8 rounded-[2.5rem] bg-gradient-to-br from-slate-900 to-black text-white relative overflow-hidden group border border-white/5 shadow-2xl">
+                            {/* Scanning pulse */}
+                            <div className="absolute inset-0 bg-emerald-500/5 animate-pulse pointer-events-none"></div>
+                            
+                            <div className="flex justify-between items-start mb-6 relative z-10">
+                              <div>
+                                <p className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.2em] mb-1">Blockchain Hash Signature</p>
+                                <p className="text-[8px] font-bold text-slate-500 uppercase tracking-widest">Secured by Ethereum Node #42</p>
+                              </div>
+                              <button 
+                                onClick={() => setShowHashModal(true)}
+                                className="text-[10px] font-black text-natural-900 bg-emerald-400 px-4 py-2 rounded-xl hover:bg-emerald-300 transition-all shadow-[0_0_20px_rgba(52,211,153,0.4)] flex items-center gap-2 active:scale-95"
+                              >
+                                <Hash size={14} /> KIỂM CHỨNG ETH
+                              </button>
+                            </div>
+                            <div className="bg-black/50 p-4 rounded-2xl border border-white/5 relative z-10">
+                               <p className="text-[10px] md:text-sm font-mono text-emerald-400/90 break-all leading-relaxed tracking-wider">
+                                 {selectedNode.hash}
+                               </p>
+                            </div>
+                         </div>
                       </div>
                     </div>
 
