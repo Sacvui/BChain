@@ -22,6 +22,13 @@ export interface Product {
   name: string;
   image?: string;
   attributes: Record<string, any>;
+  sustainability?: {
+    score: number;
+    carbon_footprint: string;
+    water_saved: string;
+    social_impact: string;
+    ai_insight: string;
+  };
   nodes: BlockchainNode[];
 }
 
@@ -32,7 +39,7 @@ class NoSQLSim {
         id: "YEN-001",
         category: "Yến Sào",
         name: "Yến Sào Tinh Chế Thượng Hạng",
-        image: "/assets/packaging.png", // Main product image
+        image: "/assets/packaging.png",
         attributes: {
           origin: "Khánh Hòa",
           weight: "100g",
@@ -40,6 +47,13 @@ class NoSQLSim {
           grade: "AAA",
           blockchain: "Ethereum (ERC-721)",
           smart_contract: "0x7a2d...f9e1"
+        },
+        sustainability: {
+          score: 98,
+          carbon_footprint: "0.2kg CO2e",
+          water_saved: "450L",
+          social_impact: "Tạo 50 việc làm địa phương",
+          ai_insight: "Dựa trên phân tích từ Blockchain, sản phẩm này đạt tiêu chuẩn khai thác bền vững. Quy trình không sử dụng hóa chất và bảo tồn hệ sinh thái hang yến tự nhiên tại Ninh Hòa."
         },
         nodes: [
           {

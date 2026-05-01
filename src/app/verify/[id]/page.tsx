@@ -2,7 +2,7 @@
 
 import { useState, useEffect, use } from 'react';
 import { db, Product, BlockchainNode } from '@/lib/store/nosql-sim';
-import { ArrowLeft, ShieldCheck, MapPin, FileText, ImageIcon, ExternalLink, Hash, Clock, Globe, Fingerprint, Activity, Layers } from 'lucide-react';
+import { ArrowLeft, ShieldCheck, MapPin, FileText, ImageIcon, ExternalLink, Hash, Clock, Globe, Fingerprint, Activity, Layers, Sparkles, Leaf } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
@@ -135,6 +135,56 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                     <p className="text-xs md:text-sm font-bold text-blue-900">100% Nguyên Chất</p>
                   </div>
                 </div>
+
+                {product.sustainability && (
+                  <div className="space-y-4">
+                    <div className="p-6 rounded-[2rem] bg-emerald-900 text-white shadow-xl shadow-emerald-900/20 relative overflow-hidden">
+                       <div className="absolute top-0 right-0 p-4 opacity-10">
+                          <Leaf size={40} />
+                       </div>
+                       <div className="flex items-center gap-3 mb-4">
+                          <div className="w-8 h-8 rounded-full bg-emerald-400/20 flex items-center justify-center text-emerald-400">
+                             <Leaf size={16} />
+                          </div>
+                          <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400">Green Score</span>
+                       </div>
+                       <div className="flex items-end gap-2 mb-2">
+                          <span className="text-4xl font-black">{product.sustainability.score}</span>
+                          <span className="text-sm font-bold text-emerald-400 mb-1">/100</span>
+                       </div>
+                       <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+                          <motion.div 
+                            initial={{ width: 0 }}
+                            animate={{ width: `${product.sustainability.score}%` }}
+                            transition={{ duration: 1, delay: 0.5 }}
+                            className="h-full bg-emerald-400"
+                          ></motion.div>
+                       </div>
+                    </div>
+
+                    <div className="p-6 rounded-[2rem] bg-white border border-natural-100 shadow-xl shadow-natural-900/5">
+                       <div className="flex items-center gap-3 mb-4">
+                          <div className="w-8 h-8 rounded-full bg-natural-100 flex items-center justify-center text-natural-600">
+                             <Sparkles size={16} />
+                          </div>
+                          <span className="text-[10px] font-black uppercase tracking-widest text-natural-500">AI Sustainability Insight</span>
+                       </div>
+                       <p className="text-xs text-natural-900 font-medium leading-relaxed italic">
+                         "{product.sustainability.ai_insight}"
+                       </p>
+                       <div className="mt-6 grid grid-cols-2 gap-3">
+                          <div className="bg-natural-50 p-3 rounded-xl border border-natural-100">
+                             <p className="text-[8px] font-bold text-natural-400 uppercase mb-1">Carbon</p>
+                             <p className="text-[10px] font-bold text-natural-900">{product.sustainability.carbon_footprint}</p>
+                          </div>
+                          <div className="bg-natural-50 p-3 rounded-xl border border-natural-100">
+                             <p className="text-[8px] font-bold text-natural-400 uppercase mb-1">Water Saved</p>
+                             <p className="text-[10px] font-bold text-natural-900">{product.sustainability.water_saved}</p>
+                          </div>
+                       </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </motion.div>
 
