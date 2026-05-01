@@ -386,11 +386,19 @@ function HashSimulator({ node, onClose }: { node: BlockchainNode, onClose: () =>
              </p>
              <div className="bg-emerald-500/10 p-4 rounded-xl border border-emerald-500/20">
                {step >= 3 ? (
-                 <div className="flex items-start gap-3">
-                   <ShieldCheck size={24} className="text-emerald-400 shrink-0" />
-                   <div>
-                     <p className="text-emerald-400 font-bold text-sm mb-1">Xác minh toàn vẹn dữ liệu thành công!</p>
-                     <p className="text-slate-400 text-xs font-light">Chữ ký Hash trùng khớp tuyệt đối với dữ liệu trên mạng lưới. Không có bất kỳ sự thay đổi hay làm giả nào được phát hiện.</p>
+                 <div className="flex flex-col gap-4">
+                   <div className="flex items-start gap-3">
+                     <ShieldCheck size={24} className="text-emerald-400 shrink-0" />
+                     <div>
+                       <p className="text-emerald-400 font-bold text-sm mb-1">Xác minh toàn vẹn dữ liệu thành công!</p>
+                       <p className="text-slate-400 text-xs font-light">Chữ ký Hash trùng khớp tuyệt đối với dữ liệu trên mạng lưới. Không có bất kỳ sự thay đổi hay làm giả nào được phát hiện.</p>
+                     </div>
+                   </div>
+                   <div className="mt-2 p-3 bg-black/40 rounded-lg border border-emerald-500/10 text-[10px] font-mono space-y-1.5">
+                     <div className="flex justify-between"><span className="text-slate-500">Block Number:</span><span className="text-emerald-400">19,482,041</span></div>
+                     <div className="flex justify-between"><span className="text-slate-500">Gas Used:</span><span className="text-emerald-400">42,109 Gwei</span></div>
+                     <div className="flex justify-between"><span className="text-slate-500">Smart Contract:</span><span className="text-emerald-400">0x7a2d4E813F0C5...f9e1</span></div>
+                     <div className="flex justify-between"><span className="text-slate-500">Network:</span><span className="text-emerald-400">Ethereum Mainnet</span></div>
                    </div>
                  </div>
                ) : (
