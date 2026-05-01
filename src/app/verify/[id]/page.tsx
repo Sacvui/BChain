@@ -13,6 +13,7 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
   const [selectedNode, setSelectedNode] = useState<BlockchainNode | null>(null);
   const [loading, setLoading] = useState(true);
   const [isScanning, setIsScanning] = useState(true);
+  const [showHashModal, setShowHashModal] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -223,9 +224,17 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                            </div>
                         </div>
 
-                        <div className="p-4 md:p-6 rounded-2xl md:rounded-[2rem] bg-slate-900 text-white relative overflow-hidden">
-                           <p className="text-[8px] font-bold text-slate-400 uppercase tracking-widest mb-2">Blockchain Signature</p>
-                           <p className="text-[9px] md:text-xs font-mono text-emerald-400 break-all leading-relaxed">
+                        <div className="p-4 md:p-6 rounded-2xl md:rounded-[2rem] bg-slate-900 text-white relative overflow-hidden group">
+                           <div className="flex justify-between items-start mb-2">
+                             <p className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">Blockchain Signature</p>
+                             <button 
+                               onClick={() => setShowHashModal(true)}
+                               className="text-[10px] font-bold text-natural-900 bg-emerald-400 px-3 py-1.5 rounded-full hover:bg-emerald-300 transition-colors shadow-[0_0_15px_rgba(52,211,153,0.3)] flex items-center gap-1"
+                             >
+                               <Hash size={12} /> KIỂM CHỨNG ETH
+                             </button>
+                           </div>
+                           <p className="text-[9px] md:text-xs font-mono text-emerald-400/80 break-all leading-relaxed group-hover:text-emerald-400 transition-colors">
                              {selectedNode.hash}
                            </p>
                         </div>
@@ -279,6 +288,118 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
           </div>
         </div>
       </div>
+
+      <AnimatePresence>
+        {showHashModal && selectedNode && (
+          <HashSimulator node={selectedNode} onClose={() => setShowHashModal(false)} />
+        )}
+      </AnimatePresence>
     </main>
+  );
+}
+
+function HashSimulator({ node, onClose }: { node: BlockchainNode, onClose: () => void }) {
+  const [step, setStep] = useState(0);
+  const [currentHash, setCurrentHash] = useState('');
+  
+  const rawData = JSON.stringify({
+    id: node.id,
+    type: node.type,
+    title: node.title,
+    location: node.location,
+    timestamp: node.timestamp
+  }, null, 2);
+
+  useEffect(() => {
+    // Step 1: Parse Data
+    const t1 = setTimeout(() => setStep(1), 1500);
+
+    // Step 2: Hashing
+    let interval: any;
+    const t2 = setTimeout(() => {
+      setStep(2);
+      interval = setInterval(() => {
+        setCurrentHash('0x' + Array.from({length: 64}, () => Math.floor(Math.random()*16).toString(16)).join(''));
+      }, 50);
+    }, 3000);
+
+    // Step 3: Match Success
+    const t3 = setTimeout(() => {
+      clearInterval(interval);
+      setCurrentHash(node.hash);
+      setStep(3);
+      confetti({ particleCount: 80, spread: 100, origin: { y: 0.5 }, zIndex: 10000 });
+    }, 6000);
+
+    return () => {
+      clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearInterval(interval);
+    };
+  }, [node]);
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
+    >
+      <div className="w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl flex flex-col">
+        <div className="p-4 border-b border-slate-800 flex justify-between items-center bg-slate-900/50">
+          <div className="flex items-center gap-3">
+             <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400">
+               <Activity size={16} />
+             </div>
+             <div>
+               <h3 className="text-white font-bold text-sm tracking-widest uppercase">EVM Node Simulator</h3>
+               <p className="text-slate-500 text-[10px] font-mono">Keccak-256 / SHA-256 Verification</p>
+             </div>
+          </div>
+          <button onClick={onClose} className="text-slate-500 hover:text-white p-2"><ArrowLeft size={20} /></button>
+        </div>
+        
+        <div className="p-6 md:p-8 flex-grow flex flex-col gap-6">
+           {/* Step 1: Raw Data Block */}
+           <div className={`transition-all duration-500 ${step >= 0 ? 'opacity-100' : 'opacity-0 translate-y-4'}`}>
+             <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 flex items-center gap-2">
+               <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span> 1. Khối dữ liệu gốc (Payload)
+             </p>
+             <pre className="bg-black/50 p-4 rounded-xl text-blue-400 text-xs font-mono overflow-x-auto border border-slate-800">
+               {rawData}
+             </pre>
+           </div>
+
+           {/* Step 2: Hashing process */}
+           <div className={`transition-all duration-500 ${step >= 1 ? 'opacity-100' : 'opacity-0 translate-y-4'}`}>
+             <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 flex items-center gap-2">
+               <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span> 2. Chạy thuật toán băm (Hashing)
+             </p>
+             <div className="bg-black/50 p-4 rounded-xl border border-slate-800 flex items-center gap-4">
+               <Hash size={24} className={step === 2 ? "text-amber-500 animate-spin" : "text-slate-600"} />
+               <p className={`font-mono text-xs break-all ${step === 2 ? 'text-amber-400' : 'text-slate-600'}`}>
+                 {step >= 2 ? currentHash : 'Waiting for payload...'}
+               </p>
+             </div>
+           </div>
+
+           {/* Step 3: Result Match */}
+           <div className={`transition-all duration-500 ${step >= 3 ? 'opacity-100' : 'opacity-0 translate-y-4'}`}>
+             <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 flex items-center gap-2">
+               <span className="w-2 h-2 rounded-full bg-emerald-500"></span> 3. Kết quả đối chiếu với sổ cái
+             </p>
+             <div className="bg-emerald-500/10 p-4 rounded-xl border border-emerald-500/20">
+               {step >= 3 ? (
+                 <div className="flex items-start gap-3">
+                   <ShieldCheck size={24} className="text-emerald-400 shrink-0" />
+                   <div>
+                     <p className="text-emerald-400 font-bold text-sm mb-1">Xác minh toàn vẹn dữ liệu thành công!</p>
+                     <p className="text-slate-400 text-xs font-light">Chữ ký Hash trùng khớp tuyệt đối với dữ liệu trên mạng lưới. Không có bất kỳ sự thay đổi hay làm giả nào được phát hiện.</p>
+                   </div>
+                 </div>
+               ) : (
+                 <p className="text-slate-600 text-xs font-mono">Awaiting verification...</p>
+               )}
+             </div>
+           </div>
+        </div>
+      </div>
+    </motion.div>
   );
 }
