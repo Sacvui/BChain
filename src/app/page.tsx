@@ -82,7 +82,7 @@ export default function Home() {
               </span> bằng Blockchain
             </h1>
             <p className="text-slate-500 text-lg md:text-xl max-w-3xl mx-auto font-light leading-relaxed mb-12">
-              Xây dựng niềm tin vững chắc cho người tiêu dùng Gen Z thông qua quy trình truy xuất nguồn gốc không thể thay đổi và trí tuệ nhân tạo.
+              Mockup thị phạm xác minh sự kết hợp giữa Trí tuệ nhân tạo (AI) và Minh bạch chuỗi khối (Blockchain) theo đề án nghiên cứu của Nghiên cứu sinh Lê Phúc Hải.
             </p>
             
             <div className="flex flex-wrap justify-center gap-4">
