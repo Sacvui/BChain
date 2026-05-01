@@ -63,9 +63,15 @@ class NoSQLSim {
             location: "Ninh Hòa, Khánh Hòa",
             coordinates: "12.4844° N, 109.1309° E",
             timestamp: "2026-04-10T08:30:00Z",
-            documents: [{ name: "Giấy phép khai thác", url: "#" }],
-            images: ["https://images.unsplash.com/photo-1590402444816-a1284b33e1d1?w=400&q=80"],
-            description: "Thu hoạch từ hệ thống nhà yến đạt chuẩn bảo tồn tự nhiên.",
+            documents: [
+              { name: "Chứng nhận GlobalGAP #GG-8812", url: "#" },
+              { name: "Nhật ký khai thác số 45", url: "#" }
+            ],
+            images: [
+              "https://images.unsplash.com/photo-1590402444816-a1284b33e1d1?w=800&q=80",
+              "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80"
+            ],
+            description: "Thu hoạch từ hệ thống nhà yến đạt chuẩn bảo tồn tự nhiên, không can thiệp vào chu kỳ sinh sản của yến.",
             hash: "0x8f3a74b1e4a6d9c8b2f1e0a3d5c7b9a8f2e4d6c8b0a2f4e6d8c0b2a4f6e8d0c2"
           },
           {
@@ -75,9 +81,15 @@ class NoSQLSim {
             location: "Quận 1, TP.HCM",
             coordinates: "10.7769° N, 106.7009° E",
             timestamp: "2026-04-12T14:20:00Z",
-            documents: [{ name: "Kết quả kiểm tra độ đạm", url: "#" }],
-            images: ["https://images.unsplash.com/photo-1579152276502-745f4685c807?w=400&q=80"],
-            description: "Phân tích hàm lượng protein và độ tinh khiết.",
+            documents: [
+              { name: "Kết quả kiểm tra độ đạm Eurofins", url: "#" },
+              { name: "Chứng nhận ATVSTP #AT-112", url: "#" }
+            ],
+            images: [
+              "https://images.unsplash.com/photo-1579152276502-745f4685c807?w=800&q=80",
+              "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&q=80"
+            ],
+            description: "Phân tích hàm lượng protein (60%+) và độ tinh khiết tuyệt đối, không tạp chất.",
             hash: "0x2d9ca1f3b5e7d9c1a3b5c7d9e1f3a5b7c9d1e3f5a7b9c1d3e5f7a9b1c3d5e7f9"
           },
           {
@@ -87,9 +99,15 @@ class NoSQLSim {
             location: "Kho Phân Phối Cát Lái",
             coordinates: "10.7625° N, 106.7536° E",
             timestamp: "2026-04-13T09:00:00Z",
-            documents: [{ name: "Biên bản bàn giao", url: "#" }],
-            images: ["https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400&q=80"],
-            description: "Đóng gói và vận chuyển nhiệt độ chuẩn < 15 độ C.",
+            documents: [
+              { name: "Biên bản bàn giao kho lạnh", url: "#" },
+              { name: "Lịch trình GPS #TR-442", url: "#" }
+            ],
+            images: [
+              "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80",
+              "https://images.unsplash.com/photo-1591768793355-74d7ca736056?w=800&q=80"
+            ],
+            description: "Đóng gói chân không và vận chuyển nhiệt độ chuẩn duy trì dưới 15 độ C.",
             hash: "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b"
           },
           {
@@ -99,9 +117,15 @@ class NoSQLSim {
             location: "Quận 3, TP.HCM",
             coordinates: "10.7825° N, 106.6836° E",
             timestamp: "2026-04-15T09:00:00Z",
-            documents: [{ name: "Chứng nhận phân phối", url: "#" }],
-            images: ["https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80"],
-            description: "Sản phẩm đã có mặt tại cửa hàng bán lẻ chính hãng.",
+            documents: [
+              { name: "Hóa đơn VAT điện tử", url: "#" },
+              { name: "Chứng nhận đại lý ủy quyền", url: "#" }
+            ],
+            images: [
+              "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80",
+              "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80"
+            ],
+            description: "Sản phẩm đã có mặt tại showroom chính hãng, bảo quản trong tủ chuyên dụng.",
             hash: "0x5e1bd9c4a6f2b8e0d4c6a2f8b0e4d6c8a2f0b4e6d8c0a2f4b6e8d0c2a4f6b8e0"
           }
         ]
@@ -171,9 +195,15 @@ class NoSQLSim {
             location: "Lạc Dương, Lâm Đồng",
             coordinates: "11.9844° N, 108.4309° E",
             timestamp: "2026-04-01T06:00:00Z",
-            documents: [{ name: "Chứng nhận GlobalGAP", url: "#" }],
-            images: ["https://images.unsplash.com/photo-1515471209610-dae1c9a581c5?w=400&q=80"],
-            description: "Thu hoạch hoa Atisô vào sáng sớm để đảm bảo dược tính cao nhất.",
+            documents: [
+              { name: "Chứng nhận GlobalGAP #GG-7742", url: "#" },
+              { name: "Chứng nhận Organic JAS", url: "#" }
+            ],
+            images: [
+              "https://images.unsplash.com/photo-1515471209610-dae1c9a581c5?w=800&q=80",
+              "https://images.unsplash.com/photo-1558449028-b53a39d100fc?w=800&q=80"
+            ],
+            description: "Thu hoạch hoa Atisô vào sáng sớm để đảm bảo dược tính Cynarin cao nhất.",
             hash: "0x3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e"
           },
           {
@@ -183,9 +213,15 @@ class NoSQLSim {
             location: "Phường 12, Đà Lạt",
             coordinates: "11.9444° N, 108.4509° E",
             timestamp: "2026-04-03T09:00:00Z",
-            documents: [{ name: "Hồ sơ sấy lạnh", url: "#" }],
-            images: ["https://images.unsplash.com/photo-1550989460-0adf9ea622e2?w=400&q=80"],
-            description: "Chế biến bằng công nghệ sấy lạnh giúp giữ nguyên màu sắc và hoạt chất Cynarin.",
+            documents: [
+              { name: "Hồ sơ kỹ thuật sấy lạnh", url: "#" },
+              { name: "Chứng nhận ISO 22000:2018", url: "#" }
+            ],
+            images: [
+              "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?w=800&q=80",
+              "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80"
+            ],
+            description: "Chế biến bằng công nghệ sấy lạnh hiện đại giúp giữ nguyên màu sắc tự nhiên.",
             hash: "0x7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c"
           },
           {
@@ -195,9 +231,15 @@ class NoSQLSim {
             location: "Quận 1, TP.HCM",
             coordinates: "10.7769° N, 106.7009° E",
             timestamp: "2026-04-10T08:00:00Z",
-            documents: [{ name: "Chứng nhận ATVSTP", url: "#" }],
-            images: ["https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&q=80"],
-            description: "Phân phối chính ngạch tại các cửa hàng nông sản cao cấp.",
+            documents: [
+              { name: "Chứng nhận ATVSTP TP.HCM", url: "#" },
+              { name: "Giấy phép lưu hành sản phẩm", url: "#" }
+            ],
+            images: [
+              "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80",
+              "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?w=800&q=80"
+            ],
+            description: "Phân phối trực tiếp tại các cửa hàng nông sản hữu cơ cao cấp.",
             hash: "0x1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2"
           }
         ]
