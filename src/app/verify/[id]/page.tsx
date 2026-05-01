@@ -189,27 +189,70 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
             </motion.div>
 
             <section>
-              <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6 md:mb-10 flex items-center gap-2">
-                <Globe size={12} />
-                Lịch sử chuỗi khối
-              </h2>
-              {/* Timeline - Scrollable on mobile if needed, but here we just stack */}
-              <div className="relative border-l-2 border-natural-100 ml-4 pl-6 md:pl-10 space-y-10 md:space-y-16">
+              <div className="flex items-center justify-between mb-8">
+                <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2">
+                  <Globe size={12} />
+                  Lịch sử chuỗi khối
+                </h2>
+                <div className="flex items-center gap-1.5 text-[8px] font-bold text-emerald-500 bg-emerald-50 px-2 py-1 rounded-md border border-emerald-100">
+                  <ShieldCheck size={10} />
+                  ALL SECURED
+                </div>
+              </div>
+              
+              <div className="relative space-y-4">
+                {/* Futuristic Connector Line */}
+                <div className="absolute left-6 top-4 bottom-4 w-0.5 bg-gradient-to-b from-natural-100 via-natural-200 to-natural-100 hidden md:block"></div>
+                
                 {product.nodes.map((node, i) => (
                   <motion.div 
                     key={i}
-                    whileHover={{ x: 5 }}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    whileHover={{ scale: 1.02 }}
                     onClick={() => setSelectedNode(node)}
-                    className={`relative cursor-pointer group transition-all ${selectedNode === node ? 'opacity-100' : 'opacity-40 hover:opacity-100'}`}
+                    className={`relative flex items-start gap-4 p-4 rounded-2xl cursor-pointer transition-all border ${
+                      selectedNode === node 
+                      ? 'bg-white border-natural-200 shadow-xl shadow-natural-900/5 ring-1 ring-natural-500/20' 
+                      : 'bg-transparent border-transparent opacity-50 hover:opacity-100 hover:bg-natural-50'
+                    }`}
                   >
-                    <div className={`absolute -left-[35px] md:-left-[51px] top-0 w-4 h-4 md:w-6 md:h-6 rounded-full border-4 border-white transition-all shadow-md group-hover:scale-125 ${selectedNode === node ? 'bg-natural-500 scale-125' : 'bg-natural-200'}`}></div>
-                    <div className="space-y-0.5">
-                      <p className="text-[8px] md:text-[10px] font-bold text-natural-400 uppercase tracking-widest">{node.type}</p>
-                      <h4 className={`text-xs md:text-sm font-bold tracking-tight ${selectedNode === node ? 'text-natural-900' : 'text-slate-600'}`}>{node.title}</h4>
-                      <p className="text-[8px] md:text-[10px] text-slate-400 font-mono mt-0.5">
-                         {new Date(node.timestamp).toLocaleDateString('vi-VN')}
-                      </p>
+                    {/* Node Icon/Indicator */}
+                    <div className={`relative z-10 w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border-2 transition-all ${
+                      selectedNode === node 
+                      ? 'bg-natural-900 border-natural-900 text-white shadow-lg' 
+                      : 'bg-white border-slate-100 text-slate-400'
+                    }`}>
+                       {i === 0 ? <Package size={18} /> : i === product.nodes.length - 1 ? <Globe size={18} /> : <Zap size={18} />}
                     </div>
+
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-2 mb-1">
+                        <p className={`text-[8px] font-black uppercase tracking-widest ${selectedNode === node ? 'text-natural-500' : 'text-slate-400'}`}>
+                          {node.type}
+                        </p>
+                        <p className="text-[8px] font-mono text-slate-400">
+                          {node.hash.substring(0, 10)}
+                        </p>
+                      </div>
+                      <h4 className={`text-xs md:text-sm font-bold tracking-tight truncate ${selectedNode === node ? 'text-natural-900' : 'text-slate-600'}`}>
+                        {node.title}
+                      </h4>
+                      <div className="flex items-center gap-2 mt-1">
+                        <Clock size={10} className="text-slate-300" />
+                        <span className="text-[9px] text-slate-400 font-medium">
+                          {new Date(node.timestamp).toLocaleDateString('vi-VN')}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Active Pulse Indicator */}
+                    {selectedNode === node && (
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2">
+                         <div className="w-2 h-2 rounded-full bg-natural-500 animate-ping"></div>
+                      </div>
+                    )}
                   </motion.div>
                 ))}
               </div>
