@@ -60,7 +60,9 @@ export default function Home() {
           
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-500">
             <a href="#" className="hover:text-natural-900 transition-colors">Hệ thống</a>
-            <a href="#" className="hover:text-natural-900 transition-colors">Báo cáo</a>
+            <Link href="/tools/qr" className="hover:text-natural-900 transition-colors flex items-center gap-1.5">
+               <QrCode size={14} /> Trình tạo mã QR
+            </Link>
             <a href="#" className="px-5 py-2.5 bg-natural-900 text-white rounded-full hover:shadow-lg hover:shadow-natural-900/20 transition-all">Kết nối Node</a>
           </div>
 
@@ -123,10 +125,13 @@ export default function Home() {
                  <QrCode size={20} />
                  Quét mã Camera
                </button>
-               <button className="w-full sm:w-auto px-8 py-4 bg-white border border-slate-200 text-slate-700 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-slate-50 transition-all">
-                 <Globe size={20} />
-                 Bản đồ Farm
-               </button>
+               <Link 
+                 href="/tools/qr"
+                 className="w-full sm:w-auto px-8 py-4 bg-white border border-slate-200 text-slate-700 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-slate-50 transition-all"
+               >
+                 <Package size={20} />
+                 Tạo mã QR SP
+               </Link>
             </div>
           </motion.div>
         </header>
