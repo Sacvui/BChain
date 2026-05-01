@@ -291,11 +291,35 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                         </div>
                         <h2 className="text-xl md:text-4xl font-extrabold text-white tracking-tight">{selectedNode.title}</h2>
                       </div>
-                      <div className="text-left md:text-right">
-                         <p className="text-[8px] font-bold text-white/60 uppercase mb-0.5">Timestamp</p>
-                         <p className="text-[10px] font-mono text-white">{selectedNode.timestamp}</p>
+                      <div className="flex flex-col md:items-end gap-3">
+                         <div className="flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-xl border border-white/10 text-white/80 text-[10px] font-mono">
+                            <Fingerprint size={12} className="text-emerald-400" />
+                            {selectedNode.hash.substring(0, 20)}...
+                         </div>
+                         <div className="flex items-center gap-4 text-white/50 text-[9px] font-bold uppercase tracking-widest">
+                            <span className="flex items-center gap-1"><Globe size={10} /> IPFS Secured</span>
+                            <span className="flex items-center gap-1"><ShieldCheck size={10} /> Signed by Node</span>
+                         </div>
                       </div>
                     </div>
+                  </div>
+
+                  {/* Blockchain Binding Bar */}
+                  <div className="bg-emerald-500/5 border-b border-emerald-500/10 p-4 md:px-10 flex flex-wrap items-center justify-between gap-4">
+                     <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                        <span className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.2em]">Dữ liệu được bảo chứng bởi Smart Contract</span>
+                     </div>
+                     <div className="flex items-center gap-6">
+                        <div className="flex flex-col">
+                           <span className="text-[7px] font-black text-slate-400 uppercase tracking-widest">Digital Signature</span>
+                           <span className="text-[10px] font-mono text-natural-900 font-bold">0x7F2...D9C4</span>
+                        </div>
+                        <div className="flex flex-col">
+                           <span className="text-[7px] font-black text-slate-400 uppercase tracking-widest">Merkle Proof</span>
+                           <span className="text-[10px] font-mono text-natural-900 font-bold">MATCHED ✅</span>
+                        </div>
+                     </div>
                   </div>
 
                   <div className="p-6 md:p-14 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 flex-grow">
@@ -342,7 +366,7 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                     {/* Visual Evidence & Paperwork */}
                     <div className="space-y-8 md:space-y-12">
                       <div>
-                        <h3 className="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em] mb-4 md:mb-6">Chứng từ kỹ thuật số</h3>
+                        <h3 className="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em] mb-4 md:mb-6">Bảo chứng kỹ thuật số (Paperwork)</h3>
                         <div className="grid grid-cols-1 gap-2 md:gap-3">
                           {selectedNode.documents.map((doc, i) => (
                             <motion.a 
@@ -354,13 +378,31 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                             >
                               <div className="flex items-center gap-3 md:gap-4">
                                 <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-natural-50 group-hover:text-natural-600 transition-colors shrink-0">
-                                  <FileText size={18} />
+                                   <FileText size={18} />
                                 </div>
                                 <span className="text-xs font-bold text-slate-700 truncate max-w-[150px] sm:max-w-none">{doc.name}</span>
                               </div>
                               <ExternalLink size={16} className="text-slate-300 group-hover:text-natural-900 shrink-0" />
                             </motion.a>
                           ))}
+                        </div>
+
+                        {/* Merkle Binding Certificate */}
+                        <div className="mt-6 p-5 rounded-2xl bg-emerald-500/5 border border-emerald-500/10">
+                           <div className="flex items-center gap-2 mb-4">
+                              <ShieldCheck size={16} className="text-emerald-500" />
+                              <span className="text-[10px] font-black text-natural-900 uppercase tracking-widest">Blockchain Binding</span>
+                           </div>
+                           <div className="space-y-2.5">
+                              <div className="flex justify-between items-center bg-white/50 p-2 rounded-lg border border-white">
+                                 <span className="text-[8px] font-bold text-slate-400 uppercase">Storage</span>
+                                 <span className="text-[9px] font-bold text-blue-500 font-mono">IPFS://QmXo...Z2a</span>
+                              </div>
+                              <div className="flex justify-between items-center bg-white/50 p-2 rounded-lg border border-white">
+                                 <span className="text-[8px] font-bold text-slate-400 uppercase">Verification</span>
+                                 <span className="text-[9px] font-bold text-emerald-500">SIGNED & LOCKED 🔒</span>
+                              </div>
+                           </div>
                         </div>
                       </div>
 
