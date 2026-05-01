@@ -20,6 +20,7 @@ export interface Product {
   id: string;
   category: string;
   name: string;
+  image?: string;
   attributes: Record<string, any>;
   nodes: BlockchainNode[];
 }
@@ -31,11 +32,14 @@ class NoSQLSim {
         id: "YEN-001",
         category: "Yến Sào",
         name: "Yến Sào Tinh Chế Thượng Hạng",
+        image: "/assets/packaging.png", // Main product image
         attributes: {
           origin: "Khánh Hòa",
           weight: "100g",
           purity: "99.9%",
-          grade: "AAA"
+          grade: "AAA",
+          blockchain: "Ethereum (ERC-721)",
+          smart_contract: "0x7a2d...f9e1"
         },
         nodes: [
           {

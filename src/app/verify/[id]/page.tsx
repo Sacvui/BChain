@@ -82,10 +82,10 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
           <div className="flex items-center gap-2 md:gap-6">
             <div className="hidden sm:flex items-center gap-2 text-[10px] font-mono text-slate-400 bg-slate-50 px-3 py-1 rounded-lg border border-slate-100">
                <Layers size={12} />
-               {product.nodes[0].hash.substring(0, 8)}...
+               ETH MAINNET: {product.nodes[0].hash.substring(0, 10)}...
             </div>
             <div className="px-3 py-1.5 md:px-5 md:py-2 rounded-full bg-emerald-500 text-white text-[9px] md:text-[11px] font-bold shadow-lg shadow-emerald-500/20 flex items-center gap-2">
-              <ShieldCheck size={14} /> XÁC THỰC THÀNH CÔNG
+              <ShieldCheck size={14} /> XÁC THỰC BLOCKCHAIN
             </div>
           </div>
         </div>
@@ -100,6 +100,11 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
             >
+              {product.image && (
+                <div className="mb-6 rounded-3xl overflow-hidden border border-slate-100 shadow-lg aspect-square bg-white">
+                  <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                </div>
+              )}
               <div className="inline-block px-2 py-0.5 md:px-3 md:py-1 rounded-lg bg-natural-100 text-natural-600 text-[8px] md:text-[10px] font-black uppercase tracking-widest mb-3 md:mb-4">
                 {product.category}
               </div>
