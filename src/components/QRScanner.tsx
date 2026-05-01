@@ -14,44 +14,55 @@ export default function QRScanner({ onClose }: QRScannerProps) {
   const router = useRouter();
 
   useEffect(() => {
-    scannerRef.current = new Html5QrcodeScanner(
-      "reader",
-      { fps: 10, qrbox: { width: 250, height: 250 } },
-      /* verbose= */ false
-    );
+    let isScannerRunning = true;
+    
+    // Slight delay to ensure DOM is ready for Html5QrcodeScanner
+    const timer = setTimeout(() => {
+      if (!isScannerRunning) return;
+      
+      scannerRef.current = new Html5QrcodeScanner(
+        "reader",
+        { fps: 10, qrbox: { width: 250, height: 250 }, aspectRatio: 1.0 },
+        /* verbose= */ false
+      );
 
-    scannerRef.current.render(
-      (decodedText) => {
-        // Assume the QR code contains the full URL or just the product ID
-        // For our demo, we'll try to extract the ID if it's a URL or just use the text
-        try {
-          if (scannerRef.current) {
-            scannerRef.current.clear();
-          }
+      scannerRef.current.render(
+        (decodedText) => {
+          if (!isScannerRunning) return;
           
-          if (decodedText.includes('/verify/')) {
-            const id = decodedText.split('/verify/')[1];
-            router.push(`/verify/${id}`);
-          } else {
-            // Handle raw ID if QR is just "YEN-001"
-            router.push(`/verify/${decodedText}`);
+          try {
+            if (scannerRef.current) {
+              scannerRef.current.clear();
+            }
+            
+            let id = decodedText;
+            if (decodedText.includes('/verify/')) {
+              // Extract the ID from the end of the URL
+              const parts = decodedText.split('/verify/');
+              id = parts[parts.length - 1].replace('/', '');
+            }
+            
+            // Force browser navigation to ensure reliable routing from outside React context
+            window.location.href = `/verify/${id}`;
+            
+          } catch (err) {
+            console.error("Scanner error:", err);
           }
-          onClose();
-        } catch (err) {
-          console.error("Scanner error:", err);
+        },
+        (error) => {
+          // Ignore frequent scanning errors
         }
-      },
-      (error) => {
-        // Optional: handle scan error
-      }
-    );
+      );
+    }, 100);
 
     return () => {
+      isScannerRunning = false;
+      clearTimeout(timer);
       if (scannerRef.current) {
         scannerRef.current.clear().catch(err => console.error("Failed to clear scanner", err));
       }
     };
-  }, [router, onClose]);
+  }, []);
 
   return (
     <div className="fixed inset-0 z-[100] bg-black/90 flex flex-col items-center justify-center p-6 backdrop-blur-md">
