@@ -249,19 +249,28 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
 
             <section>
               <div className="flex items-center justify-between mb-8">
-                <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2">
-                  <Globe size={12} />
-                  Lịch sử chuỗi khối
-                </h2>
-                <div className="flex items-center gap-1.5 text-[8px] font-bold text-emerald-500 bg-emerald-50 px-2 py-1 rounded-md border border-emerald-100">
+                <div className="space-y-1">
+                  <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2">
+                    <Layers size={12} className="text-natural-900" />
+                    Lịch sử chuỗi khối
+                  </h2>
+                  <p className="text-[8px] text-slate-400 font-bold uppercase tracking-widest">Global Ledger - Node Network</p>
+                </div>
+                <div className="flex items-center gap-1.5 text-[8px] font-bold text-emerald-500 bg-emerald-50 px-2 py-1 rounded-md border border-emerald-100 shadow-sm shadow-emerald-500/5">
                   <ShieldCheck size={10} />
-                  ALL SECURED
+                  SECURED BY ETH
                 </div>
               </div>
               
-              <div className="relative space-y-4">
-                {/* Futuristic Connector Line */}
-                <div className="absolute left-6 top-4 bottom-4 w-0.5 bg-gradient-to-b from-natural-100 via-natural-200 to-natural-100 hidden md:block"></div>
+              <div className="relative space-y-6">
+                {/* Futuristic Connector Line with Animated Pulse */}
+                <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-slate-100 hidden md:block">
+                  <motion.div 
+                    animate={{ top: ['-20%', '120%'] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                    className="absolute left-0 right-0 h-24 bg-gradient-to-b from-transparent via-emerald-400 to-transparent z-10"
+                  ></motion.div>
+                </div>
                 
                 {product.nodes.map((node, i) => (
                   <motion.div 
@@ -269,47 +278,78 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.1 }}
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ scale: 1.02, x: 5 }}
                     onClick={() => setSelectedNode(node)}
-                    className={`relative flex items-start gap-4 p-4 rounded-2xl cursor-pointer transition-all border ${
+                    className={`relative flex items-start gap-4 p-5 rounded-[2rem] cursor-pointer transition-all duration-300 border group ${
                       selectedNode === node 
-                      ? 'bg-white border-natural-200 shadow-xl shadow-natural-900/5 ring-1 ring-natural-500/20' 
-                      : 'bg-transparent border-transparent opacity-50 hover:opacity-100 hover:bg-natural-50'
+                      ? 'bg-white border-natural-200 shadow-[0_20px_50px_-12px_rgba(26,47,26,0.1)] ring-1 ring-natural-500/10' 
+                      : 'bg-transparent border-transparent opacity-60 hover:opacity-100 hover:bg-white/50'
                     }`}
                   >
                     {/* Node Icon/Indicator */}
-                    <div className={`relative z-10 w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border-2 transition-all ${
-                      selectedNode === node 
-                      ? 'bg-natural-900 border-natural-900 text-white shadow-lg' 
-                      : 'bg-white border-slate-100 text-slate-400'
-                    }`}>
-                       {i === 0 ? <Package size={18} /> : i === product.nodes.length - 1 ? <Globe size={18} /> : <Zap size={18} />}
+                    <div className="relative z-20">
+                      <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 border-2 transition-all duration-500 ${
+                        selectedNode === node 
+                        ? 'bg-natural-900 border-natural-900 text-white shadow-[0_0_20px_rgba(26,47,26,0.3)] rotate-3' 
+                        : 'bg-white border-slate-100 text-slate-300 group-hover:border-natural-200'
+                      }`}>
+                         {i === 0 ? <Package size={18} /> : i === product.nodes.length - 1 ? <Globe size={18} /> : <Zap size={18} />}
+                      </div>
+                      
+                      {/* Confirmation dots */}
+                      <div className="absolute -bottom-1 -right-1 flex gap-0.5">
+                         {[1,2,3].map(dot => (
+                           <div key={dot} className={`w-1.5 h-1.5 rounded-full border border-white shadow-sm ${selectedNode === node ? 'bg-emerald-500' : 'bg-slate-200'}`}></div>
+                         ))}
+                      </div>
                     </div>
 
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center justify-between gap-2 mb-1">
-                        <p className={`text-[8px] font-black uppercase tracking-widest ${selectedNode === node ? 'text-natural-500' : 'text-slate-400'}`}>
+                    <div className="min-w-0 flex-1 pt-1">
+                      <div className="flex items-center justify-between gap-2 mb-1.5">
+                        <span className={`text-[7px] font-black uppercase tracking-[0.2em] px-2 py-0.5 rounded-full border ${
+                          selectedNode === node 
+                          ? 'bg-natural-900 text-white border-natural-900' 
+                          : 'bg-slate-50 text-slate-400 border-slate-100'
+                        }`}>
                           {node.type}
-                        </p>
-                        <p className="text-[8px] font-mono text-slate-400">
-                          {node.hash.substring(0, 10)}
-                        </p>
+                        </span>
+                        <div className="flex items-center gap-2">
+                           <span className="text-[8px] font-mono text-slate-400">#{node.blockNumber || '19,482k'}</span>
+                           <div className={`w-1.5 h-1.5 rounded-full ${selectedNode === node ? 'bg-emerald-500' : 'bg-slate-200 animate-pulse'}`}></div>
+                        </div>
                       </div>
-                      <h4 className={`text-xs md:text-sm font-bold tracking-tight truncate ${selectedNode === node ? 'text-natural-900' : 'text-slate-600'}`}>
+                      
+                      <h4 className={`text-xs md:text-sm font-black tracking-tight mb-2 truncate ${selectedNode === node ? 'text-natural-900' : 'text-slate-500'}`}>
                         {node.title}
                       </h4>
-                      <div className="flex items-center gap-2 mt-1">
-                        <Clock size={10} className="text-slate-300" />
-                        <span className="text-[9px] text-slate-400 font-medium">
-                          {new Date(node.timestamp).toLocaleDateString('vi-VN')}
-                        </span>
+                      
+                      <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-1.5">
+                          <Clock size={10} className="text-slate-300" />
+                          <span className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                            {new Date(node.timestamp).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' })}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <Activity size={10} className="text-emerald-500/50" />
+                          <span className="text-[9px] text-emerald-600 font-mono font-bold">
+                            {node.gasUsed || '21k'} GWEI
+                          </span>
+                        </div>
                       </div>
                     </div>
 
-                    {/* Active Pulse Indicator */}
+                    {/* Progress Percentage Simulation */}
                     {selectedNode === node && (
-                      <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                         <div className="w-2 h-2 rounded-full bg-natural-500 animate-ping"></div>
+                      <div className="absolute top-4 right-4 flex flex-col items-end">
+                         <span className="text-[10px] font-black text-natural-900">100%</span>
+                         <div className="w-10 h-0.5 bg-slate-100 mt-1 rounded-full overflow-hidden">
+                            <motion.div 
+                              initial={{ width: 0 }}
+                              animate={{ width: '100%' }}
+                              className="h-full bg-natural-900"
+                            ></motion.div>
+                         </div>
                       </div>
                     )}
                   </motion.div>
