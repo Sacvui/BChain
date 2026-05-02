@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { db } from '@/lib/store/nosql-sim';
 import { 
   Globe, Search, Cpu, Activity, ShieldCheck, 
-  ArrowRight, Box, Zap, Layers, Menu, X
+  ArrowRight, Box, Zap, Layers, Menu, X, TrendingUp, BarChart3, Clock, Lock
 } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -86,33 +86,51 @@ export default function ExplorerHome() {
         </AnimatePresence>
       </header>
 
-      {/* Main Stats Bar */}
-      <section className="bg-[#111b11] text-white py-12 md:py-16 relative overflow-hidden">
-         <div className="absolute inset-0 opacity-5 pointer-events-none">
-            <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #34d399 1px, transparent 0)', backgroundSize: '32px 32px' }}></div>
+      {/* Main Stats Bar - Dashboard Style */}
+      <section className="bg-[#111b11] text-white py-16 md:py-24 relative overflow-hidden">
+         <div className="absolute inset-0 opacity-10 pointer-events-none">
+            <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #34d399 0.5px, transparent 0)', backgroundSize: '48px 48px' }}></div>
          </div>
+         <div className="absolute -top-24 -right-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px]"></div>
+         <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px]"></div>
          
          <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-               <div className="space-y-1">
-                  <p className="text-[10px] font-black text-emerald-500 uppercase tracking-[0.2em] mb-2">Network Price</p>
-                  <div className="flex items-center gap-3">
-                     <span className="text-3xl font-black">{stats?.price || '$0.00'}</span>
-                     <span className="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">{stats?.price_change || '+0%'}</span>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
+               <div>
+                  <h2 className="text-3xl md:text-5xl font-black tracking-tighter uppercase italic mb-2">Network <span className="text-emerald-500">Command Center</span></h2>
+                  <p className="text-slate-400 text-xs font-bold uppercase tracking-widest">Real-time Blockchain Intelligence & Global Audit</p>
+               </div>
+               <div className="flex gap-4">
+                  <div className="px-4 py-2 bg-white/5 rounded-xl border border-white/10 flex items-center gap-3">
+                     <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                     <span className="text-[10px] font-black uppercase tracking-widest">Sync Status: 100%</span>
                   </div>
                </div>
-               <div className="space-y-1">
-                  <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mb-2">Market Cap</p>
-                  <p className="text-xl font-black text-slate-300">{stats?.market_cap || '$0B'}</p>
-               </div>
-               <div className="space-y-1">
-                  <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mb-2">Transactions (TPS)</p>
-                  <p className="text-xl font-black text-slate-300">{stats?.tps || '0.0'} TPS</p>
-               </div>
-               <div className="space-y-1">
-                  <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mb-2">Gas Price</p>
-                  <p className="text-xl font-black text-slate-300">{stats?.gas_price || '0 Gwei'}</p>
-               </div>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+               {[
+                 { label: "AGRI Price", value: stats?.price || "$1.42", change: stats?.price_change || "+2.4%", icon: TrendingUp },
+                 { label: "Network Cap", value: stats?.market_cap || "$2.5B", change: "Locked", icon: ShieldCheck },
+                 { label: "Throughput", value: stats?.tps || "14.2", unit: "TPS", icon: Activity },
+                 { label: "Avg. Gas", value: stats?.gas_price || "12 Gwei", unit: "", icon: Zap }
+               ].map((stat, i) => (
+                 <motion.div 
+                   key={i}
+                   initial={{ opacity: 0, y: 20 }}
+                   animate={{ opacity: 1, y: 0 }}
+                   transition={{ delay: i * 0.1 }}
+                   className="p-8 rounded-[2rem] bg-white/5 border border-white/10 backdrop-blur-md hover:bg-white/10 transition-all group"
+                 >
+                    <div className="text-slate-500 group-hover:text-emerald-500 transition-colors mb-6"><stat.icon size={20} /></div>
+                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">{stat.label}</p>
+                    <div className="flex items-end gap-2">
+                       <span className="text-2xl md:text-3xl font-black tracking-tighter">{stat.value}</span>
+                       {stat.unit && <span className="text-[10px] font-bold text-slate-500 mb-1.5 uppercase">{stat.unit}</span>}
+                       {stat.change && !stat.unit && <span className="text-[9px] font-bold text-emerald-400 mb-1.5">{stat.change}</span>}
+                    </div>
+                 </motion.div>
+               ))}
             </div>
          </div>
       </section>
