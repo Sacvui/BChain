@@ -160,6 +160,14 @@ class NoSQLSim {
         ]
       },
       {
+        id: "YEN-001",
+        category: "Yến Sào",
+        name: "Yến Sào Tinh Chế Nha Trang Premium (Legacy ID)",
+        image: "/assets/products/yen_pkg.png",
+        attributes: { origin: "Nha Trang", purity: "99.9%", grade: "AAA" },
+        nodes: [] // Will map in findOne or just copy nodes
+      },
+      {
         id: "tra-o-long-bao-loc",
         category: "Trà Cao Cấp",
         name: "Trà Ô Long Thuần Chủng Bảo Lộc",
@@ -263,9 +271,18 @@ class NoSQLSim {
 
   async findOne(collection: string, query: Record<string, any>): Promise<any | null> {
     const list = await this.getCollection(collection);
-    return list.find(item => 
+    let item = list.find(item => 
       Object.entries(query).every(([key, value]) => item[key] === value)
-    ) || null;
+    );
+
+    // Handle legacy ID mapping
+    if (!item && collection === 'products' && query.id) {
+       if (query.id === 'YEN-001') return list.find(p => p.id === 'yen-sao-nha-trang');
+       if (query.id === 'CAFE-002' || query.id === 'tra-o-long-bao-loc') return list.find(p => p.id === 'tra-o-long-bao-loc');
+       if (query.id === 'TRA-003' || query.id === 'mat-gang-tea') return list.find(p => p.id === 'tra-o-long-bao-loc'); // Fallback for now
+    }
+
+    return item || null;
   }
 }
 
