@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { 
   Globe, Search, FileText, Book, Code, ShieldCheck, 
   Layers, Zap, Cpu, ArrowRight, Download, Terminal

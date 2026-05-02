@@ -16,6 +16,7 @@ export default function ExplorerPage({ params }: { params: Promise<{ txHash: str
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(true);
   const [txDetails, setTxDetails] = useState<any>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const fetchTxData = async () => {
@@ -96,7 +97,7 @@ export default function ExplorerPage({ params }: { params: Promise<{ txHash: str
       {/* Explorer Header */}
       <header className="bg-[#111b11] text-white border-b border-white/5 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
-          <Link href="/explorer" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-3 group">
             <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:rotate-12 transition-transform">
                <Globe size={18} />
             </div>
@@ -104,24 +105,50 @@ export default function ExplorerPage({ params }: { params: Promise<{ txHash: str
           </Link>
 
           <div className="hidden md:flex items-center gap-6 text-[11px] font-bold uppercase tracking-widest text-slate-400">
-             <Link href="/explorer" className="hover:text-emerald-400 transition-colors">Blockchain</Link>
-             <Link href="#" className="hover:text-emerald-400 transition-colors">Tokens</Link>
-             <Link href="#" className="hover:text-emerald-400 transition-colors">Resources</Link>
-             <div className="h-4 w-[1px] bg-white/10"></div>
-             <button className="flex items-center gap-2 hover:text-white">
-                <Menu size={14} /> MORE
-             </button>
+             <Link href="/explorer" className="hover:text-emerald-400 transition-colors">Home</Link>
+             <Link href="/explorer/blocks" className="hover:text-emerald-400 transition-colors">Blocks</Link>
+             <Link href="/explorer/transactions" className="hover:text-emerald-400 transition-colors">Transactions</Link>
+             <Link href="/explorer/nodes" className="hover:text-emerald-400 transition-colors">Nodes</Link>
+             <Link href="/explorer/resources" className="hover:text-emerald-400 transition-colors">Resources</Link>
           </div>
 
-          <div className="relative max-w-xs w-full hidden lg:block">
-             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={14} />
-             <input 
-               type="text" 
-               placeholder="Search by Txn Hash / Block / Address" 
-               className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-10 pr-4 text-[11px] focus:outline-none focus:ring-1 focus:ring-emerald-500/50 transition-all"
-             />
+          <div className="flex items-center gap-2 md:gap-4">
+             <button 
+               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+               className="md:hidden p-2 text-slate-400 hover:text-white"
+             >
+                {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+             </button>
+             <div className="relative max-w-xs w-full hidden lg:block">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={14} />
+                <input 
+                  type="text" 
+                  placeholder="Search hash..." 
+                  className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-10 pr-4 text-[11px] focus:outline-none focus:ring-1 focus:ring-emerald-500/50 transition-all"
+                />
+             </div>
           </div>
         </div>
+
+        {/* Mobile Menu Overlay */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div 
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden bg-[#1a251a] border-b border-white/5 overflow-hidden"
+            >
+              <div className="p-6 flex flex-col gap-4 text-xs font-bold uppercase tracking-[0.2em] text-slate-400">
+                 <Link href="/explorer" onClick={() => setIsMobileMenuOpen(false)} className="py-3 border-b border-white/5">Home</Link>
+                 <Link href="/explorer/blocks" onClick={() => setIsMobileMenuOpen(false)} className="py-3 border-b border-white/5">Blocks</Link>
+                 <Link href="/explorer/transactions" onClick={() => setIsMobileMenuOpen(false)} className="py-3 border-b border-white/5">Transactions</Link>
+                 <Link href="/explorer/nodes" onClick={() => setIsMobileMenuOpen(false)} className="py-3 border-b border-white/5">Nodes</Link>
+                 <Link href="/explorer/resources" onClick={() => setIsMobileMenuOpen(false)} className="py-3">Resources</Link>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       {/* Main Content */}
