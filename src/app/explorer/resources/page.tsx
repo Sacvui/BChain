@@ -66,12 +66,12 @@ export default function ResourcesPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
            {[
-             { title: "Whitepaper v3.0", desc: "Chi tiết về thuật toán đồng thuận Proof-of-Trust và mô hình kinh tế Token AGRI.", icon: FileText, color: "text-emerald-500" },
-             { title: "Smart Contract API", desc: "Hướng dẫn tích hợp SDK cho nông trại và nhà máy đóng gói.", icon: Code, color: "text-blue-500" },
-             { title: "Transparency Report", desc: "Báo cáo kiểm toán hàng quý về tính minh bạch chuỗi cung ứng.", icon: ShieldCheck, color: "text-amber-500" },
-             { title: "Node Setup Guide", desc: "Hướng dẫn cài đặt và vận hành Validator Node trên Linux.", icon: Terminal, color: "text-purple-500" },
-             { title: "AgriChain Brand Kit", desc: "Logo, font và tài liệu thiết kế chuẩn của hệ sinh thái.", icon: Layers, color: "text-rose-500" },
-             { title: "Governance Portal", desc: "Tham gia biểu quyết cho các đề xuất nâng cấp mạng lưới.", icon: Globe, color: "text-emerald-600" }
+             { title: "Whitepaper v3.0", desc: "Chi tiết về thuật toán đồng thuận Proof-of-Trust và mô hình kinh tế Token AGRI.", icon: FileText, color: "text-emerald-500", href: "/docs" },
+             { title: "Smart Contract API", desc: "Hướng dẫn tích hợp SDK cho nông trại và nhà máy đóng gói.", icon: Code, color: "text-blue-500", href: "/explorer/apis" },
+             { title: "Transparency Report", desc: "Báo cáo kiểm toán hàng quý về tính minh bạch chuỗi cung ứng.", icon: ShieldCheck, color: "text-amber-500", href: "/explorer/network" },
+             { title: "Node Setup Guide", desc: "Hướng dẫn cài đặt và vận hành Validator Node trên Linux.", icon: Terminal, color: "text-purple-500", href: "/docs" },
+             { title: "AgriChain Brand Kit", desc: "Logo, font và tài liệu thiết kế chuẩn của hệ sinh thái.", icon: Layers, color: "text-rose-500", href: "/docs" },
+             { title: "Governance Portal", desc: "Tham gia biểu quyết cho các đề xuất nâng cấp mạng lưới.", icon: Globe, color: "text-emerald-600", href: "/explorer/governance" }
            ].map((res, i) => (
              <motion.div 
                key={i}
@@ -83,9 +83,9 @@ export default function ResourcesPage() {
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3">{res.title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed mb-8 font-light">{res.desc}</p>
-                <button className="flex items-center gap-2 text-[11px] font-black uppercase tracking-widest text-emerald-600 hover:text-emerald-700 transition-colors">
+                <Link href={res.href} className="flex items-center gap-2 text-[11px] font-black uppercase tracking-widest text-emerald-600 hover:text-emerald-700 transition-colors">
                    READ MORE <ArrowRight size={14} />
-                </button>
+                </Link>
              </motion.div>
            ))}
         </div>
