@@ -66,12 +66,12 @@ export default function Home() {
              <span>AGRI<span className="text-natural-500">CHAIN</span></span>
           </div>
           
-          <div className="hidden md:flex items-center gap-8 text-sm font-bold uppercase tracking-widest text-slate-500">
+          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-500">
             <Link href="/explorer" className="hover:text-natural-900 transition-colors">AgriChain Explorer</Link>
             <Link href="/tools/qr" className="hover:text-natural-900 transition-colors flex items-center gap-1.5">
                <QrCode size={14} /> Trình tạo mã QR
             </Link>
-            <Link href="/explorer/nodes" className="px-6 py-3 bg-natural-900 text-white rounded-full hover:shadow-2xl hover:shadow-natural-900/40 transition-all">Kết nối Node</Link>
+            <Link href="/explorer/nodes" className="px-5 py-2.5 bg-natural-900 text-white rounded-full hover:shadow-lg hover:shadow-natural-900/20 transition-all">Kết nối Node</Link>
           </div>
 
           <button 
@@ -89,11 +89,11 @@ export default function Home() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="absolute top-20 left-4 right-4 bg-white rounded-[2.5rem] shadow-[0_32px_64px_-12px_rgba(0,0,0,0.14)] z-50 p-10 flex flex-col gap-8 md:hidden border border-slate-100"
+              className="absolute top-20 left-4 right-4 bg-white rounded-3xl shadow-2xl z-50 p-8 flex flex-col gap-6 md:hidden border border-slate-100"
             >
-              <Link href="/explorer" className="text-xl font-black text-natural-950 uppercase tracking-tight">AgriChain Explorer</Link>
-              <Link href="/tools/qr" className="text-xl font-black text-natural-950 uppercase tracking-tight">Trình tạo mã QR</Link>
-              <Link href="/explorer/nodes" className="w-full py-5 bg-natural-900 text-white rounded-2xl font-black text-center uppercase tracking-widest text-sm shadow-xl shadow-natural-900/20">Kết nối Node</Link>
+              <Link href="/explorer" className="text-lg font-bold text-natural-950">AgriChain Explorer</Link>
+              <Link href="/tools/qr" className="text-lg font-bold text-natural-950">Trình tạo mã QR</Link>
+              <Link href="/explorer/nodes" className="w-full py-4 bg-natural-900 text-white rounded-2xl font-bold text-center">Kết nối Node</Link>
             </motion.div>
           )}
         </AnimatePresence>
@@ -105,24 +105,24 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-natural-100 shadow-xl shadow-natural-900/5 text-natural-600 text-[10px] md:text-[11px] font-black mb-8 md:mb-12 uppercase tracking-[0.2em]">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-white border border-natural-100 shadow-sm text-natural-600 text-[10px] md:text-xs font-bold mb-6 md:mb-8 uppercase tracking-widest">
               <Star size={14} className="fill-natural-500 text-natural-500" />
-              <span>Tiên phong minh bạch nông sản 4.0</span>
+              <span>Nền tảng minh bạch nông sản số 1</span>
             </div>
-            <h1 className="text-5xl md:text-[9rem] font-black mb-10 md:mb-14 text-natural-950 tracking-[-0.04em] leading-[0.9] lg:leading-[0.85]">
-              Xác thực <span className="relative inline-block text-emerald-500">
+            <h1 className="text-4xl md:text-8xl font-bold mb-6 md:mb-8 text-natural-950 tracking-tighter leading-[1.1]">
+              Xác thực <span className="relative inline-block text-natural-500">
                 Sạch
                 <motion.svg 
-                  className="absolute -bottom-2 md:-bottom-4 left-0 w-full h-3 md:h-5 text-emerald-100" 
+                  className="absolute -bottom-1 md:-bottom-2 left-0 w-full h-2 md:h-3 text-natural-200" 
                   viewBox="0 0 100 10" 
                   preserveAspectRatio="none"
                 >
-                  <path d="M0 5 Q 25 0, 50 5 T 100 5" fill="none" stroke="currentColor" strokeWidth="6" />
+                  <path d="M0 5 Q 25 0, 50 5 T 100 5" fill="none" stroke="currentColor" strokeWidth="4" />
                 </motion.svg>
-              </span> <br className="hidden md:block" /> bằng Blockchain
+              </span> bằng Blockchain
             </h1>
-            <p className="text-slate-500 text-sm md:text-2xl max-w-3xl mx-auto font-light leading-relaxed mb-12 md:mb-20 px-4">
-              Mô hình thị phạm giải pháp <span className="font-bold text-natural-900">AI-Trust</span> tích hợp <span className="font-bold text-natural-900">Blockchain</span> trong truy xuất nguồn gốc nông sản. Đề tài nghiên cứu ứng dụng công nghệ số hóa chuỗi giá trị bền vững.
+            <p className="text-slate-500 text-sm md:text-xl max-w-2xl mx-auto font-light leading-relaxed mb-8 md:mb-12">
+              Mockup thị phạm xác minh sự kết hợp giữa Trí tuệ nhân tạo (AI) và Minh bạch chuỗi khối (Blockchain) theo đề án nghiên cứu của Nghiên cứu sinh Lê Phúc Hải.
             </p>
             
             <div className="flex flex-col sm:flex-row justify-center gap-4 px-4">
@@ -133,13 +133,13 @@ export default function Home() {
                  <QrCode size={20} />
                  Quét mã Camera
                </button>
-                <Link 
-                  href="/tools/qr"
-                  className="w-full sm:w-auto px-10 py-5 bg-white border border-slate-200 text-slate-700 rounded-[1.5rem] font-black text-xs uppercase tracking-widest flex items-center justify-center gap-3 hover:bg-slate-50 hover:shadow-xl hover:shadow-slate-200/50 transition-all"
-                >
-                  <Package size={20} />
-                  Tạo mã QR SP
-                </Link>
+               <Link 
+                 href="/tools/qr"
+                 className="w-full sm:w-auto px-8 py-4 bg-white border border-slate-200 text-slate-700 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-slate-50 transition-all"
+               >
+                 <Package size={20} />
+                 Tạo mã QR SP
+               </Link>
             </div>
           </motion.div>
         </header>
