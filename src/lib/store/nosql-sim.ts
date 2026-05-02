@@ -14,6 +14,14 @@ export interface BlockchainNode {
   images: string[];
   description: string;
   hash: string;
+  txHash?: string;
+  blockNumber?: number;
+  gasUsed?: string;
+  telemetry?: {
+    label: string;
+    unit: string;
+    data: { time: string; value: number }[];
+  }[];
 }
 
 export interface Product {
@@ -72,11 +80,14 @@ class NoSQLSim {
               "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80"
             ],
             description: "Thu hoạch từ hệ thống nhà yến đạt chuẩn bảo tồn tự nhiên, không can thiệp vào chu kỳ sinh sản của yến.",
-            hash: "0x8f3a74b1e4a6d9c8b2f1e0a3d5c7b9a8f2e4d6c8b0a2f4e6d8c0b2a4f6e8d0c2"
+            hash: "0x8f3a74b1e4a6d9c8b2f1e0a3d5c7b9a8f2e4d6c8b0a2f4e6d8c0b2a4f6e8d0c2",
+            txHash: "0x7d2a8b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a",
+            blockNumber: 19482041,
+            gasUsed: "21,000"
           },
           {
             id: "node-2",
-            type: 'LAB',
+            type: 'LAB', // Wait, previous code had LAB as node-2 in the view_file but my earlier edit tried to make it PROCESSING. Let's stick to the current file state.
             title: "Trung Tâm Kiểm Định NCS",
             location: "Quận 1, TP.HCM",
             coordinates: "10.7769° N, 106.7009° E",
@@ -90,7 +101,21 @@ class NoSQLSim {
               "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&q=80"
             ],
             description: "Phân tích hàm lượng protein (60%+) và độ tinh khiết tuyệt đối, không tạp chất.",
-            hash: "0x2d9ca1f3b5e7d9c1a3b5c7d9e1f3a5b7c9d1e3f5a7b9c1d3e5f7a9b1c3d5e7f9"
+            hash: "0x2d9ca1f3b5e7d9c1a3b5c7d9e1f3a5b7c9d1e3f5a7b9c1d3e5f7a9b1c3d5e7f9",
+            txHash: "0x3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4",
+            blockNumber: 19482155,
+            gasUsed: "45,210",
+            telemetry: [
+              {
+                label: "Nhiệt độ phòng Lab",
+                unit: "°C",
+                data: [
+                  { time: "14:00", value: 24.2 },
+                  { time: "14:10", value: 24.5 },
+                  { time: "14:20", value: 24.1 }
+                ]
+              }
+            ]
           },
           {
             id: "node-3",
@@ -108,7 +133,30 @@ class NoSQLSim {
               "https://images.unsplash.com/photo-1591768793355-74d7ca736056?w=800&q=80"
             ],
             description: "Đóng gói chân không và vận chuyển nhiệt độ chuẩn duy trì dưới 15 độ C.",
-            hash: "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b"
+            hash: "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
+            txHash: "0x9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0",
+            blockNumber: 19482289,
+            gasUsed: "32,840",
+            telemetry: [
+              {
+                label: "Nhiệt độ thùng lạnh",
+                unit: "°C",
+                data: [
+                  { time: "07:00", value: 12.5 },
+                  { time: "08:00", value: 13.2 },
+                  { time: "09:00", value: 12.8 }
+                ]
+              },
+              {
+                label: "Độ ẩm",
+                unit: "%",
+                data: [
+                  { time: "07:00", value: 45 },
+                  { time: "08:00", value: 46 },
+                  { time: "09:00", value: 45 }
+                ]
+              }
+            ]
           },
           {
             id: "node-4",
@@ -126,7 +174,10 @@ class NoSQLSim {
               "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80"
             ],
             description: "Sản phẩm đã có mặt tại showroom chính hãng, bảo quản trong tủ chuyên dụng.",
-            hash: "0x5e1bd9c4a6f2b8e0d4c6a2f8b0e4d6c8a2f0b4e6d8c0a2f4b6e8d0c2a4f6b8e0"
+            hash: "0x5e1bd9c4a6f2b8e0d4c6a2f8b0e4d6c8a2f0b4e6d8c0a2f4b6e8d0c2a4f6b8e0",
+            txHash: "0x2a4f6b8e0d4c6a2f8b0e4d6c8a2f0b4e6d8c0a2f4b6e8d0c2a4f6b8e0d4c6a2",
+            blockNumber: 19482412,
+            gasUsed: "18,900"
           }
         ]
       },
