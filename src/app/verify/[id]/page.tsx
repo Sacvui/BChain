@@ -575,6 +575,7 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
           </motion.div>
         </div>
       </div>
+    </div>
 
       <AnimatePresence>
         {showHashModal && selectedNode && (
