@@ -572,7 +572,7 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
               {/* Decorative blockchain pattern */}
               <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-transparent to-emerald-500 opacity-20"></div>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
