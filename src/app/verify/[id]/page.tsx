@@ -149,13 +149,22 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
 
       <div className="max-w-7xl mx-auto p-4 md:p-12 print:p-0">
         <section className="mb-8 md:mb-16 print:hidden">
-          {/* Interactive Supply Chain Map */}
+                    {/* Interactive Supply Chain Map */}
                     <div className="mb-20">
-                      <div className="flex items-center gap-3 mb-8">
-                         <div className="w-8 h-8 rounded-xl bg-natural-900 text-white flex items-center justify-center shadow-lg">
-                            <MapPin size={16} />
+                      <div className="flex items-center justify-between mb-8">
+                         <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-xl bg-natural-900 text-white flex items-center justify-center shadow-lg">
+                               <MapPin size={16} />
+                            </div>
+                            <h3 className="text-xs font-black uppercase tracking-[0.2em] text-natural-900 italic">Hành trình Sản phẩm (Geographic Path)</h3>
                          </div>
-                         <h3 className="text-xs font-black uppercase tracking-[0.2em] text-natural-900 italic">Hành trình Sản phẩm (Geographic Path)</h3>
+                         <div className="flex gap-2">
+                            {['Authenticated', 'Verified', 'Transparent'].map((badge) => (
+                              <div key={badge} className="px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-[8px] font-black text-emerald-600 uppercase tracking-widest">
+                                 {badge}
+                              </div>
+                            ))}
+                         </div>
                       </div>
                       
                       <div className="relative p-12 md:p-20 rounded-[4rem] bg-natural-50 border border-natural-100 overflow-hidden shadow-inner">
@@ -205,7 +214,7 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
             <div className="space-y-1">
               <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2 group cursor-help">
                 <Layers size={12} className="text-natural-900" />
-                Lịch sử chuỗi khối
+                Hệ thống xác thực minh bạch
                 <div className="relative group/tooltip">
                    <Info size={10} className="text-slate-300" />
                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-natural-900 text-white text-[8px] font-bold rounded-lg opacity-0 group-hover/tooltip:opacity-100 transition-opacity pointer-events-none z-50">
@@ -213,7 +222,7 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                    </div>
                 </div>
               </h2>
-              <p className="text-[8px] text-slate-400 font-bold uppercase tracking-widest">Global Ledger - Node Network</p>
+              <p className="text-[8px] text-slate-400 font-bold uppercase tracking-widest">Global Ledger Identity: 0x72a...d94e</p>
             </div>
             <div className="flex items-center gap-1.5 text-[8px] font-bold text-emerald-500 bg-emerald-50 px-2 py-1 rounded-md border border-emerald-100 shadow-sm shadow-emerald-500/5">
               <ShieldCheck size={10} />
@@ -554,6 +563,25 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                              <div className="mt-2 inline-flex items-center gap-1.5 px-2 py-0.5 bg-white rounded-full text-[8px] md:text-[10px] font-mono text-slate-500 border border-slate-100">
                                 <Globe size={10} /> {selectedNode.coordinates}
                              </div>
+                           </div>
+                        </div>
+
+                        {/* Digital Identity Authentication Card */}
+                        <div className="p-6 rounded-[2rem] bg-white border border-slate-100 shadow-xl shadow-slate-900/5 group hover:border-emerald-500/20 transition-all">
+                           <div className="flex items-center justify-between mb-6">
+                              <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Digital Identity Proof</p>
+                              <div className="flex items-center gap-1.5 text-emerald-500 text-[9px] font-black">
+                                 <ShieldCheck size={12} /> AUTHENTICATED
+                              </div>
+                           </div>
+                           <div className="flex items-center gap-4">
+                              <div className="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-emerald-500 group-hover:text-white transition-all">
+                                 <Fingerprint size={24} />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                 <p className="text-[11px] font-black text-natural-900">Validator: 0x82f1...a12c</p>
+                                 <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Verified Multi-sig Identity</p>
+                              </div>
                            </div>
                         </div>
 
