@@ -88,7 +88,7 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
           <div className="flex items-center gap-2 md:gap-6">
             <div className="hidden sm:flex items-center gap-2 text-[10px] font-mono text-slate-400 bg-slate-50 px-3 py-1 rounded-lg border border-slate-100">
                <Layers size={12} />
-               ETH MAINNET: {product.nodes[0].hash.substring(0, 10)}...
+               ETH MAINNET: {product.nodes?.[0]?.hash?.substring(0, 10) || '0x...'}...
             </div>
             <div className="px-3 py-1.5 md:px-5 md:py-2 rounded-full bg-emerald-500 text-white text-[9px] md:text-[11px] font-bold shadow-lg shadow-emerald-500/20 flex items-center gap-2">
               <ShieldCheck size={14} /> XÁC THỰC BLOCKCHAIN
