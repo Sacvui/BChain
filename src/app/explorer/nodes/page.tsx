@@ -48,9 +48,9 @@ export default function NodesPage() {
              </p>
            </div>
            <div className="flex gap-3">
-              <div className="px-4 py-2 bg-emerald-500 text-white rounded-lg text-[11px] font-bold flex items-center gap-2 shadow-lg shadow-emerald-500/20">
+              <Link href="/explorer/nodes/become-validator" className="px-4 py-2 bg-emerald-500 text-white rounded-lg text-[11px] font-bold flex items-center gap-2 shadow-lg shadow-emerald-500/20 hover:bg-emerald-600 transition-all active:scale-95">
                  <Zap size={12} /> BECOME A VALIDATOR
-              </div>
+              </Link>
            </div>
         </div>
 
