@@ -70,10 +70,8 @@ export default function Home() {
           </div>
           
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-500">
-            <Link href="/explorer" className="hover:text-natural-900 transition-colors">AgriChain Explorer</Link>
-            <Link href="/tools/qr" className="hover:text-natural-900 transition-colors flex items-center gap-1.5">
-               <QrCode size={14} /> Trình tạo mã QR
-            </Link>
+            <Link href="/explorer" className="hover:text-natural-900 transition-colors">Explorer</Link>
+            <Link href="/portal" className="hover:text-natural-900 transition-colors">Cổng nhà sản xuất</Link>
             <Link href="/explorer/nodes" className="px-5 py-2.5 bg-natural-900 text-white rounded-full hover:shadow-lg hover:shadow-natural-900/20 transition-all">Kết nối Node</Link>
           </div>
 

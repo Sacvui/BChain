@@ -41,6 +41,7 @@ export default function Footer() {
                 {[
                   { name: "Trang chủ", href: "/" },
                   { name: "Blockchain Explorer", href: "/explorer" },
+                  { name: "Cổng nhà sản xuất", href: "/portal" },
                   { name: "Xác thực nhanh", href: "/verify/YEN-001" },
                   { name: "Mạng lưới Node", href: "/explorer/nodes" }
                 ].map((link, i) => (
