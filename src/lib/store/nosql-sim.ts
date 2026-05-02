@@ -53,17 +53,27 @@ class NoSQLSim {
       }
     ],
     latest_blocks: [
-      { height: 19482412, validator: "AgriNode_VN_01", txns: 142, reward: "0.025 ETH", timestamp: "12 secs ago" },
-      { height: 19482411, validator: "Lâm_Đồng_Core", txns: 89, reward: "0.021 ETH", timestamp: "24 secs ago" },
-      { height: 19482410, validator: "Ninh_Hoà_Safe", txns: 112, reward: "0.028 ETH", timestamp: "36 secs ago" },
-      { height: 19482409, validator: "HCM_Hub_02", txns: 67, reward: "0.019 ETH", timestamp: "48 secs ago" },
-      { height: 19482408, validator: "AgriNode_VN_05", txns: 156, reward: "0.031 ETH", timestamp: "1 min ago" }
+      { height: 19482415, validator: "AgriNode_VN_01", txns: 156, reward: "0.025 ETH", timestamp: "8 secs ago", size: "124 KB" },
+      { height: 19482414, validator: "Lâm_Đồng_Core", txns: 204, reward: "0.031 ETH", timestamp: "20 secs ago", size: "156 KB" },
+      { height: 19482413, validator: "Ninh_Hoà_Safe", txns: 89, reward: "0.018 ETH", timestamp: "32 secs ago", size: "98 KB" },
+      { height: 19482412, validator: "HCM_Hub_02", txns: 142, reward: "0.025 ETH", timestamp: "44 secs ago", size: "112 KB" },
+      { height: 19482411, validator: "AgriNode_VN_05", txns: 67, reward: "0.012 ETH", timestamp: "56 secs ago", size: "84 KB" },
+      { height: 19482410, validator: "Đà_Lạt_Node", txns: 178, reward: "0.028 ETH", timestamp: "1 min ago", size: "132 KB" },
+      { height: 19482409, validator: "AgriNode_VN_03", txns: 112, reward: "0.021 ETH", timestamp: "2 mins ago", size: "104 KB" }
     ],
     latest_transactions: [
-      { hash: "0x5e1b...b8e0", from: "0x7a2d...f9e1", to: "Contract_Agri", value: "0 ETH", fee: "0.00042", timestamp: "5 secs ago" },
-      { hash: "0x1a2b...f1a2", from: "Farmer_Lạc_Dương", to: "Lab_HCM", value: "0 ETH", fee: "0.00085", timestamp: "18 secs ago" },
-      { hash: "0x3d4e...e5f6", from: "0xbc2a...d9e4", to: "Retail_Store", value: "0 ETH", fee: "0.00031", timestamp: "25 secs ago" },
-      { hash: "0x9c0d...b9c0", from: "AgriLogistics_01", to: "Distribution_Center", value: "0 ETH", fee: "0.00054", timestamp: "42 secs ago" }
+      { hash: "0x5e1b...b8e0", from: "0x7a2d...f9e1", to: "Contract_Agri", value: "0 ETH", fee: "0.00042", timestamp: "5 secs ago", status: "Success" },
+      { hash: "0x1a2b...f1a2", from: "Farmer_Lạc_Dương", to: "Lab_HCM", value: "0 ETH", fee: "0.00085", timestamp: "18 secs ago", status: "Success" },
+      { hash: "0x3d4e...e5f6", from: "0xbc2a...d9e4", to: "Retail_Store", value: "0 ETH", fee: "0.00031", timestamp: "25 secs ago", status: "Success" },
+      { hash: "0x9c0d...b9c0", from: "AgriLogistics_01", to: "Distribution_Center", value: "0 ETH", fee: "0.00054", timestamp: "42 secs ago", status: "Success" },
+      { hash: "0x7f2a...d9c4", from: "0x4e5f...a1b2", to: "AgriChain_V3", value: "0.12 AGRI", fee: "0.00021", timestamp: "55 secs ago", status: "Success" },
+      { hash: "0xa1b2...e3f4", from: "Node_Sapa_01", to: "Bridge_Main", value: "0 ETH", fee: "0.00015", timestamp: "1 min ago", status: "Success" }
+    ],
+    nodes: [
+      { id: "VN-01", name: "AgriNode_VN_01", location: "Hà Nội", status: "Active", uptime: "99.98%", staked: "32,000 AGRI" },
+      { id: "VN-02", name: "Lâm_Đồng_Core", location: "Đà Lạt", status: "Active", uptime: "99.95%", staked: "64,000 AGRI" },
+      { id: "VN-03", name: "Ninh_Hoà_Safe", location: "Khánh Hòa", status: "Active", uptime: "100%", staked: "16,000 AGRI" },
+      { id: "VN-04", name: "HCM_Hub_02", location: "TP. HCM", status: "Active", uptime: "99.90%", staked: "128,000 AGRI" }
     ],
     products: [
       {

@@ -41,9 +41,9 @@ export default function ExplorerHome() {
 
           <div className="hidden md:flex items-center gap-6 text-[11px] font-bold uppercase tracking-widest text-slate-400">
              <Link href="/explorer" className="text-emerald-400">Home</Link>
-             <Link href="#" className="hover:text-white transition-colors">Blockchain</Link>
+             <Link href="/explorer/blocks" className="hover:text-white transition-colors">Blocks</Link>
+             <Link href="/explorer/transactions" className="hover:text-white transition-colors">Transactions</Link>
              <Link href="#" className="hover:text-white transition-colors">Nodes</Link>
-             <Link href="#" className="hover:text-white transition-colors">Resources</Link>
           </div>
 
           <div className="flex items-center gap-4">
@@ -131,7 +131,7 @@ export default function ExplorerHome() {
                   <h3 className="text-xs font-black uppercase tracking-[0.2em] flex items-center gap-2">
                     <Box size={14} className="text-emerald-500" /> Latest Blocks
                   </h3>
-                  <button className="text-[10px] font-bold text-blue-600 hover:underline uppercase tracking-widest">View All Blocks</button>
+                  <Link href="/explorer/blocks" className="text-[10px] font-bold text-blue-600 hover:underline uppercase tracking-widest">View All Blocks</Link>
                </div>
                <div className="p-2 flex-grow">
                   {blocks.map((block, i) => (
@@ -156,9 +156,9 @@ export default function ExplorerHome() {
                   ))}
                </div>
                <div className="p-4 bg-slate-50 text-center">
-                  <button className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] hover:text-slate-600 transition-colors flex items-center justify-center gap-2 w-full">
+                  <Link href="/explorer/blocks" className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] hover:text-slate-600 transition-colors flex items-center justify-center gap-2 w-full">
                      View all blocks <ArrowRight size={12} />
-                  </button>
+                  </Link>
                </div>
             </div>
 
@@ -168,7 +168,7 @@ export default function ExplorerHome() {
                   <h3 className="text-xs font-black uppercase tracking-[0.2em] flex items-center gap-2">
                     <Activity size={14} className="text-emerald-500" /> Latest Transactions
                   </h3>
-                  <button className="text-[10px] font-bold text-blue-600 hover:underline uppercase tracking-widest">View All Transactions</button>
+                  <Link href="/explorer/transactions" className="text-[10px] font-bold text-blue-600 hover:underline uppercase tracking-widest">View All Transactions</Link>
                </div>
                <div className="p-2 flex-grow">
                   {transactions.map((tx, i) => (
@@ -200,9 +200,9 @@ export default function ExplorerHome() {
                   ))}
                </div>
                <div className="p-4 bg-slate-50 text-center">
-                  <button className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] hover:text-slate-600 transition-colors flex items-center justify-center gap-2 w-full">
+                  <Link href="/explorer/transactions" className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] hover:text-slate-600 transition-colors flex items-center justify-center gap-2 w-full">
                      View all transactions <ArrowRight size={12} />
-                  </button>
+                  </Link>
                </div>
             </div>
 
