@@ -4,7 +4,7 @@ import { useState, useEffect, use } from 'react';
 import { 
   ShieldCheck, Hash, Clock, Box, FileText, Zap, Activity, 
   Globe, ArrowLeft, Copy, ExternalLink, Search, Menu, 
-  ChevronDown, Cpu, Database, Fingerprint
+  ChevronDown, Cpu, Database, Fingerprint, Package
 } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -14,16 +14,66 @@ export default function ExplorerPage({ params }: { params: Promise<{ txHash: str
   const txHash = unwrappedParams.txHash;
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [txDetails, setTxDetails] = useState<any>(null);
 
   useEffect(() => {
-    // Simulate network delay
-    const timer = setTimeout(() => setLoading(false), 800);
-    return () => clearTimeout(timer);
-  }, []);
+    const fetchTxData = async () => {
+      // Find the transaction in our mock store
+      const products = await db.getCollection('products');
+      let foundNode = null;
+      let foundProduct = null;
+
+      for (const p of products) {
+        const node = p.nodes.find((n: any) => n.txHash === txHash || n.hash === txHash);
+        if (node) {
+          foundNode = node;
+          foundProduct = p;
+          break;
+        }
+      }
+
+      if (foundNode) {
+        setTxDetails({
+          hash: foundNode.txHash || foundNode.hash,
+          status: "Success",
+          block: foundNode.blockNumber || 19482041,
+          timestamp: foundNode.timestamp,
+          from: "0x7a2d4E813F0C5...f9e1",
+          to: "0xAgriChain_V3_Main",
+          gasLimit: "120,000",
+          gasUsed: foundNode.gasUsed || "21,000",
+          value: "0 ETH",
+          fee: "0.00042 ETH",
+          productName: foundProduct?.name,
+          nodeType: foundNode.type,
+          rawHash: foundNode.hash
+        });
+      } else {
+        // Mock fallback if not found in specific product nodes
+        setTxDetails({
+          hash: txHash,
+          status: "Success",
+          block: 19482412,
+          timestamp: new Date().toISOString(),
+          from: "0x3d4e...e5f6",
+          to: "0xAgriChain_V3_Main",
+          gasLimit: "120,000",
+          gasUsed: "42,109",
+          value: "0 ETH",
+          fee: "0.00084 ETH",
+          productName: "Unknown Transaction",
+          nodeType: "GENERAL",
+          rawHash: txHash
+        });
+      }
+      setLoading(false);
+    };
+    fetchTxData();
+  }, [txHash]);
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
-    setCopied(text === txHash ? true : false);
+    setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -45,7 +95,7 @@ export default function ExplorerPage({ params }: { params: Promise<{ txHash: str
       {/* Explorer Header */}
       <header className="bg-[#111b11] text-white border-b border-white/5 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
+          <Link href="/explorer" className="flex items-center gap-3 group">
             <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:rotate-12 transition-transform">
                <Globe size={18} />
             </div>
@@ -53,7 +103,7 @@ export default function ExplorerPage({ params }: { params: Promise<{ txHash: str
           </Link>
 
           <div className="hidden md:flex items-center gap-6 text-[11px] font-bold uppercase tracking-widest text-slate-400">
-             <Link href="#" className="hover:text-emerald-400 transition-colors">Blockchain</Link>
+             <Link href="/explorer" className="hover:text-emerald-400 transition-colors">Blockchain</Link>
              <Link href="#" className="hover:text-emerald-400 transition-colors">Tokens</Link>
              <Link href="#" className="hover:text-emerald-400 transition-colors">Resources</Link>
              <div className="h-4 w-[1px] bg-white/10"></div>
@@ -88,11 +138,11 @@ export default function ExplorerPage({ params }: { params: Promise<{ txHash: str
              </div>
            </div>
            <div className="flex gap-2">
-              <button className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-[11px] font-bold flex items-center gap-2 hover:bg-slate-50 active:scale-95 transition-all">
+              <button onClick={() => handleCopy(txHash)} className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-[11px] font-bold flex items-center gap-2 hover:bg-slate-50 active:scale-95 transition-all">
                  <Copy size={12} /> COPY HASH
               </button>
-              <Link href={`/verify/${txHash.substring(0, 7)}`} className="px-4 py-2 bg-emerald-500 text-white rounded-lg text-[11px] font-bold flex items-center gap-2 hover:bg-emerald-600 shadow-lg shadow-emerald-500/20 active:scale-95 transition-all">
-                 <ArrowLeft size={12} /> BACK TO PRODUCT
+              <Link href="/explorer" className="px-4 py-2 bg-emerald-500 text-white rounded-lg text-[11px] font-bold flex items-center gap-2 hover:bg-emerald-600 shadow-lg shadow-emerald-500/20 active:scale-95 transition-all">
+                 <Globe size={12} /> EXPLORER HOME
               </Link>
            </div>
         </div>
@@ -114,8 +164,8 @@ export default function ExplorerPage({ params }: { params: Promise<{ txHash: str
                     <Activity size={14} /> Transaction Hash:
                  </div>
                  <div className="flex-grow flex items-center gap-3">
-                    <span className="text-sm font-mono font-bold text-slate-900 break-all">{txHash}</span>
-                    <button onClick={() => handleCopy(txHash)} className="p-1.5 hover:bg-slate-100 rounded-md transition-colors text-slate-400">
+                    <span className="text-sm font-mono font-bold text-slate-900 break-all">{txDetails.hash}</span>
+                    <button onClick={() => handleCopy(txDetails.hash)} className="p-1.5 hover:bg-slate-100 rounded-md transition-colors text-slate-400">
                       <Copy size={14} />
                     </button>
                  </div>
@@ -137,8 +187,20 @@ export default function ExplorerPage({ params }: { params: Promise<{ txHash: str
                     <Box size={14} /> Block:
                  </div>
                  <div className="flex-grow flex items-center gap-3">
-                    <span className="text-sm font-bold text-blue-600 cursor-pointer hover:underline">19482041</span>
-                    <span className="px-2 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-500 uppercase">42 Confirmations</span>
+                    <span className="text-sm font-bold text-blue-600 cursor-pointer hover:underline">{txDetails.block}</span>
+                    <span className="px-2 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-500 uppercase">Confirmed</span>
+                 </div>
+              </div>
+
+              <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-12 py-6 border-b border-slate-50">
+                 <div className="w-full md:w-48 text-[11px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                    <Zap size={14} /> Transaction Action:
+                 </div>
+                 <div className="flex-grow flex items-center gap-2">
+                    <div className="p-2 bg-slate-50 rounded-lg border border-slate-100">
+                       <Package size={16} className="text-emerald-500" />
+                    </div>
+                    <span className="text-sm font-bold text-slate-700">Verified {txDetails.nodeType} data for <span className="text-blue-600">{txDetails.productName}</span></span>
                  </div>
               </div>
 
@@ -147,7 +209,7 @@ export default function ExplorerPage({ params }: { params: Promise<{ txHash: str
                     <Clock size={14} /> Timestamp:
                  </div>
                  <div className="flex-grow text-sm font-bold text-slate-700">
-                    {new Date().toLocaleString('vi-VN')} (42 mins ago)
+                    {new Date(txDetails.timestamp).toLocaleString('vi-VN')}
                  </div>
               </div>
 
@@ -156,7 +218,7 @@ export default function ExplorerPage({ params }: { params: Promise<{ txHash: str
                     <Fingerprint size={14} /> From:
                  </div>
                  <div className="flex-grow flex items-center gap-3">
-                    <span className="text-sm font-mono font-bold text-blue-600 cursor-pointer hover:underline">0x7a2d4E813F0C5...f9e1</span>
+                    <span className="text-sm font-mono font-bold text-blue-600 cursor-pointer hover:underline">{txDetails.from}</span>
                     <div className="px-2 py-0.5 bg-blue-50 text-blue-500 rounded text-[9px] font-bold uppercase tracking-widest">AgriChain Node</div>
                  </div>
               </div>
@@ -166,7 +228,7 @@ export default function ExplorerPage({ params }: { params: Promise<{ txHash: str
                     <FileText size={14} /> Interacted With:
                  </div>
                  <div className="flex-grow flex items-center gap-3">
-                    <span className="text-sm font-mono font-bold text-blue-600 cursor-pointer hover:underline">0xAgriChain_V3_Main</span>
+                    <span className="text-sm font-mono font-bold text-blue-600 cursor-pointer hover:underline">{txDetails.to}</span>
                     <span className="px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded text-[9px] font-bold uppercase tracking-widest border border-emerald-100">Smart Contract</span>
                  </div>
               </div>
@@ -178,12 +240,12 @@ export default function ExplorerPage({ params }: { params: Promise<{ txHash: str
                  <div className="flex-grow flex items-center gap-6">
                     <div>
                        <p className="text-[10px] text-slate-400 uppercase font-black">Limit</p>
-                       <p className="text-sm font-bold">120,000</p>
+                       <p className="text-sm font-bold">{txDetails.gasLimit}</p>
                     </div>
                     <div className="h-8 w-[1px] bg-slate-100"></div>
                     <div>
                        <p className="text-[10px] text-slate-400 uppercase font-black">Used by Txn</p>
-                       <p className="text-sm font-bold text-emerald-600">42,109 (35.09%)</p>
+                       <p className="text-sm font-bold text-emerald-600">{txDetails.gasUsed} ({((parseInt(txDetails.gasUsed.replace(/,/g,'')) / parseInt(txDetails.gasLimit.replace(/,/g,''))) * 100).toFixed(2)}%)</p>
                     </div>
                  </div>
               </div>
@@ -209,15 +271,15 @@ export default function ExplorerPage({ params }: { params: Promise<{ txHash: str
                  <div className="space-y-4">
                     <div className="flex gap-4">
                        <span className="text-slate-500 w-24 shrink-0">[0] hash:</span>
-                       <span className="text-white break-all">0x8f3a74b1e4a6d9c8b2f1e0a3d5c7b9a8f2e4d6c8b0a2f4e6d8c0b2a4f6e8d0c2</span>
+                       <span className="text-white break-all">{txDetails.rawHash}</span>
                     </div>
                     <div className="flex gap-4">
                        <span className="text-slate-500 w-24 shrink-0">[1] time:</span>
-                       <span className="text-white">1714652418 (2026-05-02 13:40:18)</span>
+                       <span className="text-white">{new Date(txDetails.timestamp).getTime()} ({new Date(txDetails.timestamp).toLocaleDateString()})</span>
                     </div>
                     <div className="flex gap-4">
                        <span className="text-slate-500 w-24 shrink-0">[2] loc:</span>
-                       <span className="text-white">Ninh Hòa, Khánh Hòa</span>
+                       <span className="text-white">Authenticated Origin</span>
                     </div>
                  </div>
               </div>

@@ -42,6 +42,29 @@ export interface Product {
 
 class NoSQLSim {
   private collections: Record<string, any[]> = {
+    network_stats: [
+      {
+        price: "$2,481.52",
+        price_change: "+2.45%",
+        market_cap: "$298.5B",
+        gas_price: "12 Gwei",
+        tps: "14.5",
+        last_block: 19482412
+      }
+    ],
+    latest_blocks: [
+      { height: 19482412, validator: "AgriNode_VN_01", txns: 142, reward: "0.025 ETH", timestamp: "12 secs ago" },
+      { height: 19482411, validator: "Lâm_Đồng_Core", txns: 89, reward: "0.021 ETH", timestamp: "24 secs ago" },
+      { height: 19482410, validator: "Ninh_Hoà_Safe", txns: 112, reward: "0.028 ETH", timestamp: "36 secs ago" },
+      { height: 19482409, validator: "HCM_Hub_02", txns: 67, reward: "0.019 ETH", timestamp: "48 secs ago" },
+      { height: 19482408, validator: "AgriNode_VN_05", txns: 156, reward: "0.031 ETH", timestamp: "1 min ago" }
+    ],
+    latest_transactions: [
+      { hash: "0x5e1b...b8e0", from: "0x7a2d...f9e1", to: "Contract_Agri", value: "0 ETH", fee: "0.00042", timestamp: "5 secs ago" },
+      { hash: "0x1a2b...f1a2", from: "Farmer_Lạc_Dương", to: "Lab_HCM", value: "0 ETH", fee: "0.00085", timestamp: "18 secs ago" },
+      { hash: "0x3d4e...e5f6", from: "0xbc2a...d9e4", to: "Retail_Store", value: "0 ETH", fee: "0.00031", timestamp: "25 secs ago" },
+      { hash: "0x9c0d...b9c0", from: "AgriLogistics_01", to: "Distribution_Center", value: "0 ETH", fee: "0.00054", timestamp: "42 secs ago" }
+    ],
     products: [
       {
         id: "YEN-001",
