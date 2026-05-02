@@ -323,8 +323,38 @@ class NoSQLSim {
               "https://images.unsplash.com/photo-1515471209610-dae1c9a581c5?w=800&q=80",
               "https://images.unsplash.com/photo-1558449028-b53a39d100fc?w=800&q=80"
             ],
-            description: "Thu hoạch hoa Atisô vào sáng sớm để đảm bảo dược tính Cynarin cao nhất.",
-            hash: "0x3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e"
+            description: "Thu hoạch hoa Atisô vào sáng sớm để đảm bảo dược tính Cynarin cao nhất. Quy trình thu hoạch được giám sát bởi hệ thống IoT thời gian thực.",
+            hash: "0x3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e",
+            txHash: "0x3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e",
+            telemetry: [
+              {
+                label: "Độ ẩm đất",
+                unit: "%",
+                data: [
+                  { time: "05:00", value: 65.2 },
+                  { time: "06:00", value: 64.8 },
+                  { time: "07:00", value: 64.5 }
+                ]
+              },
+              {
+                label: "Nhiệt độ môi trường",
+                unit: "°C",
+                data: [
+                  { time: "05:00", value: 16.2 },
+                  { time: "06:00", value: 16.8 },
+                  { time: "07:00", value: 18.2 }
+                ]
+              },
+              {
+                label: "Chỉ số UV",
+                unit: "Index",
+                data: [
+                  { time: "05:00", value: 0.1 },
+                  { time: "06:00", value: 0.5 },
+                  { time: "07:00", value: 1.2 }
+                ]
+              }
+            ]
           },
           {
             id: "node-8",

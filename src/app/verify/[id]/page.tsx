@@ -399,52 +399,84 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                   className="bg-white rounded-[2rem] md:rounded-[3rem] border border-slate-100 shadow-2xl overflow-hidden min-h-[500px] md:min-h-[700px] flex flex-col relative"
                 >
                   {/* Immersive Banner */}
-                  <div className="h-48 md:h-80 relative overflow-hidden group">
-                    <img 
+                  <div className="h-64 md:h-[400px] relative overflow-hidden group">
+                    <motion.img 
+                      initial={{ scale: 1.1 }}
+                      animate={{ scale: 1 }}
                       src={selectedNode.images[0]} 
                       alt={selectedNode.title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-natural-950 via-natural-950/20 to-transparent"></div>
-                    <div className="absolute bottom-6 left-6 right-6 md:bottom-10 md:left-10 md:right-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
-                      <div>
-                        <div className="flex flex-wrap items-center gap-2 mb-2 md:mb-3">
-                           <span className="px-2 py-0.5 rounded-md bg-white/20 backdrop-blur-md text-white text-[8px] font-black uppercase tracking-widest border border-white/20">
+                    <div className="absolute inset-0 bg-gradient-to-t from-natural-950 via-natural-950/40 to-transparent"></div>
+                    
+                    {/* Floating Tech Elements */}
+                    <div className="absolute top-6 right-6 flex gap-2">
+                       <div className="px-3 py-1.5 rounded-xl bg-black/40 backdrop-blur-md border border-white/10 text-white text-[10px] font-black uppercase tracking-widest flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                          Node #42 Active
+                       </div>
+                    </div>
+
+                    <div className="absolute bottom-8 left-8 right-8 md:bottom-16 md:left-16 md:right-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+                      <div className="max-w-2xl">
+                        <motion.div 
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          className="flex flex-wrap items-center gap-3 mb-4"
+                        >
+                           <span className="px-3 py-1 rounded-lg bg-white/10 backdrop-blur-md text-white text-[9px] font-black uppercase tracking-[0.2em] border border-white/20">
                              {selectedNode.type}
                            </span>
-                           <span className="px-2 py-0.5 rounded-md bg-emerald-500 text-white text-[8px] font-black uppercase tracking-widest shadow-lg shadow-emerald-500/20">
-                             Verified
+                           <span className="px-3 py-1 rounded-lg bg-emerald-500 text-white text-[9px] font-black uppercase tracking-[0.2em] shadow-2xl shadow-emerald-500/40">
+                             Verified Origin
                            </span>
-                        </div>
-                        <h2 className="text-xl md:text-4xl font-extrabold text-white tracking-tight">{selectedNode.title}</h2>
+                        </motion.div>
+                        <motion.h2 
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.1 }}
+                          className="text-3xl md:text-6xl font-black text-white tracking-tighter leading-tight italic uppercase"
+                        >
+                          {selectedNode.title}
+                        </motion.h2>
                       </div>
-                      <div className="flex flex-col md:items-end gap-3">
-                         <div className="flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-xl border border-white/10 text-white/80 text-[10px] font-mono">
-                            <Fingerprint size={12} className="text-emerald-400" />
-                            {selectedNode.hash.substring(0, 20)}...
+                      <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="flex flex-col md:items-end gap-4"
+                      >
+                         <div className="flex items-center gap-3 px-4 py-2 bg-white/5 backdrop-blur-2xl rounded-2xl border border-white/10 text-white/90 text-[11px] font-mono shadow-2xl">
+                            <Fingerprint size={16} className="text-emerald-400" />
+                            <span className="opacity-60">TX:</span> {selectedNode.hash.substring(0, 24)}...
                          </div>
-                         <div className="flex items-center gap-4 text-white/50 text-[9px] font-bold uppercase tracking-widest">
-                            <span className="flex items-center gap-1"><Globe size={10} /> IPFS Secured</span>
-                            <span className="flex items-center gap-1"><ShieldCheck size={10} /> Signed by Node</span>
+                         <div className="flex items-center gap-6 text-white/40 text-[10px] font-black uppercase tracking-[0.2em]">
+                            <span className="flex items-center gap-2 hover:text-emerald-400 transition-colors cursor-help"><Globe size={12} /> IPFS Secured</span>
+                            <span className="flex items-center gap-2 hover:text-emerald-400 transition-colors cursor-help"><ShieldCheck size={12} /> Signed by Node</span>
                          </div>
-                      </div>
+                      </motion.div>
                     </div>
                   </div>
 
                   {/* Blockchain Binding Bar */}
-                  <div className="bg-emerald-500/5 border-b border-emerald-500/10 p-4 md:px-10 flex flex-wrap items-center justify-between gap-4">
-                     <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                        <span className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.2em]">Dữ liệu được bảo chứng bởi Smart Contract</span>
+                  <div className="bg-emerald-500/5 border-b border-emerald-500/10 p-6 md:px-16 flex flex-wrap items-center justify-between gap-6">
+                     <div className="flex items-center gap-4">
+                        <div className="w-3 h-3 rounded-full bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.8)] animate-pulse"></div>
+                        <div className="space-y-0.5">
+                           <span className="block text-[11px] font-black text-emerald-600 uppercase tracking-[0.2em]">DỮ LIỆU ĐƯỢC BẢO CHỨNG BỞI SMART CONTRACT</span>
+                           <span className="block text-[9px] font-bold text-emerald-600/40 uppercase tracking-widest">Protocol Version: 2.4.0 • Secured by NCS Ledger</span>
+                        </div>
                      </div>
-                     <div className="flex items-center gap-6">
+                     <div className="flex items-center gap-12">
                         <div className="flex flex-col">
-                           <span className="text-[7px] font-black text-slate-400 uppercase tracking-widest">Digital Signature</span>
-                           <span className="text-[10px] font-mono text-natural-900 font-bold">0x7F2...D9C4</span>
+                           <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Digital Signature</span>
+                           <span className="text-xs font-mono text-natural-900 font-bold bg-white px-3 py-1 rounded-lg border border-slate-100">0x7F2...D9C4</span>
                         </div>
                         <div className="flex flex-col">
-                           <span className="text-[7px] font-black text-slate-400 uppercase tracking-widest">Merkle Proof</span>
-                           <span className="text-[10px] font-mono text-natural-900 font-bold">MATCHED ✅</span>
+                           <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Merkle Proof</span>
+                           <span className="text-xs font-mono text-emerald-600 font-bold bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-100 flex items-center gap-2">
+                              <Check size={12} /> MATCHED
+                           </span>
                         </div>
                      </div>
                   </div>
@@ -473,9 +505,45 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                            </div>
                         </div>
 
-                        {/* Telemetry Section */}
+                        {/* Network Vital Signs (Telemetry Grid) */}
                         {selectedNode.telemetry && selectedNode.telemetry.length > 0 && (
-                          <TelemetryDashboard telemetry={selectedNode.telemetry} />
+                          <div className="space-y-6">
+                             <div className="flex items-center gap-2 mb-4">
+                                <Activity size={14} className="text-emerald-500" />
+                                <h3 className="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em]">Network Vital Signs (IoT)</h3>
+                             </div>
+                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                {selectedNode.telemetry.map((t, idx) => (
+                                  <motion.div 
+                                    key={idx}
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: idx * 0.1 }}
+                                    className="p-5 rounded-3xl bg-white border border-slate-100 shadow-xl shadow-slate-900/5 relative overflow-hidden group"
+                                  >
+                                     <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                                        <Zap size={40} />
+                                     </div>
+                                     <div className="relative z-10">
+                                        <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">{t.label}</p>
+                                        <div className="flex items-end gap-1 mb-4">
+                                           <span className="text-3xl font-black text-natural-900 tracking-tighter">{t.data[t.data.length - 1].value}</span>
+                                           <span className="text-xs font-bold text-slate-300 mb-1">{t.unit}</span>
+                                        </div>
+                                        <div className="flex items-end gap-1 h-8">
+                                           {t.data.map((d, i) => (
+                                             <div 
+                                               key={i} 
+                                               style={{ height: `${(d.value / Math.max(...t.data.map(v => v.value))) * 100}%` }}
+                                               className="flex-1 bg-emerald-500/20 rounded-t-sm group-hover:bg-emerald-500/40 transition-colors"
+                                             ></div>
+                                           ))}
+                                        </div>
+                                     </div>
+                                  </motion.div>
+                                ))}
+                             </div>
+                          </div>
                         )}
 
                         <div className="p-6 md:p-8 rounded-[2.5rem] bg-gradient-to-br from-slate-900 to-black text-white relative overflow-hidden group border border-white/5 shadow-2xl">
