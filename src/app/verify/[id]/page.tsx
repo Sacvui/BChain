@@ -528,49 +528,103 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                   <span>QUÉT SẢN PHẨM KHÁC</span>
                </Link>
                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em]">End of Blockchain Record</p>
-            {/* Professional Transparency Badge */}
+            {/* Premium Digital Product Passport (DPP) */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4 }}
-              className="p-8 rounded-[3rem] bg-gradient-to-br from-natural-900 to-black text-white relative overflow-hidden shadow-2xl"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mt-16 relative group"
             >
-              <div className="absolute top-0 right-0 p-8 opacity-10">
-                <ShieldCheck size={120} />
-              </div>
+              {/* Holographic Glow Effect */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 via-blue-500 to-purple-600 rounded-[3rem] blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
               
-              <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-6">
-                   <div className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/40">
-                      <ShieldCheck size={20} />
-                   </div>
-                   <div>
-                      <h3 className="text-sm font-black uppercase tracking-widest">Digital Passport</h3>
-                      <p className="text-[10px] text-emerald-400 font-bold">100% TRACEABLE ORIGIN</p>
-                   </div>
-                </div>
+              <div className="relative p-1 md:p-1.5 rounded-[3rem] bg-white/10 backdrop-blur-3xl border border-white/20 shadow-2xl overflow-hidden">
+                <div className="bg-natural-900 rounded-[2.8rem] p-8 md:p-12 text-white relative overflow-hidden">
+                  
+                  {/* Animated Background Grid */}
+                  <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+                  <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald-500/10 via-transparent to-purple-500/10"></div>
 
-                <div className="flex items-end gap-4 mb-8">
-                   <span className="text-5xl font-black tracking-tighter">9.8</span>
-                   <div className="mb-2">
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Transparency Score</p>
-                      <div className="flex gap-1">
-                         {[1,2,3,4,5].map(s => <div key={s} className={`w-3 h-1 rounded-full ${s <= 4 ? 'bg-emerald-500' : 'bg-slate-700'}`}></div>)}
+                  <div className="relative z-10">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-12">
+                      <div className="space-y-3">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-black uppercase tracking-[0.2em]">
+                           <ShieldCheck size={14} /> 100% TRACEABLE ORIGIN
+                        </div>
+                        <h2 className="text-4xl md:text-6xl font-black tracking-tighter italic uppercase">
+                          Digital <span className="text-emerald-500">Passport</span>
+                        </h2>
+                        <p className="text-slate-400 text-xs md:text-sm max-w-md font-light leading-relaxed">
+                          Chứng thư định danh số duy nhất của sản phẩm trên nền tảng AgriChain Core, bảo chứng bởi công nghệ Blockchain và IoT.
+                        </p>
                       </div>
-                   </div>
+                      
+                      <div className="w-full md:w-auto p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md flex flex-col items-center gap-4">
+                         <div className="w-32 h-32 bg-white p-2 rounded-2xl shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                            <QrCode size={112} className="text-natural-900" />
+                         </div>
+                         <div className="text-center">
+                            <p className="text-[8px] font-black text-slate-500 uppercase tracking-widest mb-1">Passport ID</p>
+                            <p className="text-xs font-mono font-bold text-emerald-400">AGRI-{product.id}-7721</p>
+                         </div>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                       {[
+                         { label: "Product DNA", value: "Premium Grade AAA", icon: Leaf, color: "text-emerald-400" },
+                         { label: "Provenance Proof", value: "Verified Immutable", icon: ShieldCheck, color: "text-blue-400" },
+                         { label: "Ecological Impact", value: "Net Zero Path", icon: Sparkles, color: "text-purple-400" }
+                       ].map((item, i) => (
+                         <div key={i} className="p-6 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors group/item">
+                            <item.icon size={24} className={`${item.color} mb-4 group-hover/item:scale-110 transition-transform`} />
+                            <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">{item.label}</p>
+                            <p className="text-sm font-bold text-white uppercase">{item.value}</p>
+                         </div>
+                       ))}
+                    </div>
+
+                    <div className="flex flex-col md:flex-row gap-6">
+                       <div className="flex-1 p-8 rounded-[2.5rem] bg-gradient-to-br from-emerald-500/20 to-emerald-500/5 border border-emerald-500/20">
+                          <div className="flex items-end gap-4 mb-6">
+                             <span className="text-6xl font-black tracking-tighter text-emerald-500">9.8</span>
+                             <div className="mb-2">
+                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Transparency Score</p>
+                                <div className="flex gap-1.5">
+                                   {[1,2,3,4,5,6,7,8,9,10].map(s => <div key={s} className={`w-2 h-4 rounded-sm ${s <= 9 ? 'bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]' : 'bg-slate-700'}`}></div>)}
+                                </div>
+                             </div>
+                          </div>
+                          <p className="text-[10px] text-slate-400 font-medium leading-relaxed italic">
+                            "Dữ liệu được đối soát chéo từ 128 Node xác thực toàn cầu, đảm bảo tính toàn vẹn tuyệt đối của thông tin nguồn gốc."
+                          </p>
+                       </div>
+
+                       <div className="w-full md:w-72 flex flex-col gap-3">
+                          <button 
+                            onClick={() => window.print()}
+                            className="w-full py-5 bg-emerald-500 text-natural-950 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] shadow-xl shadow-emerald-500/20 hover:bg-emerald-400 hover:-translate-y-1 transition-all flex items-center justify-center gap-2 group"
+                          >
+                            <Download size={16} className="group-hover:translate-y-1 transition-transform" />
+                            Xuất Certificate
+                          </button>
+                          <Link 
+                            href="/explorer"
+                            className="w-full py-5 bg-white/10 text-white rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] border border-white/10 hover:bg-white/20 transition-all flex items-center justify-center gap-2"
+                          >
+                            <Globe size={16} />
+                            Network Status
+                          </Link>
+                       </div>
+                    </div>
+                  </div>
+
+                  {/* Decorative Elements */}
+                  <div className="absolute bottom-0 right-0 p-4 opacity-5 pointer-events-none">
+                     <Fingerprint size={300} />
+                  </div>
                 </div>
-
-                <button 
-                  onClick={() => window.print()}
-                  className="w-full py-4 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 group"
-                >
-                  <Download size={14} className="group-hover:translate-y-0.5 transition-transform" />
-                  Xuất chứng nhận thực (PDF)
-                </button>
               </div>
-
-              {/* Decorative blockchain pattern */}
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-transparent to-emerald-500 opacity-20"></div>
             </motion.div>
           </motion.div>
         </div>
