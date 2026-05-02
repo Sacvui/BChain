@@ -148,8 +148,8 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
       </nav>
 
       <div className="max-w-7xl mx-auto p-4 md:p-12 print:p-0">
-        
-                    {/* Interactive Supply Chain Map */}
+        <section className="mb-8 md:mb-16 print:hidden">
+          {/* Interactive Supply Chain Map */}
                     <div className="mb-20">
                       <div className="flex items-center gap-3 mb-8">
                          <div className="w-8 h-8 rounded-xl bg-natural-900 text-white flex items-center justify-center shadow-lg">
