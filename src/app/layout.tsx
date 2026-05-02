@@ -6,6 +6,8 @@ export const metadata: Metadata = {
   description: "Xác minh nguồn gốc Nước Yến thông qua công nghệ Blockchain",
 };
 
+import Footer from "@/components/Footer";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -15,6 +17,7 @@ export default function RootLayout({
     <html lang="vi">
       <body>
         {children}
+        <Footer />
       </body>
     </html>
   );

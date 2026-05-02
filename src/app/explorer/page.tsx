@@ -216,53 +216,6 @@ export default function ExplorerHome() {
 
          </div>
       </main>
-
-      {/* Footer Block */}
-      <footer className="bg-white border-t border-slate-200 pt-16 pb-8 mt-12">
-         <div className="max-w-7xl mx-auto px-4 md:px-6">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-               <div className="col-span-1 md:col-span-2">
-                  <Link href="/" className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center text-white">
-                       <Globe size={20} />
-                    </div>
-                    <span className="font-black tracking-tighter text-2xl text-slate-900">AgriChain<span className="text-emerald-500 text-xs ml-1 uppercase tracking-widest">Explorer</span></span>
-                  </Link>
-                  <p className="text-sm text-slate-500 max-w-sm leading-relaxed">
-                    AgriChain là mạng lưới blockchain phi tập trung tối ưu hóa cho minh bạch chuỗi cung ứng nông sản, cung cấp dữ liệu xác thực 100% từ trang trại đến người tiêu dùng.
-                  </p>
-               </div>
-               <div>
-                  <h4 className="text-[10px] font-black text-slate-900 uppercase tracking-[0.2em] mb-6">Network</h4>
-                  <ul className="space-y-4 text-xs font-bold text-slate-500 uppercase tracking-widest">
-                     <li><Link href="/explorer/network" className="hover:text-emerald-500 transition-colors">Nodes Status</Link></li>
-                     <li><Link href="/explorer/nodes" className="hover:text-emerald-500 transition-colors">Validators</Link></li>
-                     <li><Link href="/explorer/apis" className="hover:text-emerald-500 transition-colors">APIs</Link></li>
-                     <li><Link href="/explorer/governance" className="hover:text-emerald-500 transition-colors">Governance</Link></li>
-                  </ul>
-               </div>
-               <div>
-                  <h4 className="text-[10px] font-black text-slate-900 uppercase tracking-[0.2em] mb-6">Resources</h4>
-                  <ul className="space-y-4 text-xs font-bold text-slate-500 uppercase tracking-widest">
-                     <li><Link href="/docs" className="hover:text-emerald-500 transition-colors">Documentation</Link></li>
-                     <li><Link href="/explorer/smart-contracts" className="hover:text-emerald-500 transition-colors">Smart Contracts</Link></li>
-                     <li><Link href="/legal/privacy" className="hover:text-emerald-500 transition-colors">Privacy Policy</Link></li>
-                     <li><Link href="/legal/terms" className="hover:text-emerald-500 transition-colors">Terms of Use</Link></li>
-                  </ul>
-               </div>
-            </div>
-            <div className="pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4">
-               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">© 2026 AgriChain Foundation. All rights reserved.</p>
-               <div className="flex gap-6">
-                  <div className="flex items-center gap-2 text-[10px] font-bold text-emerald-500">
-                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                     NETWORK STATUS: ONLINE
-                  </div>
-                  <div className="text-[10px] font-mono text-slate-400">BUILD 3.0.1-STABLE</div>
-               </div>
-            </div>
-         </div>
-      </footer>
     </div>
   );
 }

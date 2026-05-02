@@ -376,10 +376,6 @@ export default function Home() {
            </div>
         </section>
       </main>
-
-      <footer className="py-12 md:py-20 px-6 border-t border-slate-100 text-center">
-        <p className="text-slate-400 text-[10px] md:text-sm font-light">© 2026 AGRI CHAIN - Công nghệ minh bạch nông sản thế hệ mới</p>
-      </footer>
     </div>
   );
 }
