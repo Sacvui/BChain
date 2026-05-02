@@ -6,7 +6,7 @@ import {
   ArrowLeft, ShieldCheck, MapPin, FileText, ImageIcon, ExternalLink, 
   Hash, Clock, Globe, Fingerprint, Activity, Layers, Sparkles, 
   Leaf, Package, Zap, Thermometer, Droplets, BarChart3, TrendingUp, Heart, Download,
-  Box, ChevronRight, Copy, X
+  Box, ChevronRight, Copy, X, QrCode
 } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
