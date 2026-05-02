@@ -79,7 +79,7 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
   return (
     <main className="min-h-screen bg-[#fdfcf8] text-[#1a2f1a] pb-12 md:pb-24">
       {/* Premium Header Nav */}
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-100 px-4 md:px-6 py-4">
+      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-100 px-4 md:px-6 py-4 print:hidden">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2 text-slate-500 hover:text-natural-900 transition-colors font-bold text-[10px] md:text-sm">
             <ArrowLeft size={16} />
@@ -97,9 +97,8 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
         </div>
       </nav>
 
-      <div className="max-w-7xl mx-auto p-4 md:p-12">
-        {/* New Horizontal Blockchain History Section */}
-        <section className="mb-8 md:mb-16">
+      <div className="max-w-7xl mx-auto p-4 md:p-12 print:p-0">
+        <section className="mb-8 md:mb-16 print:hidden">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
             <div className="space-y-1">
               <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2">
@@ -162,10 +161,10 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                   
                   <div className="mt-4 flex items-center justify-between pt-3 border-t border-slate-50">
                     <div className="flex items-center gap-1.5">
-                      <Clock size={8} className="text-slate-300" />
-                      <span className="text-[8px] text-slate-400 font-bold uppercase">
-                        {new Date(node.timestamp).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' })}
-                      </span>
+                       <Clock size={8} className="text-slate-300" />
+                       <span className="text-[8px] text-slate-400 font-bold uppercase">
+                         {new Date(node.timestamp).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' })}
+                       </span>
                     </div>
                     <div className={`w-1.5 h-1.5 rounded-full ${selectedNode === node ? 'bg-emerald-500' : 'bg-slate-200'}`}></div>
                   </div>
@@ -175,7 +174,7 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
           </div>
         </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-16 print:hidden">
           
           {/* Left Column: Product Sidebar */}
           <div className="lg:col-span-4 space-y-8 md:space-y-12">
@@ -523,23 +522,22 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
               className="mt-12 flex flex-col items-center gap-6"
             >
                <div className="h-[1px] w-32 bg-slate-100"></div>
-               <Link href="/" className="px-10 py-5 bg-natural-900 text-white rounded-[2rem] font-bold flex items-center gap-3 shadow-2xl shadow-natural-900/30 hover:-translate-y-1 hover:bg-black transition-all active:scale-95 group">
+               <Link href="/" className="px-10 py-5 bg-natural-900 text-white rounded-[2rem] font-bold flex items-center gap-3 shadow-2xl shadow-natural-900/30 hover:-translate-y-1 hover:bg-black transition-all active:scale-95 group print:hidden">
                   <QrCode size={20} className="group-hover:rotate-12 transition-transform" /> 
                   <span>QUÉT SẢN PHẨM KHÁC</span>
                </Link>
-               <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em]">End of Blockchain Record</p>
+               <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] print:hidden">End of Blockchain Record</p>
             {/* Premium Digital Product Passport (DPP) */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="mt-16 relative group"
+              className="mt-16 relative group print:mt-0"
             >
-              {/* Holographic Glow Effect */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 via-blue-500 to-purple-600 rounded-[3rem] blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 via-blue-500 to-purple-600 rounded-[3rem] blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200 print:hidden"></div>
               
-              <div className="relative p-1 md:p-1.5 rounded-[3rem] bg-white/10 backdrop-blur-3xl border border-white/20 shadow-2xl overflow-hidden">
-                <div className="bg-natural-900 rounded-[2.8rem] p-8 md:p-12 text-white relative overflow-hidden">
+              <div className="relative p-1 md:p-1.5 rounded-[3rem] bg-white/10 backdrop-blur-3xl border border-white/20 shadow-2xl overflow-hidden print:shadow-none print:border-none print:bg-white print:p-0">
+                <div className="bg-natural-900 rounded-[2.8rem] p-8 md:p-12 text-white relative overflow-hidden print:bg-white print:text-black print:p-0 print:rounded-none">
                   
                   {/* Animated Background Grid */}
                   <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
@@ -600,7 +598,7 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                           </p>
                        </div>
 
-                       <div className="w-full md:w-72 flex flex-col gap-3">
+                       <div className="w-full md:w-72 flex flex-col gap-3 print:hidden">
                           <button 
                             onClick={() => window.print()}
                             className="w-full py-5 bg-emerald-500 text-natural-950 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] shadow-xl shadow-emerald-500/20 hover:bg-emerald-400 hover:-translate-y-1 transition-all flex items-center justify-center gap-2 group"
@@ -609,11 +607,11 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                             Xuất Certificate
                           </button>
                           <Link 
-                            href="/explorer"
+                            href={`/explorer/${selectedNode.txHash || selectedNode.hash}`}
                             className="w-full py-5 bg-white/10 text-white rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] border border-white/10 hover:bg-white/20 transition-all flex items-center justify-center gap-2"
                           >
                             <Globe size={16} />
-                            Network Status
+                            View on Chain
                           </Link>
                        </div>
                     </div>
