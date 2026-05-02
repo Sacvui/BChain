@@ -8,27 +8,27 @@ import QRScanner from '@/components/QRScanner';
 
 const products = [
   {
-    id: "YEN-001",
+    id: "yen-sao-nha-trang",
     category: "Yến Sào",
-    name: "Yến Sào Tinh Chế Thượng Hạng",
-    description: "Sản phẩm khai thác từ hệ thống nhà yến tự nhiên tại Khánh Hòa.",
-    attributes: { origin: "Khánh Hòa", purity: "99.9%", grade: "AAA" },
+    name: "Yến Sào Nha Trang Premium",
+    description: "Sản phẩm khai thác từ hệ thống hang yến tự nhiên tại đảo Nha Trang, tinh chế thủ công 100%.",
+    attributes: { origin: "Nha Trang", purity: "99.9%", grade: "AAA" },
     color: "emerald"
   },
   {
-    id: "CAFE-002",
-    category: "Cà Phê",
-    name: "Arabica Cầu Đất Special",
-    description: "Cà phê specialty từ vùng nguyên liệu cao 1600m tại Đà Lạt.",
-    attributes: { origin: "Đà Lạt", roast: "Medium", altitude: "1600m" },
+    id: "tra-o-long-bao-loc",
+    category: "Trà Cao Cấp",
+    name: "Trà Ô Long Bảo Lộc",
+    description: "Những búp trà 1 tôm 2 lá từ cao nguyên Bảo Lộc, chế biến theo công nghệ lên men bán phần.",
+    attributes: { origin: "Bảo Lộc", weight: "250g", altitude: "1200m" },
     color: "amber"
   },
   {
-    id: "TRA-003",
+    id: "mat-gang-tea",
     category: "Trà Thảo Mộc",
-    name: "Mát Gang Tea - Atisô Đà Lạt",
-    description: "Sản phẩm trà túi lọc từ hoa Atisô tươi vùng cao nguyên Lạc Dương.",
-    attributes: { origin: "Lâm Đồng", weight: "50g", grade: "Premium" },
+    name: "Mát Gang Tea - Atisô",
+    description: "Chiết xuất từ hoa Atisô tươi vùng cao nguyên Lạc Dương, hỗ trợ thanh nhiệt giải độc.",
+    attributes: { origin: "Lạc Dương", weight: "50g", grade: "Premium" },
     color: "emerald"
   }
 ];

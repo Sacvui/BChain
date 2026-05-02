@@ -1,11 +1,6 @@
-/**
- * NoSQL-style Storage Simulation
- * This module provides a simple interface to manage dynamic agricultural product data.
- */
-
 export interface BlockchainNode {
-  id?: string;
-  type: 'FARM' | 'LAB' | 'PROCESSING' | 'LOGISTICS' | 'RETAIL';
+  id: string;
+  type: 'FARM' | 'PROCESSING' | 'LAB' | 'LOGISTICS' | 'RETAIL' | 'QC';
   title: string;
   location: string;
   coordinates: string;
@@ -29,7 +24,8 @@ export interface Product {
   category: string;
   name: string;
   image?: string;
-  attributes: Record<string, any>;
+  attributes: Record<string, string>;
+  nodes: BlockchainNode[];
   sustainability?: {
     score: number;
     carbon_footprint: string;
@@ -37,20 +33,12 @@ export interface Product {
     social_impact: string;
     ai_insight: string;
   };
-  nodes: BlockchainNode[];
 }
 
 class NoSQLSim {
-  private collections: Record<string, any[]> = {
+  collections: Record<string, any[]> = {
     network_stats: [
-      {
-        price: "$2,481.52",
-        price_change: "+2.45%",
-        market_cap: "$298.5B",
-        gas_price: "12 Gwei",
-        tps: "14.5",
-        last_block: 19482412
-      }
+      { price: "$2,481.52", price_change: "+2.45%", market_cap: "$298.4B", gas_price: "12 Gwei", tps: "45.2" }
     ],
     latest_blocks: [
       { height: 19482415, validator: "AgriNode_VN_01", txns: 156, reward: "0.025 ETH", timestamp: "8 secs ago", size: "124 KB" },
@@ -77,42 +65,39 @@ class NoSQLSim {
     ],
     products: [
       {
-        id: "YEN-001",
+        id: "yen-sao-nha-trang",
         category: "Yến Sào",
-        name: "Yến Sào Tinh Chế Thượng Hạng",
-        image: "/assets/packaging.png",
+        name: "Yến Sào Tinh Chế Nha Trang Premium",
+        image: "/assets/products/yen_pkg.png",
         attributes: {
-          origin: "Khánh Hòa",
+          origin: "Nha Trang, Khánh Hòa",
           weight: "100g",
-          purity: "99.9%",
-          grade: "AAA",
-          blockchain: "Ethereum (ERC-721)",
+          purity: "99.9% Tinh Khiết",
+          grade: "AAA - Thượng Hạng",
+          blockchain: "AgriChain Core v3",
           smart_contract: "0x7a2d...f9e1"
         },
         sustainability: {
           score: 98,
           carbon_footprint: "0.2kg CO2e",
           water_saved: "450L",
-          social_impact: "Tạo 50 việc làm địa phương",
-          ai_insight: "Dựa trên phân tích từ Blockchain, sản phẩm này đạt tiêu chuẩn khai thác bền vững. Quy trình không sử dụng hóa chất và bảo tồn hệ sinh thái hang yến tự nhiên tại Ninh Hòa."
+          social_impact: "Hỗ trợ bảo tồn hang yến tự nhiên",
+          ai_insight: "Dữ liệu Blockchain xác nhận sản phẩm được khai thác bền vững. Quy trình làm sạch thủ công giúp bảo tồn 100% sợi yến và dưỡng chất tự nhiên."
         },
         nodes: [
           {
             id: "node-1",
             type: 'FARM',
-            title: "Nhà Yến Ninh Hòa",
-            location: "Ninh Hòa, Khánh Hòa",
-            coordinates: "12.4844° N, 109.1309° E",
+            title: "Khai Thác Hang Yến Tự Nhiên",
+            location: "Đảo Yến, Nha Trang",
+            coordinates: "12.2458° N, 109.1943° E",
             timestamp: "2026-04-10T08:30:00Z",
             documents: [
-              { name: "Chứng nhận GlobalGAP #GG-8812", url: "#" },
-              { name: "Nhật ký khai thác số 45", url: "#" }
+              { name: "Giấy phép khai thác #KH-882", url: "#" },
+              { name: "Chứng nhận nguồn gốc hang yến", url: "#" }
             ],
-            images: [
-              "https://images.unsplash.com/photo-1590402444816-a1284b33e1d1?w=800&q=80",
-              "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80"
-            ],
-            description: "Thu hoạch từ hệ thống nhà yến đạt chuẩn bảo tồn tự nhiên, không can thiệp vào chu kỳ sinh sản của yến.",
+            images: ["/assets/products/yen_harvest.png"],
+            description: "Khai thác thủ công từ các hang yến tự nhiên trên đảo tại Nha Trang. Quy trình đảm bảo không can thiệp vào hệ sinh thái của chim yến.",
             hash: "0x8f3a74b1e4a6d9c8b2f1e0a3d5c7b9a8f2e4d6c8b0a2f4e6d8c0b2a4f6e8d0c2",
             txHash: "0x7d2a8b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a",
             blockNumber: 19482041,
@@ -120,211 +105,152 @@ class NoSQLSim {
           },
           {
             id: "node-2",
-            type: 'LAB', // Wait, previous code had LAB as node-2 in the view_file but my earlier edit tried to make it PROCESSING. Let's stick to the current file state.
-            title: "Trung Tâm Kiểm Định NCS",
-            location: "Quận 1, TP.HCM",
-            coordinates: "10.7769° N, 106.7009° E",
+            type: 'PROCESSING',
+            title: "Làm Sạch Thủ Công Tinh Khiết",
+            location: "Cơ sở Tinh Chế Nha Trang",
+            coordinates: "12.2451° N, 109.1911° E",
             timestamp: "2026-04-12T14:20:00Z",
             documents: [
-              { name: "Kết quả kiểm tra độ đạm Eurofins", url: "#" },
-              { name: "Chứng nhận ATVSTP #AT-112", url: "#" }
+              { name: "Chứng nhận ATVSTP #AT-112", url: "#" },
+              { name: "Quy trình xử lý tiệt trùng", url: "#" }
             ],
-            images: [
-              "https://images.unsplash.com/photo-1579152276502-745f4685c807?w=800&q=80",
-              "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&q=80"
-            ],
-            description: "Phân tích hàm lượng protein (60%+) và độ tinh khiết tuyệt đối, không tạp chất.",
+            images: ["/assets/products/yen_clean.png"],
+            description: "Công nhân lành nghề thực hiện nhặt lông yến bằng tay dưới điều kiện vô trùng tuyệt đối, giữ trọn vẹn kết cấu sợi yến.",
             hash: "0x2d9ca1f3b5e7d9c1a3b5c7d9e1f3a5b7c9d1e3f5a7b9c1d3e5f7a9b1c3d5e7f9",
             txHash: "0x3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4",
             blockNumber: 19482155,
-            gasUsed: "45,210",
-            telemetry: [
-              {
-                label: "Nhiệt độ phòng Lab",
-                unit: "°C",
-                data: [
-                  { time: "14:00", value: 24.2 },
-                  { time: "14:10", value: 24.5 },
-                  { time: "14:20", value: 24.1 }
-                ]
-              }
-            ]
+            gasUsed: "45,210"
           },
           {
             id: "node-3",
-            type: 'LOGISTICS',
-            title: "Vận Chuyển Lạnh Đảm Bảo",
-            location: "Kho Phân Phối Cát Lái",
-            coordinates: "10.7625° N, 106.7536° E",
-            timestamp: "2026-04-13T09:00:00Z",
+            type: 'LAB',
+            title: "Kiểm Định Chất Lượng & Dinh Dưỡng",
+            location: "Viện Nghiên Cứu Hải Sản",
+            coordinates: "12.2475° N, 109.1966° E",
+            timestamp: "2026-04-13T10:00:00Z",
             documents: [
-              { name: "Biên bản bàn giao kho lạnh", url: "#" },
-              { name: "Lịch trình GPS #TR-442", url: "#" }
+              { name: "Kết quả phân tích Protein (62%)", url: "#" },
+              { name: "Chứng nhận không chất bảo quản", url: "#" }
             ],
-            images: [
-              "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80",
-              "https://images.unsplash.com/photo-1591768793355-74d7ca736056?w=800&q=80"
-            ],
-            description: "Đóng gói chân không và vận chuyển nhiệt độ chuẩn duy trì dưới 15 độ C.",
+            images: ["/assets/products/yen_lab.png"],
+            description: "Sản phẩm được phân tích hóa lý để đảm bảo hàm lượng Protein và khoáng chất đạt chuẩn thượng hạng.",
             hash: "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
             txHash: "0x9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0",
             blockNumber: 19482289,
-            gasUsed: "32,840",
-            telemetry: [
-              {
-                label: "Nhiệt độ thùng lạnh",
-                unit: "°C",
-                data: [
-                  { time: "07:00", value: 12.5 },
-                  { time: "08:00", value: 13.2 },
-                  { time: "09:00", value: 12.8 }
-                ]
-              },
-              {
-                label: "Độ ẩm",
-                unit: "%",
-                data: [
-                  { time: "07:00", value: 45 },
-                  { time: "08:00", value: 46 },
-                  { time: "09:00", value: 45 }
-                ]
-              }
-            ]
+            gasUsed: "32,840"
           },
           {
             id: "node-4",
             type: 'RETAIL',
-            title: "Showroom Premium",
-            location: "Quận 3, TP.HCM",
-            coordinates: "10.7825° N, 106.6836° E",
+            title: "Đóng Gói & Niêm Phong Blockchain",
+            location: "Hệ Thống AgriStore VN",
+            coordinates: "10.7769° N, 106.7009° E",
             timestamp: "2026-04-15T09:00:00Z",
             documents: [
-              { name: "Hóa đơn VAT điện tử", url: "#" },
-              { name: "Chứng nhận đại lý ủy quyền", url: "#" }
+              { name: "Chứng chỉ NFT Authenticity", url: "#" },
+              { name: "QR Code Seal Integrity", url: "#" }
             ],
-            images: [
-              "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80",
-              "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80"
-            ],
-            description: "Sản phẩm đã có mặt tại showroom chính hãng, bảo quản trong tủ chuyên dụng.",
+            images: ["/assets/products/yen_pkg.png"],
+            description: "Sản phẩm được đóng gói cao cấp và niêm phong bằng QR Code định danh duy nhất trên Blockchain.",
             hash: "0x5e1bd9c4a6f2b8e0d4c6a2f8b0e4d6c8a2f0b4e6d8c0a2f4b6e8d0c2a4f6b8e0",
-            txHash: "0x2a4f6b8e0d4c6a2f8b0e4d6c8a2f0b4e6d8c0a2f4b6e8d0c2a4f6b8e0d4c6a2",
+            txHash: "0x5e1bd9c4a6f2b8e0d4c6a2f8b0e4d6c8a2f0b4e6d8c0a2f4b6e8d0c2a4f6b8e0",
             blockNumber: 19482412,
             gasUsed: "18,900"
           }
         ]
       },
       {
-        id: "CAFE-002",
-        category: "Cà Phê",
-        name: "Cà Phê Arabica Cầu Đất",
+        id: "tra-o-long-bao-loc",
+        category: "Trà Cao Cấp",
+        name: "Trà Ô Long Thuần Chủng Bảo Lộc",
+        image: "/assets/products/tea_pkg.png",
         attributes: {
-          origin: "Đà Lạt, Lâm Đồng",
-          roast: "Medium",
-          altitude: "1600m",
-          process: "Honey Process"
-        },
-        nodes: [
-          {
-            id: "node-5",
-            type: 'FARM',
-            title: "Farm Cầu Đất",
-            location: "Xuân Trường, Đà Lạt",
-            coordinates: "11.8544° N, 108.5309° E",
-            timestamp: "2026-03-20T07:00:00Z",
-            documents: [{ name: "Chứng nhận Organic", url: "#" }],
-            images: ["https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400&q=80"],
-            description: "Thu hoạch thủ công tại vùng nguyên liệu cao 1600m.",
-            hash: "0x1a2bc3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2"
-          },
-          {
-            id: "node-6",
-            type: 'PROCESSING',
-            title: "Xưởng Rang Xay",
-            location: "Khu Công Nghiệp Lộc Sơn",
-            coordinates: "11.5321° N, 107.8214° E",
-            timestamp: "2026-03-25T10:00:00Z",
-            documents: [{ name: "Hồ sơ rang xay", url: "#" }],
-            images: ["https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=400&q=80"],
-            description: "Rang theo profile Medium Roast, phát triển hương vị hoa quả.",
-            hash: "0x4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b"
-          }
-        ]
-      },
-      {
-        id: "TRA-003",
-        category: "Trà Thảo Mộc",
-        name: "Mát Gang Tea - Atisô Đà Lạt",
-        image: "/assets/matgang.png",
-        attributes: {
-          origin: "Lạc Dương, Lâm Đồng",
-          weight: "50g (20 túi lọc)",
-          process: "Sấy lạnh công nghệ cao",
-          grade: "Premium Organic",
-          blockchain: "Ethereum (ERC-721)",
+          origin: "Bảo Lộc, Lâm Đồng",
+          weight: "250g",
+          grade: "Top 1% Selection",
+          altitude: "1200m",
+          blockchain: "AgriChain Core v3",
           smart_contract: "0x9c3d...e4a2"
         },
         sustainability: {
           score: 95,
           carbon_footprint: "0.15kg CO2e",
           water_saved: "320L",
-          social_impact: "Hỗ trợ 20 hộ nông dân dân tộc thiểu số",
-          ai_insight: "Sản phẩm sử dụng công nghệ sấy lạnh tiết kiệm 40% năng lượng so với sấy nhiệt truyền thống. Vùng nguyên liệu đạt chuẩn GlobalGAP."
+          social_impact: "Phát triển nông nghiệp bền vững Bảo Lộc",
+          ai_insight: "Vùng trồng đạt chuẩn GlobalGAP với hệ thống tưới tiêu tự động thông minh. Quy trình chế biến truyền thống giúp giữ nguyên 99% polyphenol trong trà."
         },
         nodes: [
           {
-            id: "node-7",
+            id: "node-5",
             type: 'FARM',
-            title: "Nông trại Atisô Lạc Dương",
-            location: "Lạc Dương, Lâm Đồng",
-            coordinates: "11.9844° N, 108.4309° E",
-            timestamp: "2026-04-01T06:00:00Z",
+            title: "Thu Hoạch Búp Trà Non Sáng Sớm",
+            location: "Nông Trường Trà Bảo Lộc",
+            coordinates: "11.5432° N, 107.8123° E",
+            timestamp: "2026-03-20T06:00:00Z",
             documents: [
-              { name: "Chứng nhận GlobalGAP #GG-7742", url: "#" },
-              { name: "Chứng nhận Organic JAS", url: "#" }
+              { name: "Chứng nhận GlobalGAP #TP-771", url: "#" },
+              { name: "Nhật ký canh tác hữu cơ", url: "#" }
             ],
-            images: [
-              "https://images.unsplash.com/photo-1515471209610-dae1c9a581c5?w=800&q=80",
-              "https://images.unsplash.com/photo-1558449028-b53a39d100fc?w=800&q=80"
+            images: ["/assets/products/tea_harvest.png"],
+            description: "Tuyển chọn những búp trà 1 tôm 2 lá tươi non nhất vào thời điểm sáng sớm khi còn đọng sương mai.",
+            hash: "0x1a2bc3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2",
+            txHash: "0x1a2b...f1a2",
+            blockNumber: 19478102,
+            gasUsed: "15,400"
+          },
+          {
+            id: "node-6",
+            type: 'PROCESSING',
+            title: "Chế Biến Lên Men Bán Phần",
+            location: "Nhà Máy Trà Lộc Sơn",
+            coordinates: "11.5321° N, 107.8214° E",
+            timestamp: "2026-03-25T10:00:00Z",
+            documents: [
+              { name: "Chứng nhận ISO 22000", url: "#" },
+              { name: "Hồ sơ quy trình lên men", url: "#" }
             ],
-            description: "Thu hoạch hoa Atisô vào sáng sớm để đảm bảo dược tính Cynarin cao nhất.",
-            hash: "0x3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e"
+            images: ["/assets/products/tea_process.png"],
+            description: "Trà được làm héo, vò và lên men bán phần theo công nghệ Đài Loan truyền thống, tạo nên hương vị đặc trưng.",
+            hash: "0x4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b",
+            txHash: "0x4a5b...e3f4",
+            blockNumber: 19479211,
+            gasUsed: "28,900"
+          },
+          {
+            id: "node-7",
+            type: 'QC',
+            title: "Thử Nếm & Phân Loại Thượng Hạng",
+            location: "Phòng Kiểm Định Chất Lượng",
+            coordinates: "11.5300° N, 107.8200° E",
+            timestamp: "2026-03-28T14:00:00Z",
+            documents: [
+              { name: "Báo cáo thử nếm chuyên gia", url: "#" },
+              { name: "Chứng nhận Grade AAA", url: "#" }
+            ],
+            images: ["/assets/products/tea_qc.png"],
+            description: "Các chuyên gia trà thực hiện thử nếm (cupping) để phân loại và đảm bảo hương vị đạt chuẩn cao nhất trước khi đóng gói.",
+            hash: "0x7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c",
+            txHash: "0x7b8c...a1b2",
+            blockNumber: 19480112,
+            gasUsed: "12,300"
           },
           {
             id: "node-8",
-            type: 'PROCESSING',
-            title: "Nhà máy Sấy Lạnh Đà Lạt",
-            location: "Phường 12, Đà Lạt",
-            coordinates: "11.9444° N, 108.4509° E",
-            timestamp: "2026-04-03T09:00:00Z",
-            documents: [
-              { name: "Hồ sơ kỹ thuật sấy lạnh", url: "#" },
-              { name: "Chứng nhận ISO 22000:2018", url: "#" }
-            ],
-            images: [
-              "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?w=800&q=80",
-              "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80"
-            ],
-            description: "Chế biến bằng công nghệ sấy lạnh hiện đại giúp giữ nguyên màu sắc tự nhiên.",
-            hash: "0x7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c"
-          },
-          {
-            id: "node-9",
             type: 'RETAIL',
-            title: "Hệ thống Farm-to-Table",
-            location: "Quận 1, TP.HCM",
+            title: "Hút Chân Không & Phân Phối",
+            location: "Trung Tâm Phân Phối AgriChain",
             coordinates: "10.7769° N, 106.7009° E",
-            timestamp: "2026-04-10T08:00:00Z",
+            timestamp: "2026-04-05T09:00:00Z",
             documents: [
-              { name: "Chứng nhận ATVSTP TP.HCM", url: "#" },
-              { name: "Giấy phép lưu hành sản phẩm", url: "#" }
+              { name: "Hồ sơ đóng gói chân không", url: "#" },
+              { name: "Chứng nhận xuất xưởng", url: "#" }
             ],
-            images: [
-              "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80",
-              "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?w=800&q=80"
-            ],
-            description: "Phân phối trực tiếp tại các cửa hàng nông sản hữu cơ cao cấp.",
-            hash: "0x1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2"
+            images: ["/assets/products/tea_pkg.png"],
+            description: "Trà được hút chân không trong túi nhôm đặc biệt và đóng hộp thiếc cao cấp để giữ trọn vẹn hương thơm.",
+            hash: "0x1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2",
+            txHash: "0x1f2a...d9e4",
+            blockNumber: 19481240,
+            gasUsed: "22,500"
           }
         ]
       }
