@@ -19,7 +19,6 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
   const [loading, setLoading] = useState(true);
   const [isScanning, setIsScanning] = useState(true);
   const [showHashModal, setShowHashModal] = useState(false);
-  const [showExplorer, setShowExplorer] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -97,10 +96,94 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
         </div>
       </nav>
 
-      <div className="max-w-7xl mx-auto p-4 md:p-12">
+      <div className="max-w-7xl mx-auto p-4 md:px-12 md:py-8">
+        
+        {/* NEW: Horizontal Blockchain Timeline at the TOP */}
+        <section className="mb-8 md:mb-12">
+          <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
+            <div className="space-y-1">
+              <h2 className="text-[10px] md:text-xs font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2">
+                <Layers size={14} className="text-emerald-500" />
+                Lịch sử chuỗi khối (Blockchain Journey)
+              </h2>
+              <p className="text-[8px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest italic">Hành trình minh bạch từ nông trại đến tay bạn</p>
+            </div>
+            <div className="flex items-center gap-2 text-[9px] font-bold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-100 self-start md:self-auto">
+              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+              DỮ LIỆU ĐÃ ĐƯỢC NIÊM PHONG (IMMUTABLE)
+            </div>
+          </div>
+
+          <div className="relative">
+             {/* Horizontal Connection Line */}
+             <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-slate-100 -translate-y-1/2 hidden md:block">
+                <motion.div 
+                  initial={{ width: 0 }}
+                  animate={{ width: '100%' }}
+                  transition={{ duration: 1.5, ease: "easeInOut" }}
+                  className="h-full bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-500"
+                ></motion.div>
+             </div>
+
+             <div className="flex overflow-x-auto pb-6 pt-2 gap-4 md:gap-8 snap-x no-scrollbar">
+                {product.nodes.map((node, i) => (
+                  <motion.div 
+                    key={i}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    whileHover={{ y: -5 }}
+                    onClick={() => setSelectedNode(node)}
+                    className={`relative flex-shrink-0 w-[240px] md:w-[280px] snap-center cursor-pointer p-5 rounded-3xl border-2 transition-all duration-300 ${
+                      selectedNode === node 
+                      ? 'bg-white border-emerald-500 shadow-2xl shadow-emerald-900/10' 
+                      : 'bg-white/50 border-slate-100 hover:border-slate-200 grayscale-[0.5] opacity-70 hover:opacity-100'
+                    }`}
+                  >
+                    <div className="flex items-start justify-between mb-4">
+                       <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shadow-lg transition-transform duration-500 ${
+                         selectedNode === node ? 'bg-emerald-500 text-white rotate-6' : 'bg-slate-100 text-slate-400'
+                       }`}>
+                          {i === 0 ? <Package size={18} /> : i === product.nodes.length - 1 ? <Globe size={18} /> : <Zap size={18} />}
+                       </div>
+                       <div className="text-right">
+                          <p className="text-[8px] font-mono text-slate-400">BLOCK #{node.blockNumber || '19,482k'}</p>
+                          <p className="text-[7px] font-black text-emerald-500 uppercase">Confirmed ✅</p>
+                       </div>
+                    </div>
+
+                    <div className="space-y-1 mb-4">
+                       <span className={`text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md border ${
+                         selectedNode === node ? 'bg-emerald-500 text-white border-emerald-500' : 'bg-slate-100 text-slate-400 border-slate-100'
+                       }`}>
+                          {node.type}
+                       </span>
+                       <h4 className="text-sm font-black text-natural-900 tracking-tight truncate">{node.title}</h4>
+                    </div>
+
+                    <div className="flex items-center justify-between mt-auto">
+                       <div className="flex items-center gap-1.5">
+                          <Clock size={10} className="text-slate-300" />
+                          <span className="text-[9px] text-slate-400 font-bold uppercase">{new Date(node.timestamp).toLocaleDateString('vi-VN')}</span>
+                       </div>
+                       {selectedNode === node && (
+                         <motion.div layoutId="active-indicator" className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.8)]"></motion.div>
+                       )}
+                    </div>
+
+                    {/* Step indicator circle on the line (desktop only) */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[calc(50%+115px)] hidden md:block">
+                       <div className={`w-4 h-4 rounded-full border-4 border-[#fdfcf8] transition-colors duration-300 ${selectedNode === node ? 'bg-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.2)]' : 'bg-slate-200'}`}></div>
+                    </div>
+                  </motion.div>
+                ))}
+             </div>
+          </div>
+        </section>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-16">
           
-          {/* Left Column: Product Sidebar */}
+          {/* Left Column: Product Sidebar (Now narrower or balanced) */}
           <div className="lg:col-span-4 space-y-8 md:space-y-12">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -262,116 +345,6 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                 )}
               </div>
             </motion.div>
-
-            <section>
-              <div className="flex items-center justify-between mb-8">
-                <div className="space-y-1">
-                  <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2">
-                    <Layers size={12} className="text-natural-900" />
-                    Lịch sử chuỗi khối
-                  </h2>
-                  <p className="text-[8px] text-slate-400 font-bold uppercase tracking-widest">Global Ledger - Node Network</p>
-                </div>
-                <div className="flex items-center gap-1.5 text-[8px] font-bold text-emerald-500 bg-emerald-50 px-2 py-1 rounded-md border border-emerald-100 shadow-sm shadow-emerald-500/5">
-                  <ShieldCheck size={10} />
-                  SECURED BY ETH
-                </div>
-              </div>
-              
-              <div className="relative space-y-6">
-                {/* Futuristic Connector Line with Animated Pulse */}
-                <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-slate-100 hidden md:block">
-                  <motion.div 
-                    animate={{ top: ['-20%', '120%'] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                    className="absolute left-0 right-0 h-24 bg-gradient-to-b from-transparent via-emerald-400 to-transparent z-10"
-                  ></motion.div>
-                </div>
-                
-                {product.nodes.map((node, i) => (
-                  <motion.div 
-                    key={i}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                    whileHover={{ scale: 1.02, x: 5 }}
-                    onClick={() => setSelectedNode(node)}
-                    className={`relative flex items-start gap-4 p-5 rounded-[2rem] cursor-pointer transition-all duration-300 border group ${
-                      selectedNode === node 
-                      ? 'bg-white border-natural-200 shadow-[0_20px_50px_-12px_rgba(26,47,26,0.1)] ring-1 ring-natural-500/10' 
-                      : 'bg-transparent border-transparent opacity-60 hover:opacity-100 hover:bg-white/50'
-                    }`}
-                  >
-                    {/* Node Icon/Indicator */}
-                    <div className="relative z-20">
-                      <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 border-2 transition-all duration-500 ${
-                        selectedNode === node 
-                        ? 'bg-natural-900 border-natural-900 text-white shadow-[0_0_20px_rgba(26,47,26,0.3)] rotate-3' 
-                        : 'bg-white border-slate-100 text-slate-300 group-hover:border-natural-200'
-                      }`}>
-                         {i === 0 ? <Package size={18} /> : i === product.nodes.length - 1 ? <Globe size={18} /> : <Zap size={18} />}
-                      </div>
-                      
-                      {/* Confirmation dots */}
-                      <div className="absolute -bottom-1 -right-1 flex gap-0.5">
-                         {[1,2,3].map(dot => (
-                           <div key={dot} className={`w-1.5 h-1.5 rounded-full border border-white shadow-sm ${selectedNode === node ? 'bg-emerald-500' : 'bg-slate-200'}`}></div>
-                         ))}
-                      </div>
-                    </div>
-
-                    <div className="min-w-0 flex-1 pt-1">
-                      <div className="flex items-center justify-between gap-2 mb-1.5">
-                        <span className={`text-[7px] font-black uppercase tracking-[0.2em] px-2 py-0.5 rounded-full border ${
-                          selectedNode === node 
-                          ? 'bg-natural-900 text-white border-natural-900' 
-                          : 'bg-slate-50 text-slate-400 border-slate-100'
-                        }`}>
-                          {node.type}
-                        </span>
-                        <div className="flex items-center gap-2">
-                           <span className="text-[8px] font-mono text-slate-400">#{node.blockNumber || '19,482k'}</span>
-                           <div className={`w-1.5 h-1.5 rounded-full ${selectedNode === node ? 'bg-emerald-500' : 'bg-slate-200 animate-pulse'}`}></div>
-                        </div>
-                      </div>
-                      
-                      <h4 className={`text-xs md:text-sm font-black tracking-tight mb-2 truncate ${selectedNode === node ? 'text-natural-900' : 'text-slate-500'}`}>
-                        {node.title}
-                      </h4>
-                      
-                      <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-1.5">
-                          <Clock size={10} className="text-slate-300" />
-                          <span className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
-                            {new Date(node.timestamp).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' })}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <Activity size={10} className="text-emerald-500/50" />
-                          <span className="text-[9px] text-emerald-600 font-mono font-bold">
-                            {node.gasUsed || '21k'} GWEI
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Progress Percentage Simulation */}
-                    {selectedNode === node && (
-                      <div className="absolute top-4 right-4 flex flex-col items-end">
-                         <span className="text-[10px] font-black text-natural-900">100%</span>
-                         <div className="w-10 h-0.5 bg-slate-100 mt-1 rounded-full overflow-hidden">
-                            <motion.div 
-                              initial={{ width: 0 }}
-                              animate={{ width: '100%' }}
-                              className="h-full bg-natural-900"
-                            ></motion.div>
-                         </div>
-                      </div>
-                    )}
-                  </motion.div>
-                ))}
-              </div>
-            </section>
           </div>
 
           {/* Right Column: Interactive Node Detail Viewer */}
@@ -782,5 +755,3 @@ function HashSimulator({ node, onClose }: { node: BlockchainNode, onClose: () =>
     </motion.div>
   );
 }
-
-
