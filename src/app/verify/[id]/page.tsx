@@ -2,7 +2,12 @@
 
 import { useState, useEffect, use } from 'react';
 import { db, Product, BlockchainNode } from '@/lib/store/nosql-sim';
-import { ArrowLeft, ShieldCheck, MapPin, FileText, ImageIcon, ExternalLink, Hash, Clock, Globe, Fingerprint, Activity, Layers, Sparkles, Leaf, Package, Zap } from 'lucide-react';
+import { 
+  ArrowLeft, ShieldCheck, MapPin, FileText, ImageIcon, ExternalLink, 
+  Hash, Clock, Globe, Fingerprint, Activity, Layers, Sparkles, 
+  Leaf, Package, Zap, Thermometer, Droplets, BarChart3, TrendingUp, Heart, Download,
+  Box, ChevronRight, Copy, X, QrCode
+} from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
@@ -14,6 +19,7 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
   const [loading, setLoading] = useState(true);
   const [isScanning, setIsScanning] = useState(true);
   const [showHashModal, setShowHashModal] = useState(false);
+  const [showExplorer, setShowExplorer] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -127,7 +133,7 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                   <div className="space-y-3 md:space-y-4">
                     {Object.entries(product.attributes).map(([key, value]) => (
                       <div key={key} className="flex justify-between items-center text-xs md:text-sm border-b border-slate-50 pb-2 md:pb-3 last:border-0 last:pb-0">
-                        <span className="text-slate-400 font-medium capitalize">{key}</span>
+                        <span className="text-slate-400 font-medium capitalize">{key.replace('_', ' ')}</span>
                         <span className="font-bold text-natural-900">{value}</span>
                       </div>
                     ))}
@@ -222,14 +228,15 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                          <div className="mt-8 grid grid-cols-2 gap-4">
                             {[
                               { label: "Carbon", value: product.sustainability.carbon_footprint, icon: Globe },
-                              { label: "Water", value: product.sustainability.water_saved, icon: Activity }
+                              { label: "Water", value: product.sustainability.water_saved, icon: Activity },
+                              { label: "Social", value: product.sustainability.social_impact, icon: Heart }
                             ].map((m, i) => (
                               <div key={i} className="group p-4 bg-white rounded-2xl border border-slate-100 hover:border-natural-900/20 transition-all hover:shadow-lg">
                                  <div className="flex items-center gap-2 mb-2">
                                     <m.icon size={12} className="text-slate-300" />
                                     <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">{m.label}</span>
                                  </div>
-                                 <p className="text-sm font-black text-natural-900">{m.value}</p>
+                                 <p className="text-[10px] font-black text-natural-900 leading-tight">{m.value}</p>
                               </div>
                             ))}
                          </div>
@@ -242,19 +249,28 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
 
             <section>
               <div className="flex items-center justify-between mb-8">
-                <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2">
-                  <Globe size={12} />
-                  Lịch sử chuỗi khối
-                </h2>
-                <div className="flex items-center gap-1.5 text-[8px] font-bold text-emerald-500 bg-emerald-50 px-2 py-1 rounded-md border border-emerald-100">
+                <div className="space-y-1">
+                  <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2">
+                    <Layers size={12} className="text-natural-900" />
+                    Lịch sử chuỗi khối
+                  </h2>
+                  <p className="text-[8px] text-slate-400 font-bold uppercase tracking-widest">Global Ledger - Node Network</p>
+                </div>
+                <div className="flex items-center gap-1.5 text-[8px] font-bold text-emerald-500 bg-emerald-50 px-2 py-1 rounded-md border border-emerald-100 shadow-sm shadow-emerald-500/5">
                   <ShieldCheck size={10} />
-                  ALL SECURED
+                  SECURED BY ETH
                 </div>
               </div>
               
-              <div className="relative space-y-4">
-                {/* Futuristic Connector Line */}
-                <div className="absolute left-6 top-4 bottom-4 w-0.5 bg-gradient-to-b from-natural-100 via-natural-200 to-natural-100 hidden md:block"></div>
+              <div className="relative space-y-6">
+                {/* Futuristic Connector Line with Animated Pulse */}
+                <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-slate-100 hidden md:block">
+                  <motion.div 
+                    animate={{ top: ['-20%', '120%'] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                    className="absolute left-0 right-0 h-24 bg-gradient-to-b from-transparent via-emerald-400 to-transparent z-10"
+                  ></motion.div>
+                </div>
                 
                 {product.nodes.map((node, i) => (
                   <motion.div 
@@ -262,47 +278,78 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.1 }}
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ scale: 1.02, x: 5 }}
                     onClick={() => setSelectedNode(node)}
-                    className={`relative flex items-start gap-4 p-4 rounded-2xl cursor-pointer transition-all border ${
+                    className={`relative flex items-start gap-4 p-5 rounded-[2rem] cursor-pointer transition-all duration-300 border group ${
                       selectedNode === node 
-                      ? 'bg-white border-natural-200 shadow-xl shadow-natural-900/5 ring-1 ring-natural-500/20' 
-                      : 'bg-transparent border-transparent opacity-50 hover:opacity-100 hover:bg-natural-50'
+                      ? 'bg-white border-natural-200 shadow-[0_20px_50px_-12px_rgba(26,47,26,0.1)] ring-1 ring-natural-500/10' 
+                      : 'bg-transparent border-transparent opacity-60 hover:opacity-100 hover:bg-white/50'
                     }`}
                   >
                     {/* Node Icon/Indicator */}
-                    <div className={`relative z-10 w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border-2 transition-all ${
-                      selectedNode === node 
-                      ? 'bg-natural-900 border-natural-900 text-white shadow-lg' 
-                      : 'bg-white border-slate-100 text-slate-400'
-                    }`}>
-                       {i === 0 ? <Package size={18} /> : i === product.nodes.length - 1 ? <Globe size={18} /> : <Zap size={18} />}
+                    <div className="relative z-20">
+                      <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 border-2 transition-all duration-500 ${
+                        selectedNode === node 
+                        ? 'bg-natural-900 border-natural-900 text-white shadow-[0_0_20px_rgba(26,47,26,0.3)] rotate-3' 
+                        : 'bg-white border-slate-100 text-slate-300 group-hover:border-natural-200'
+                      }`}>
+                         {i === 0 ? <Package size={18} /> : i === product.nodes.length - 1 ? <Globe size={18} /> : <Zap size={18} />}
+                      </div>
+                      
+                      {/* Confirmation dots */}
+                      <div className="absolute -bottom-1 -right-1 flex gap-0.5">
+                         {[1,2,3].map(dot => (
+                           <div key={dot} className={`w-1.5 h-1.5 rounded-full border border-white shadow-sm ${selectedNode === node ? 'bg-emerald-500' : 'bg-slate-200'}`}></div>
+                         ))}
+                      </div>
                     </div>
 
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center justify-between gap-2 mb-1">
-                        <p className={`text-[8px] font-black uppercase tracking-widest ${selectedNode === node ? 'text-natural-500' : 'text-slate-400'}`}>
+                    <div className="min-w-0 flex-1 pt-1">
+                      <div className="flex items-center justify-between gap-2 mb-1.5">
+                        <span className={`text-[7px] font-black uppercase tracking-[0.2em] px-2 py-0.5 rounded-full border ${
+                          selectedNode === node 
+                          ? 'bg-natural-900 text-white border-natural-900' 
+                          : 'bg-slate-50 text-slate-400 border-slate-100'
+                        }`}>
                           {node.type}
-                        </p>
-                        <p className="text-[8px] font-mono text-slate-400">
-                          {node.hash.substring(0, 10)}
-                        </p>
+                        </span>
+                        <div className="flex items-center gap-2">
+                           <span className="text-[8px] font-mono text-slate-400">#{node.blockNumber || '19,482k'}</span>
+                           <div className={`w-1.5 h-1.5 rounded-full ${selectedNode === node ? 'bg-emerald-500' : 'bg-slate-200 animate-pulse'}`}></div>
+                        </div>
                       </div>
-                      <h4 className={`text-xs md:text-sm font-bold tracking-tight truncate ${selectedNode === node ? 'text-natural-900' : 'text-slate-600'}`}>
+                      
+                      <h4 className={`text-xs md:text-sm font-black tracking-tight mb-2 truncate ${selectedNode === node ? 'text-natural-900' : 'text-slate-500'}`}>
                         {node.title}
                       </h4>
-                      <div className="flex items-center gap-2 mt-1">
-                        <Clock size={10} className="text-slate-300" />
-                        <span className="text-[9px] text-slate-400 font-medium">
-                          {new Date(node.timestamp).toLocaleDateString('vi-VN')}
-                        </span>
+                      
+                      <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-1.5">
+                          <Clock size={10} className="text-slate-300" />
+                          <span className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                            {new Date(node.timestamp).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' })}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <Activity size={10} className="text-emerald-500/50" />
+                          <span className="text-[9px] text-emerald-600 font-mono font-bold">
+                            {node.gasUsed || '21k'} GWEI
+                          </span>
+                        </div>
                       </div>
                     </div>
 
-                    {/* Active Pulse Indicator */}
+                    {/* Progress Percentage Simulation */}
                     {selectedNode === node && (
-                      <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                         <div className="w-2 h-2 rounded-full bg-natural-500 animate-ping"></div>
+                      <div className="absolute top-4 right-4 flex flex-col items-end">
+                         <span className="text-[10px] font-black text-natural-900">100%</span>
+                         <div className="w-10 h-0.5 bg-slate-100 mt-1 rounded-full overflow-hidden">
+                            <motion.div 
+                              initial={{ width: 0 }}
+                              animate={{ width: '100%' }}
+                              className="h-full bg-natural-900"
+                            ></motion.div>
+                         </div>
                       </div>
                     )}
                   </motion.div>
@@ -316,7 +363,7 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
             <AnimatePresence mode="wait">
               {selectedNode && (
                 <motion.div 
-                  key={selectedNode.title}
+                  key={selectedNode.id || selectedNode.title}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
@@ -398,6 +445,11 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                            </div>
                         </div>
 
+                        {/* Telemetry Section */}
+                        {selectedNode.telemetry && selectedNode.telemetry.length > 0 && (
+                          <TelemetryDashboard telemetry={selectedNode.telemetry} />
+                        )}
+
                         <div className="p-6 md:p-8 rounded-[2.5rem] bg-gradient-to-br from-slate-900 to-black text-white relative overflow-hidden group border border-white/5 shadow-2xl">
                             {/* Scanning pulse */}
                             <div className="absolute inset-0 bg-emerald-500/5 animate-pulse pointer-events-none"></div>
@@ -414,11 +466,17 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                                 <Hash size={14} /> KIỂM CHỨNG ETH
                               </button>
                             </div>
-                            <div className="bg-black/50 p-4 rounded-2xl border border-white/5 relative z-10">
+                            <div className="bg-black/50 p-4 rounded-2xl border border-white/5 relative z-10 mb-4">
                                <p className="text-[10px] md:text-sm font-mono text-emerald-400/90 break-all leading-relaxed tracking-wider">
                                  {selectedNode.hash}
                                </p>
                             </div>
+                            <button 
+                              onClick={() => setShowExplorer(true)}
+                              className="w-full py-3 bg-white/10 hover:bg-white/20 rounded-xl text-[10px] font-bold text-white flex items-center justify-center gap-2 transition-all border border-white/5"
+                            >
+                               <ExternalLink size={12} /> XEM CHI TIẾT GIAO DỊCH (EXPLORER)
+                            </button>
                          </div>
                       </div>
                     </div>
@@ -464,6 +522,10 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                               </div>
                            </div>
                         </div>
+
+                        <button className="w-full mt-4 py-4 border-2 border-dashed border-slate-200 rounded-2xl text-slate-400 text-xs font-bold hover:border-natural-900 hover:text-natural-900 transition-all flex items-center justify-center gap-2 group">
+                           <Download size={16} className="group-hover:animate-bounce" /> XUẤT CHỨNG CHỈ SỐ (PDF)
+                        </button>
                       </div>
 
                       <div>
@@ -485,6 +547,20 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                 </motion.div>
               )}
             </AnimatePresence>
+
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="mt-12 flex flex-col items-center gap-6"
+            >
+               <div className="h-[1px] w-32 bg-slate-100"></div>
+               <Link href="/" className="px-10 py-5 bg-natural-900 text-white rounded-[2rem] font-bold flex items-center gap-3 shadow-2xl shadow-natural-900/30 hover:-translate-y-1 hover:bg-black transition-all active:scale-95 group">
+                  <QrCode size={20} className="group-hover:rotate-12 transition-transform" /> 
+                  <span>QUÉT SẢN PHẨM KHÁC</span>
+               </Link>
+               <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em]">End of Blockchain Record</p>
+            </motion.div>
           </div>
         </div>
       </div>
@@ -493,8 +569,69 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
         {showHashModal && selectedNode && (
           <HashSimulator node={selectedNode} onClose={() => setShowHashModal(false)} />
         )}
+        {showExplorer && selectedNode && (
+          <TransactionExplorer node={selectedNode} onClose={() => setShowExplorer(false)} />
+        )}
       </AnimatePresence>
     </main>
+  );
+}
+
+function TelemetryDashboard({ telemetry }: { telemetry: any[] }) {
+  return (
+    <div className="space-y-4">
+      <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2">
+        <Activity size={12} className="text-emerald-500" />
+        Thông số vận hành (IOT Telemetry)
+      </h3>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {telemetry.map((t, i) => (
+          <div key={i} className="p-4 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400">
+                  {t.label.includes('Nhiệt') ? <Thermometer size={16} /> : t.label.includes('Độ ẩm') ? <Droplets size={16} /> : <BarChart3 size={16} />}
+                </div>
+                <div>
+                  <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">{t.label}</p>
+                  <p className="text-lg font-black text-natural-900 leading-none">
+                    {t.data[t.data.length - 1].value}{t.unit}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-1 text-[8px] font-bold text-emerald-500 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100">
+                <TrendingUp size={10} /> STABLE
+              </div>
+            </div>
+            
+            {/* Simple Sparkline simulation with SVG */}
+            <div className="h-10 w-full flex items-end gap-1 px-1">
+              {t.data.map((d: any, idx: number) => {
+                const max = Math.max(...t.data.map((item: any) => item.value));
+                const min = Math.min(...t.data.map((item: any) => item.value));
+                const height = max === min ? 50 : ((d.value - min) / (max - min)) * 70 + 20;
+                return (
+                  <motion.div 
+                    key={idx}
+                    initial={{ height: 0 }}
+                    animate={{ height: `${height}%` }}
+                    className="flex-1 bg-emerald-500/20 rounded-t-sm relative group"
+                  >
+                    <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-natural-900 text-white text-[8px] px-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                      {d.value}
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+            <div className="flex justify-between mt-2">
+              <span className="text-[7px] font-mono text-slate-300">{t.data[0].time}</span>
+              <span className="text-[7px] font-mono text-slate-300">{t.data[t.data.length - 1].time}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -569,13 +706,28 @@ function HashSimulator({ node, onClose }: { node: BlockchainNode, onClose: () =>
            {/* Step 2: Hashing process */}
            <div className={`transition-all duration-500 ${step >= 1 ? 'opacity-100' : 'opacity-0 translate-y-4'}`}>
              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 flex items-center gap-2">
-               <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span> 2. Chạy thuật toán băm (Hashing)
+               <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span> 2. Chạy thuật toán băm (Merkle Tree Hashing)
              </p>
-             <div className="bg-black/50 p-4 rounded-xl border border-slate-800 flex items-center gap-4">
-               <Hash size={24} className={step === 2 ? "text-amber-500 animate-spin" : "text-slate-600"} />
-               <p className={`font-mono text-xs break-all ${step === 2 ? 'text-amber-400' : 'text-slate-600'}`}>
-                 {step >= 2 ? currentHash : 'Waiting for payload...'}
-               </p>
+             <div className="bg-black/50 p-4 rounded-xl border border-slate-800 flex flex-col gap-4">
+               <div className="flex items-center gap-4">
+                 <Hash size={24} className={step === 2 ? "text-amber-500 animate-spin" : "text-slate-600"} />
+                 <p className={`font-mono text-[10px] break-all ${step === 2 ? 'text-amber-400' : 'text-slate-600'}`}>
+                   {step >= 2 ? currentHash : 'Waiting for payload...'}
+                 </p>
+               </div>
+               
+               {step >= 2 && (
+                 <div className="pt-4 border-t border-white/5 grid grid-cols-4 gap-2">
+                   {[1,2,3,4].map(i => (
+                     <motion.div 
+                       key={i}
+                       animate={{ opacity: [0.2, 1, 0.2] }}
+                       transition={{ duration: 1, delay: i * 0.2, repeat: Infinity }}
+                       className="h-1 bg-emerald-500/30 rounded-full"
+                     ></motion.div>
+                   ))}
+                 </div>
+               )}
              </div>
            </div>
 
@@ -608,6 +760,110 @@ function HashSimulator({ node, onClose }: { node: BlockchainNode, onClose: () =>
            </div>
         </div>
       </div>
+    </motion.div>
+  );
+}
+
+function TransactionExplorer({ node, onClose }: { node: BlockchainNode, onClose: () => void }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const txData = [
+    { label: "Transaction Hash", value: node.txHash || "0x7d2a...f1a", icon: Hash, isLink: true },
+    { label: "Status", value: "Success", icon: ShieldCheck, color: "text-emerald-500" },
+    { label: "Block", value: node.blockNumber?.toLocaleString() || "19,482,041", icon: Box, sub: "Confirmed by 42 Nodes" },
+    { label: "Timestamp", value: new Date(node.timestamp).toLocaleString('vi-VN'), icon: Clock },
+    { label: "From (Node)", value: "0x7a2d4E813F0C5...f9e1", icon: Fingerprint, isLink: true },
+    { label: "To (Contract)", value: "0xAgriChain_V3_Main", icon: FileText, isLink: true },
+    { label: "Value", value: "0 ETH", icon: Zap },
+    { label: "Gas Used", value: node.gasUsed || "21,000", icon: Activity },
+  ];
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] bg-[#060a06]/90 backdrop-blur-md flex items-center justify-center p-4"
+    >
+      <motion.div 
+        initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }}
+        className="w-full max-w-3xl bg-white rounded-[2rem] overflow-hidden shadow-2xl flex flex-col max-h-[90vh]"
+      >
+        <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+          <div className="flex items-center gap-3">
+             <div className="w-10 h-10 rounded-xl bg-natural-900 text-white flex items-center justify-center">
+                <Globe size={20} />
+             </div>
+             <div>
+               <h3 className="text-natural-900 font-black text-lg tracking-tight">Block Explorer</h3>
+               <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Eth-Mainnet Simulated Node</p>
+             </div>
+          </div>
+          <button onClick={onClose} className="p-2 hover:bg-slate-200 rounded-full transition-colors text-slate-400"><X size={24} /></button>
+        </div>
+
+        <div className="overflow-y-auto flex-grow">
+           <div className="p-8">
+              <div className="flex items-center justify-between mb-8">
+                 <div className="flex items-center gap-2 px-3 py-1 bg-emerald-100 text-emerald-700 rounded-lg text-[10px] font-bold uppercase">
+                    <ShieldCheck size={14} /> Transaction Verified
+                 </div>
+                 <button className="text-blue-500 text-xs font-bold hover:underline flex items-center gap-1">
+                    View on Etherscan <ExternalLink size={12} />
+                 </button>
+              </div>
+
+              <div className="space-y-6">
+                 {txData.map((item, i) => (
+                   <div key={i} className="grid grid-cols-1 md:grid-cols-12 gap-2 py-4 border-b border-slate-50 last:border-0 items-center">
+                      <div className="md:col-span-4 flex items-center gap-2 text-slate-400">
+                         <item.icon size={16} />
+                         <span className="text-xs font-bold uppercase tracking-widest">{item.label}:</span>
+                      </div>
+                      <div className="md:col-span-8 flex items-center justify-between gap-4">
+                         <div className="min-w-0">
+                            <span className={`text-sm font-mono break-all font-medium ${item.color || 'text-natural-900'} ${item.isLink ? 'text-blue-600 hover:underline cursor-pointer' : ''}`}>
+                               {item.value}
+                            </span>
+                            {item.sub && <p className="text-[10px] text-slate-400 mt-1">{item.sub}</p>}
+                         </div>
+                         {item.isLink && (
+                           <button onClick={() => handleCopy(item.value)} className="p-2 hover:bg-slate-100 rounded-lg text-slate-300 hover:text-natural-900 transition-all">
+                              <Copy size={14} />
+                           </button>
+                         )}
+                      </div>
+                   </div>
+                 ))}
+              </div>
+
+              <div className="mt-8 p-6 bg-natural-50 rounded-2xl border border-natural-100">
+                 <div className="flex items-center justify-between mb-4">
+                    <h4 className="text-[10px] font-black text-natural-900 uppercase tracking-widest">Input Data (Decoded)</h4>
+                    <span className="text-[10px] text-slate-400 font-mono">UTF-8 Raw</span>
+                 </div>
+                 <div className="bg-white p-4 rounded-xl border border-natural-100 font-mono text-[10px] text-slate-600 leading-relaxed">
+                    <p className="mb-2">Function: verifyProductData(bytes32 _dataHash, uint256 _timestamp)</p>
+                    <p className="text-emerald-600">MethodID: 0x42f9e1b2</p>
+                    <p className="mt-2 text-slate-400 italic">[0] _dataHash: {node.hash}</p>
+                    <p className="text-slate-400 italic">[1] _timestamp: {Math.floor(new Date(node.timestamp).getTime() / 1000)}</p>
+                 </div>
+              </div>
+           </div>
+        </div>
+
+        <div className="p-4 bg-slate-50 border-t border-slate-100 flex justify-center h-12">
+           {copied && (
+             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-xs font-bold text-emerald-600">
+                Copied to clipboard!
+             </motion.div>
+           )}
+        </div>
+      </motion.div>
     </motion.div>
   );
 }
