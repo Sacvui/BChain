@@ -140,6 +140,21 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                   </div>
                 </div>
 
+                {/* Trust Badges - User Centric */}
+                <div className="flex flex-wrap gap-2">
+                   {[
+                     { label: "Organic", icon: Leaf, color: "text-emerald-500", bg: "bg-emerald-50" },
+                     { label: "Fair Trade", icon: Heart, color: "text-rose-500", bg: "bg-rose-50" },
+                     { label: "Lab Tested", icon: Activity, color: "text-blue-500", bg: "bg-blue-50" },
+                     { label: "Blockchain", icon: ShieldCheck, color: "text-amber-500", bg: "bg-amber-50" }
+                   ].map((badge, i) => (
+                     <div key={i} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl ${badge.bg} border border-black/5 shadow-sm`}>
+                        <badge.icon size={12} className={badge.color} />
+                        <span className={`text-[9px] font-black uppercase tracking-tight ${badge.color}`}>{badge.label}</span>
+                     </div>
+                   ))}
+                </div>
+
                 <div className="p-4 md:p-6 rounded-2xl md:rounded-3xl bg-blue-50 border border-blue-100 flex items-center gap-3 md:gap-4">
                   <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-white flex items-center justify-center text-blue-500 shadow-sm shrink-0">
                     <Activity size={20} />
@@ -227,16 +242,17 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                          
                          <div className="mt-8 grid grid-cols-2 gap-4">
                             {[
-                              { label: "Carbon", value: product.sustainability.carbon_footprint, icon: Globe },
-                              { label: "Water", value: product.sustainability.water_saved, icon: Activity },
-                              { label: "Social", value: product.sustainability.social_impact, icon: Heart }
+                              { label: "Carbon", value: product.sustainability.carbon_footprint, icon: Globe, trend: "Low Impact" },
+                              { label: "Water", value: product.sustainability.water_saved, icon: Activity, trend: "Saved" },
+                              { label: "Social", value: product.sustainability.social_impact, icon: Heart, trend: "Support" }
                             ].map((m, i) => (
                               <div key={i} className="group p-4 bg-white rounded-2xl border border-slate-100 hover:border-natural-900/20 transition-all hover:shadow-lg">
                                  <div className="flex items-center gap-2 mb-2">
                                     <m.icon size={12} className="text-slate-300" />
                                     <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">{m.label}</span>
                                  </div>
-                                 <p className="text-[10px] font-black text-natural-900 leading-tight">{m.value}</p>
+                                 <p className="text-[10px] font-black text-natural-900 leading-tight mb-1">{m.value}</p>
+                                 <p className="text-[7px] font-bold text-emerald-500 uppercase">{m.trend}</p>
                               </div>
                             ))}
                          </div>
@@ -471,12 +487,12 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                                  {selectedNode.hash}
                                </p>
                             </div>
-                            <button 
-                              onClick={() => setShowExplorer(true)}
+                            <Link 
+                              href={`/explorer/${selectedNode.txHash || selectedNode.hash}`}
                               className="w-full py-3 bg-white/10 hover:bg-white/20 rounded-xl text-[10px] font-bold text-white flex items-center justify-center gap-2 transition-all border border-white/5"
                             >
-                               <ExternalLink size={12} /> XEM CHI TIẾT GIAO DỊCH (EXPLORER)
-                            </button>
+                               <ExternalLink size={12} /> XEM TRÊN AGRICHAIN (EXPLORER)
+                            </Link>
                          </div>
                       </div>
                     </div>
@@ -569,9 +585,6 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
         {showHashModal && selectedNode && (
           <HashSimulator node={selectedNode} onClose={() => setShowHashModal(false)} />
         )}
-        {showExplorer && selectedNode && (
-          <TransactionExplorer node={selectedNode} onClose={() => setShowExplorer(false)} />
-        )}
       </AnimatePresence>
     </main>
   );
@@ -627,6 +640,12 @@ function TelemetryDashboard({ telemetry }: { telemetry: any[] }) {
             <div className="flex justify-between mt-2">
               <span className="text-[7px] font-mono text-slate-300">{t.data[0].time}</span>
               <span className="text-[7px] font-mono text-slate-300">{t.data[t.data.length - 1].time}</span>
+            </div>
+            
+            <div className="mt-3 pt-3 border-t border-slate-50">
+               <p className="text-[9px] text-slate-400 italic leading-tight">
+                  <span className="font-bold text-natural-900 not-italic">Lưu ý:</span> {t.label.includes('Nhiệt') ? 'Nhiệt độ này được duy trì để giữ trọn vẹn giá trị dinh dưỡng của sản phẩm.' : 'Độ ẩm chuẩn giúp sản phẩm không bị biến chất trong quá trình xử lý.'}
+               </p>
             </div>
           </div>
         ))}
@@ -764,106 +783,4 @@ function HashSimulator({ node, onClose }: { node: BlockchainNode, onClose: () =>
   );
 }
 
-function TransactionExplorer({ node, onClose }: { node: BlockchainNode, onClose: () => void }) {
-  const [copied, setCopied] = useState(false);
 
-  const handleCopy = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const txData = [
-    { label: "Transaction Hash", value: node.txHash || "0x7d2a...f1a", icon: Hash, isLink: true },
-    { label: "Status", value: "Success", icon: ShieldCheck, color: "text-emerald-500" },
-    { label: "Block", value: node.blockNumber?.toLocaleString() || "19,482,041", icon: Box, sub: "Confirmed by 42 Nodes" },
-    { label: "Timestamp", value: new Date(node.timestamp).toLocaleString('vi-VN'), icon: Clock },
-    { label: "From (Node)", value: "0x7a2d4E813F0C5...f9e1", icon: Fingerprint, isLink: true },
-    { label: "To (Contract)", value: "0xAgriChain_V3_Main", icon: FileText, isLink: true },
-    { label: "Value", value: "0 ETH", icon: Zap },
-    { label: "Gas Used", value: node.gasUsed || "21,000", icon: Activity },
-  ];
-
-  return (
-    <motion.div 
-      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[100] bg-[#060a06]/90 backdrop-blur-md flex items-center justify-center p-4"
-    >
-      <motion.div 
-        initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }}
-        className="w-full max-w-3xl bg-white rounded-[2rem] overflow-hidden shadow-2xl flex flex-col max-h-[90vh]"
-      >
-        <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-          <div className="flex items-center gap-3">
-             <div className="w-10 h-10 rounded-xl bg-natural-900 text-white flex items-center justify-center">
-                <Globe size={20} />
-             </div>
-             <div>
-               <h3 className="text-natural-900 font-black text-lg tracking-tight">Block Explorer</h3>
-               <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Eth-Mainnet Simulated Node</p>
-             </div>
-          </div>
-          <button onClick={onClose} className="p-2 hover:bg-slate-200 rounded-full transition-colors text-slate-400"><X size={24} /></button>
-        </div>
-
-        <div className="overflow-y-auto flex-grow">
-           <div className="p-8">
-              <div className="flex items-center justify-between mb-8">
-                 <div className="flex items-center gap-2 px-3 py-1 bg-emerald-100 text-emerald-700 rounded-lg text-[10px] font-bold uppercase">
-                    <ShieldCheck size={14} /> Transaction Verified
-                 </div>
-                 <button className="text-blue-500 text-xs font-bold hover:underline flex items-center gap-1">
-                    View on Etherscan <ExternalLink size={12} />
-                 </button>
-              </div>
-
-              <div className="space-y-6">
-                 {txData.map((item, i) => (
-                   <div key={i} className="grid grid-cols-1 md:grid-cols-12 gap-2 py-4 border-b border-slate-50 last:border-0 items-center">
-                      <div className="md:col-span-4 flex items-center gap-2 text-slate-400">
-                         <item.icon size={16} />
-                         <span className="text-xs font-bold uppercase tracking-widest">{item.label}:</span>
-                      </div>
-                      <div className="md:col-span-8 flex items-center justify-between gap-4">
-                         <div className="min-w-0">
-                            <span className={`text-sm font-mono break-all font-medium ${item.color || 'text-natural-900'} ${item.isLink ? 'text-blue-600 hover:underline cursor-pointer' : ''}`}>
-                               {item.value}
-                            </span>
-                            {item.sub && <p className="text-[10px] text-slate-400 mt-1">{item.sub}</p>}
-                         </div>
-                         {item.isLink && (
-                           <button onClick={() => handleCopy(item.value)} className="p-2 hover:bg-slate-100 rounded-lg text-slate-300 hover:text-natural-900 transition-all">
-                              <Copy size={14} />
-                           </button>
-                         )}
-                      </div>
-                   </div>
-                 ))}
-              </div>
-
-              <div className="mt-8 p-6 bg-natural-50 rounded-2xl border border-natural-100">
-                 <div className="flex items-center justify-between mb-4">
-                    <h4 className="text-[10px] font-black text-natural-900 uppercase tracking-widest">Input Data (Decoded)</h4>
-                    <span className="text-[10px] text-slate-400 font-mono">UTF-8 Raw</span>
-                 </div>
-                 <div className="bg-white p-4 rounded-xl border border-natural-100 font-mono text-[10px] text-slate-600 leading-relaxed">
-                    <p className="mb-2">Function: verifyProductData(bytes32 _dataHash, uint256 _timestamp)</p>
-                    <p className="text-emerald-600">MethodID: 0x42f9e1b2</p>
-                    <p className="mt-2 text-slate-400 italic">[0] _dataHash: {node.hash}</p>
-                    <p className="text-slate-400 italic">[1] _timestamp: {Math.floor(new Date(node.timestamp).getTime() / 1000)}</p>
-                 </div>
-              </div>
-           </div>
-        </div>
-
-        <div className="p-4 bg-slate-50 border-t border-slate-100 flex justify-center h-12">
-           {copied && (
-             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-xs font-bold text-emerald-600">
-                Copied to clipboard!
-             </motion.div>
-           )}
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-}
