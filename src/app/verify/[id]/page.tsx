@@ -939,6 +939,7 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
       </div>
     </div>
 
+      <AnimatePresence>
         {showHashModal && selectedNode && (
           <HashSimulator node={selectedNode} onClose={() => setShowHashModal(false)} />
         )}
