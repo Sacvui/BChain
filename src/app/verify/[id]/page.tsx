@@ -6,8 +6,7 @@ import {
   ArrowLeft, ShieldCheck, MapPin, FileText, ImageIcon, ExternalLink, 
   Hash, Clock, Globe, Fingerprint, Activity, Layers, Sparkles, 
   Leaf, Package, Zap, Thermometer, Droplets, BarChart3, TrendingUp, Heart, Download,
-  Box, ChevronRight, Copy, X, QrCode, ShieldAlert, Cpu, ArrowRight,
-  Shield, Info, Database, Search, CheckCircle2, History, Link as LinkIcon, Lock
+  Box, ChevronRight, Copy, X, QrCode
 } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -20,354 +19,619 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
   const [loading, setLoading] = useState(true);
   const [isScanning, setIsScanning] = useState(true);
   const [showHashModal, setShowHashModal] = useState(false);
+  const [showExplorer, setShowExplorer] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       const { id } = unwrappedParams;
       const data = await db.findOne('products', { id });
       
-      // Simulate high-fidelity scanning animation
+      // Simulate scanning animation
       setTimeout(() => {
         setIsScanning(false);
         setProduct(data);
         if (data && data.nodes.length > 0) {
           setSelectedNode(data.nodes[0]);
           confetti({
-            particleCount: 150,
+            particleCount: 100,
             spread: 70,
             origin: { y: 0.6 },
-            colors: ['#10b981', '#3b82f6', '#fdfcf8', '#6366f1']
+            colors: ['#10b981', '#3b82f6', '#fdfcf8']
           });
         }
         setLoading(false);
-      }, 2500);
+      }, 2000);
     };
     fetchData();
   }, [unwrappedParams]);
 
   if (isScanning) return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#050805] text-white p-6 overflow-hidden">
-       <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(#34d399 1px, transparent 1px), linear-gradient(90deg, #34d399 1px, transparent 1px)', backgroundSize: '50px 50px' }}></div>
-       </div>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-natural-900 text-white p-6">
        <motion.div 
-         initial={{ scale: 0.5, opacity: 0 }}
+         initial={{ scale: 0.8, opacity: 0 }}
          animate={{ scale: 1, opacity: 1 }}
-         className="relative w-64 h-64 md:w-80 md:h-80 mb-12"
+         className="relative w-32 h-32 md:w-48 md:h-48 mb-8 md:mb-12"
        >
-         <div className="absolute inset-0 border-[8px] border-emerald-500/10 rounded-[4rem]"></div>
-         <motion.div 
-            animate={{ 
-              boxShadow: ["0 0 40px rgba(16,185,129,0.1)", "0 0 100px rgba(16,185,129,0.4)", "0 0 40px rgba(16,185,129,0.1)"] 
-            }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="absolute inset-6 border-2 border-emerald-500/20 rounded-[3rem]"
-         ></motion.div>
+         <div className="absolute inset-0 border-4 border-emerald-500/20 rounded-3xl"></div>
          <motion.div 
            animate={{ top: ['0%', '100%', '0%'] }}
-           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-           className="absolute left-0 right-0 h-1.5 bg-emerald-400 shadow-[0_0_40px_rgba(52,211,153,1)] z-10"
+           transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+           className="absolute left-0 right-0 h-1 bg-emerald-400 shadow-[0_0_15px_rgba(52,211,153,0.8)] z-10"
          ></motion.div>
-         <div className="absolute inset-0 flex items-center justify-center">
-            <motion.div
-              animate={{ opacity: [0.2, 0.6, 0.2], scale: [0.95, 1.05, 0.95] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-               <Fingerprint size={120} className="text-emerald-400" />
-            </motion.div>
+         <div className="absolute inset-4 flex items-center justify-center">
+            <Fingerprint size={60} className="md:size-20 text-emerald-400 opacity-50" />
          </div>
        </motion.div>
-       <h2 className="text-3xl md:text-5xl font-black mb-4 tracking-tighter text-center uppercase italic text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-500">Decrypting Identity</h2>
-       <div className="flex flex-col items-center gap-2">
-          <div className="flex items-center gap-4 text-emerald-400/50 font-mono text-sm uppercase tracking-widest">
-            <span className="animate-pulse">Accessing Node #8824...</span>
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-          </div>
-       </div>
+       <h2 className="text-xl md:text-2xl font-bold mb-2 tracking-tight text-center">Đang truy vấn chuỗi khối...</h2>
+       <p className="text-slate-400 text-xs md:text-sm font-light text-center">Vui lòng chờ trong giây lát để xác thực mã định danh.</p>
     </div>
   );
 
   if (!product) return (
     <div className="min-h-screen flex items-center justify-center bg-[#fdfcf8] p-6 text-center">
-      <div className="max-w-md p-12 bg-white rounded-[4rem] border border-slate-100 shadow-2xl">
-        <ShieldAlert size={80} className="text-rose-500 mx-auto mb-8" />
-        <h1 className="text-3xl font-black text-natural-900 mb-4 uppercase tracking-tighter">Identity Not Found</h1>
-        <p className="text-slate-500 font-light leading-relaxed mb-10">Mã sản phẩm này chưa được đăng ký trên AgriChain Core. Vui lòng kiểm tra lại tem chống giả hoặc liên hệ nhà sản xuất.</p>
-        <Link href="/" className="w-full py-5 bg-natural-900 text-white rounded-3xl font-bold flex items-center justify-center gap-3 hover:bg-black transition-all active:scale-95 shadow-2xl shadow-natural-900/20">
-           <ArrowLeft size={20} /> QUAY LẠI TRANG CHỦ
-        </Link>
+      <div>
+        <h1 className="text-2xl font-bold text-natural-900">Không tìm thấy sản phẩm</h1>
+        <Link href="/" className="text-natural-500 hover:underline mt-4 inline-block font-bold">Quay lại trang chủ</Link>
       </div>
     </div>
   );
 
   return (
-    <main className="min-h-screen bg-[#fdfcf8] text-[#1a2f1a] pb-24">
-      {/* Sticky Premium Header */}
-      <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-2xl border-b border-slate-100 px-4 md:px-8 py-5 shadow-sm">
+    <main className="min-h-screen bg-[#fdfcf8] text-[#1a2f1a] pb-12 md:pb-24">
+      {/* Premium Header Nav */}
+      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-100 px-4 md:px-6 py-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-3 text-slate-900 group">
-            <div className="w-10 h-10 bg-natural-900 rounded-xl flex items-center justify-center text-white shadow-xl shadow-natural-900/20 group-hover:rotate-12 transition-transform">
-               <ShieldCheck size={20} />
-            </div>
-            <span className="font-black tracking-tighter text-2xl uppercase">AgriChain<span className="text-emerald-500 ml-1">Trust</span></span>
+          <Link href="/" className="flex items-center gap-2 text-slate-500 hover:text-natural-900 transition-colors font-bold text-[10px] md:text-sm">
+            <ArrowLeft size={16} />
+            <span className="hidden sm:inline">QUAY LẠI</span>
           </Link>
-          <div className="flex items-center gap-3 md:gap-6">
-            <div className="hidden lg:flex items-center gap-3 px-5 py-2 bg-slate-50 border border-slate-100 rounded-2xl">
-               <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-               <span className="text-[11px] font-mono font-black text-slate-400 uppercase tracking-widest">Protocol: V3.0-Mainnet</span>
+          <div className="flex items-center gap-2 md:gap-6">
+            <div className="hidden sm:flex items-center gap-2 text-[10px] font-mono text-slate-400 bg-slate-50 px-3 py-1 rounded-lg border border-slate-100">
+               <Layers size={12} />
+               ETH MAINNET: {product.nodes[0].hash.substring(0, 10)}...
             </div>
-            <div className="px-5 py-2.5 rounded-full bg-emerald-500 text-white text-[11px] font-black shadow-2xl shadow-emerald-500/40 flex items-center gap-2 uppercase tracking-[0.1em]">
-              <CheckCircle2 size={16} /> Verified Authentic
+            <div className="px-3 py-1.5 md:px-5 md:py-2 rounded-full bg-emerald-500 text-white text-[9px] md:text-[11px] font-bold shadow-lg shadow-emerald-500/20 flex items-center gap-2">
+              <ShieldCheck size={14} /> XÁC THỰC BLOCKCHAIN
             </div>
           </div>
         </div>
       </nav>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-12">
-        
-        {/* Product Digital Passport Header */}
-        <section className="mb-16 md:mb-24">
-           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-20 items-center">
-              <div className="lg:col-span-5">
-                 <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} className="relative group">
-                    <div className="absolute -inset-4 bg-emerald-500/10 rounded-[4.5rem] blur-2xl group-hover:bg-emerald-500/20 transition-all"></div>
-                    <div className="relative rounded-[4rem] overflow-hidden border-8 border-white shadow-2xl aspect-square bg-white">
-                       <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
-                       <div className="absolute inset-0 bg-gradient-to-t from-natural-950/40 via-transparent to-transparent"></div>
-                       <div className="absolute bottom-10 left-10 right-10">
-                          <div className="flex items-center gap-3 p-4 bg-white/10 backdrop-blur-xl border border-white/20 rounded-[2rem] text-white">
-                             <QrCode size={32} />
-                             <div>
-                                <p className="text-[10px] font-black uppercase tracking-[0.2em] opacity-80">Product Fingerprint</p>
-                                <p className="text-xs font-mono font-bold truncate">{product.id.toUpperCase()}</p>
-                             </div>
-                          </div>
+      <div className="max-w-7xl mx-auto p-4 md:p-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-16">
+          
+          {/* Left Column: Product Sidebar */}
+          <div className="lg:col-span-4 space-y-8 md:space-y-12">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+            >
+              {product.image && (
+                <div className="mb-6 rounded-[2.5rem] overflow-hidden border border-slate-100 shadow-2xl aspect-square bg-white relative group">
+                  <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  {/* High-tech scanning beam */}
+                  <motion.div 
+                    initial={{ top: '-10%' }}
+                    animate={{ top: '110%' }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                    className="absolute left-0 right-0 h-[2px] bg-emerald-400 shadow-[0_0_15px_rgba(52,211,153,0.8)] z-10 opacity-50"
+                  ></motion.div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-natural-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+              )}
+              <div className="inline-block px-2 py-0.5 md:px-3 md:py-1 rounded-lg bg-natural-100 text-natural-600 text-[8px] md:text-[10px] font-black uppercase tracking-widest mb-3 md:mb-4">
+                {product.category}
+              </div>
+              <h1 className="text-2xl md:text-4xl font-extrabold text-natural-950 mb-6 md:mb-8 tracking-tighter leading-tight">{product.name}</h1>
+              
+              <div className="space-y-4 md:space-y-6">
+                <div className="natural-card p-6 md:p-8 bg-white shadow-xl shadow-natural-900/5 border-natural-100 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 p-4 opacity-5">
+                    <Fingerprint size={60} />
+                  </div>
+                  <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4 md:mb-6">Thông số kỹ thuật</h3>
+                  <div className="space-y-3 md:space-y-4">
+                    {Object.entries(product.attributes).map(([key, value]) => (
+                      <div key={key} className="flex justify-between items-center text-xs md:text-sm border-b border-slate-50 pb-2 md:pb-3 last:border-0 last:pb-0">
+                        <span className="text-slate-400 font-medium capitalize">{key.replace('_', ' ')}</span>
+                        <span className="font-bold text-natural-900">{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-4 md:p-6 rounded-2xl md:rounded-3xl bg-blue-50 border border-blue-100 flex items-center gap-3 md:gap-4">
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-white flex items-center justify-center text-blue-500 shadow-sm shrink-0">
+                    <Activity size={20} />
+                  </div>
+                  <div>
+                    <p className="text-[8px] md:text-[10px] font-bold text-blue-400 uppercase tracking-widest">Health Score</p>
+                    <p className="text-xs md:text-sm font-bold text-blue-900">100% Nguyên Chất</p>
+                  </div>
+                </div>
+
+                {product.sustainability && (
+                  <div className="space-y-6">
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.8, ease: "easeOut" }}
+                      className="p-8 rounded-[2.5rem] bg-gradient-to-br from-emerald-900 via-emerald-950 to-black text-white shadow-2xl shadow-emerald-900/40 relative overflow-hidden group"
+                    >
+                       {/* Animated Glow */}
+                       <div className="absolute -top-24 -right-24 w-48 h-48 bg-emerald-400 rounded-full blur-[80px] opacity-20 group-hover:opacity-40 transition-opacity duration-1000"></div>
+                       
+                       <div className="relative z-10">
+                         <div className="flex items-center gap-3 mb-6">
+                            <div className="w-10 h-10 rounded-2xl bg-emerald-400/10 flex items-center justify-center text-emerald-400 border border-emerald-400/20 shadow-[0_0_15px_rgba(52,211,153,0.2)]">
+                               <Leaf size={20} />
+                            </div>
+                            <span className="text-xs font-black uppercase tracking-[0.2em] text-emerald-400">Sustainability Index</span>
+                         </div>
+                         
+                         <div className="flex items-end gap-3 mb-4">
+                            <motion.span 
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              className="text-6xl font-black tracking-tighter"
+                            >
+                              {product.sustainability.score}
+                            </motion.span>
+                            <span className="text-xl font-bold text-emerald-400/60 mb-2">/100</span>
+                         </div>
+                         
+                         <div className="w-full h-3 bg-white/5 rounded-full overflow-hidden backdrop-blur-md border border-white/5 p-0.5">
+                            <motion.div 
+                              initial={{ width: 0 }}
+                              animate={{ width: `${product.sustainability.score}%` }}
+                              transition={{ duration: 2, ease: "circOut" }}
+                              className="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 rounded-full shadow-[0_0_20px_rgba(52,211,153,0.5)]"
+                            ></motion.div>
+                         </div>
+                         
+                         <div className="mt-8 flex items-center justify-between">
+                            <div className="flex -space-x-2">
+                               {[1,2,3].map(i => (
+                                 <div key={i} className="w-6 h-6 rounded-full border-2 border-emerald-950 bg-emerald-800 flex items-center justify-center">
+                                    <ShieldCheck size={10} className="text-emerald-400" />
+                                 </div>
+                               ))}
+                            </div>
+                            <p className="text-[10px] font-bold text-emerald-400/80 uppercase tracking-widest">Global Verified</p>
+                         </div>
                        </div>
-                    </div>
-                 </motion.div>
-              </div>
+                    </motion.div>
 
-              <div className="lg:col-span-7 space-y-8">
-                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                    <div className="flex items-center gap-4 mb-6">
-                       <span className="px-5 py-2 rounded-full bg-emerald-50 text-emerald-600 text-xs font-black uppercase tracking-[0.1em] border border-emerald-100">{product.category}</span>
-                    </div>
-                    <h1 className="text-5xl md:text-8xl font-black text-natural-950 mb-8 tracking-tighter leading-[0.85]">
-                       {product.name.split(' ').map((word, i) => i === 0 ? word + ' ' : <span key={i} className="text-emerald-500">{word} </span>)}
-                    </h1>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                       {Object.entries(product.attributes).map(([key, value]) => (
-                         <div key={key} className="p-6 bg-white rounded-[2rem] border border-slate-100 shadow-sm">
-                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">{key.replace('_', ' ')}</p>
-                            <p className="text-lg font-black text-natural-900">{value}</p>
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className="p-8 rounded-[2.5rem] bg-white border border-slate-100 shadow-2xl shadow-natural-900/5 relative overflow-hidden"
+                    >
+                       <div className="absolute -bottom-12 -left-12 w-32 h-32 bg-natural-50 rounded-full blur-[40px] opacity-50"></div>
+                       
+                       <div className="relative z-10">
+                         <div className="flex items-center gap-3 mb-6">
+                            <div className="w-10 h-10 rounded-2xl bg-natural-900 text-white flex items-center justify-center shadow-lg shadow-natural-900/20">
+                               <Sparkles size={18} />
+                            </div>
+                            <span className="text-xs font-black uppercase tracking-[0.2em] text-natural-900">AI Deep Analysis</span>
                          </div>
-                       ))}
-                    </div>
-                 </motion.div>
+                         
+                         <div className="relative p-5 bg-natural-50/50 rounded-2xl border border-natural-100/50">
+                            <div className="absolute -left-1 top-4 w-1 h-8 bg-natural-900 rounded-full"></div>
+                            <p className="text-sm text-natural-900 font-medium leading-relaxed italic">
+                              "{product.sustainability.ai_insight}"
+                            </p>
+                         </div>
+                         
+                         <div className="mt-8 grid grid-cols-2 gap-4">
+                            {[
+                              { label: "Carbon", value: product.sustainability.carbon_footprint, icon: Globe },
+                              { label: "Water", value: product.sustainability.water_saved, icon: Activity },
+                              { label: "Social", value: product.sustainability.social_impact, icon: Heart }
+                            ].map((m, i) => (
+                              <div key={i} className="group p-4 bg-white rounded-2xl border border-slate-100 hover:border-natural-900/20 transition-all hover:shadow-lg">
+                                 <div className="flex items-center gap-2 mb-2">
+                                    <m.icon size={12} className="text-slate-300" />
+                                    <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">{m.label}</span>
+                                 </div>
+                                 <p className="text-[10px] font-black text-natural-900 leading-tight">{m.value}</p>
+                              </div>
+                            ))}
+                         </div>
+                       </div>
+                    </motion.div>
+                  </div>
+                )}
               </div>
-           </div>
-        </section>
+            </motion.div>
 
-        {/* Formation Stages Section */}
-        <section className="mb-24">
-           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-              <div>
-                 <h2 className="text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-4 flex items-center gap-3">
-                    <Layers size={20} className="text-emerald-500" />
-                    Các giai đoạn hình thành sản phẩm
-                 </h2>
-                 <p className="text-4xl md:text-6xl font-black text-natural-950 tracking-tighter">Formation <span className="text-emerald-500">Journey</span></p>
+            <section>
+              <div className="flex items-center justify-between mb-8">
+                <div className="space-y-1">
+                  <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2">
+                    <Layers size={12} className="text-natural-900" />
+                    Lịch sử chuỗi khối
+                  </h2>
+                  <p className="text-[8px] text-slate-400 font-bold uppercase tracking-widest">Global Ledger - Node Network</p>
+                </div>
+                <div className="flex items-center gap-1.5 text-[8px] font-bold text-emerald-500 bg-emerald-50 px-2 py-1 rounded-md border border-emerald-100 shadow-sm shadow-emerald-500/5">
+                  <ShieldCheck size={10} />
+                  SECURED BY ETH
+                </div>
               </div>
-           </div>
-
-           {/* Vertical Formation Flow */}
-           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-              <div className="lg:col-span-4 space-y-4">
-                 {product.nodes.map((node, i) => (
-                   <motion.div 
-                     key={i}
-                     onClick={() => setSelectedNode(node)}
-                     className={`cursor-pointer p-6 rounded-[2.5rem] border-2 transition-all flex items-center gap-6 ${
-                       selectedNode === node 
-                       ? 'bg-natural-900 text-white border-natural-900 shadow-2xl scale-105 z-10' 
-                       : 'bg-white text-slate-500 border-slate-100 hover:border-emerald-500'
-                     }`}
-                   >
-                      <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${selectedNode === node ? 'bg-emerald-500 text-white' : 'bg-slate-50 text-slate-400'}`}>
-                         <span className="font-black text-xl">{i+1}</span>
+              
+              <div className="relative space-y-6">
+                {/* Futuristic Connector Line with Animated Pulse */}
+                <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-slate-100 hidden md:block">
+                  <motion.div 
+                    animate={{ top: ['-20%', '120%'] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                    className="absolute left-0 right-0 h-24 bg-gradient-to-b from-transparent via-emerald-400 to-transparent z-10"
+                  ></motion.div>
+                </div>
+                
+                {product.nodes.map((node, i) => (
+                  <motion.div 
+                    key={i}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    whileHover={{ scale: 1.02, x: 5 }}
+                    onClick={() => setSelectedNode(node)}
+                    className={`relative flex items-start gap-4 p-5 rounded-[2rem] cursor-pointer transition-all duration-300 border group ${
+                      selectedNode === node 
+                      ? 'bg-white border-natural-200 shadow-[0_20px_50px_-12px_rgba(26,47,26,0.1)] ring-1 ring-natural-500/10' 
+                      : 'bg-transparent border-transparent opacity-60 hover:opacity-100 hover:bg-white/50'
+                    }`}
+                  >
+                    {/* Node Icon/Indicator */}
+                    <div className="relative z-20">
+                      <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 border-2 transition-all duration-500 ${
+                        selectedNode === node 
+                        ? 'bg-natural-900 border-natural-900 text-white shadow-[0_0_20px_rgba(26,47,26,0.3)] rotate-3' 
+                        : 'bg-white border-slate-100 text-slate-300 group-hover:border-natural-200'
+                      }`}>
+                         {i === 0 ? <Package size={18} /> : i === product.nodes.length - 1 ? <Globe size={18} /> : <Zap size={18} />}
                       </div>
-                      <div className="min-w-0">
-                         <p className="text-[9px] font-black uppercase tracking-widest opacity-60 mb-1">{node.type} PHASE</p>
-                         <h4 className="font-black text-lg truncate leading-none">{node.title}</h4>
+                      
+                      {/* Confirmation dots */}
+                      <div className="absolute -bottom-1 -right-1 flex gap-0.5">
+                         {[1,2,3].map(dot => (
+                           <div key={dot} className={`w-1.5 h-1.5 rounded-full border border-white shadow-sm ${selectedNode === node ? 'bg-emerald-500' : 'bg-slate-200'}`}></div>
+                         ))}
                       </div>
-                      <ChevronRight size={20} className={`ml-auto ${selectedNode === node ? 'text-emerald-500' : 'text-slate-200'}`} />
-                   </motion.div>
-                 ))}
-              </div>
+                    </div>
 
-              <div className="lg:col-span-8">
-                 <AnimatePresence mode="wait">
-                    {selectedNode && (
-                      <motion.div
-                        key={selectedNode.id}
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
-                        className="bg-white rounded-[4rem] border border-slate-100 shadow-2xl overflow-hidden flex flex-col"
-                      >
-                         <div className="h-[300px] relative">
-                            <img src={selectedNode.images[0]} className="w-full h-full object-cover" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-natural-950/80 to-transparent"></div>
-                            <div className="absolute bottom-10 left-10">
-                               <h3 className="text-3xl md:text-5xl font-black text-white tracking-tighter uppercase italic">{selectedNode.title}</h3>
-                            </div>
+                    <div className="min-w-0 flex-1 pt-1">
+                      <div className="flex items-center justify-between gap-2 mb-1.5">
+                        <span className={`text-[7px] font-black uppercase tracking-[0.2em] px-2 py-0.5 rounded-full border ${
+                          selectedNode === node 
+                          ? 'bg-natural-900 text-white border-natural-900' 
+                          : 'bg-slate-50 text-slate-400 border-slate-100'
+                        }`}>
+                          {node.type}
+                        </span>
+                        <div className="flex items-center gap-2">
+                           <span className="text-[8px] font-mono text-slate-400">#{node.blockNumber || '19,482k'}</span>
+                           <div className={`w-1.5 h-1.5 rounded-full ${selectedNode === node ? 'bg-emerald-500' : 'bg-slate-200 animate-pulse'}`}></div>
+                        </div>
+                      </div>
+                      
+                      <h4 className={`text-xs md:text-sm font-black tracking-tight mb-2 truncate ${selectedNode === node ? 'text-natural-900' : 'text-slate-500'}`}>
+                        {node.title}
+                      </h4>
+                      
+                      <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-1.5">
+                          <Clock size={10} className="text-slate-300" />
+                          <span className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                            {new Date(node.timestamp).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' })}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <Activity size={10} className="text-emerald-500/50" />
+                          <span className="text-[9px] text-emerald-600 font-mono font-bold">
+                            {node.gasUsed || '21k'} GWEI
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Progress Percentage Simulation */}
+                    {selectedNode === node && (
+                      <div className="absolute top-4 right-4 flex flex-col items-end">
+                         <span className="text-[10px] font-black text-natural-900">100%</span>
+                         <div className="w-10 h-0.5 bg-slate-100 mt-1 rounded-full overflow-hidden">
+                            <motion.div 
+                              initial={{ width: 0 }}
+                              animate={{ width: '100%' }}
+                              className="h-full bg-natural-900"
+                            ></motion.div>
                          </div>
-
-                         <div className="p-10 md:p-16 space-y-12">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                               <div className="space-y-8">
-                                  <div>
-                                     <h4 className="text-[10px] font-black text-slate-300 uppercase tracking-[0.4em] mb-4">Chi tiết công đoạn</h4>
-                                     <p className="text-slate-600 leading-relaxed font-light">{selectedNode.description}</p>
-                                  </div>
-                                  <div className="flex flex-col gap-4">
-                                     <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                                        <MapPin size={20} className="text-emerald-500" />
-                                        <div>
-                                           <p className="text-[9px] font-black text-slate-400 uppercase">Location</p>
-                                           <p className="text-sm font-bold">{selectedNode.location}</p>
-                                        </div>
-                                     </div>
-                                     <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                                        <Clock size={20} className="text-emerald-500" />
-                                        <div>
-                                           <p className="text-[9px] font-black text-slate-400 uppercase">Timestamp</p>
-                                           <p className="text-sm font-bold">{new Date(selectedNode.timestamp).toLocaleString('vi-VN')}</p>
-                                        </div>
-                                     </div>
-                                  </div>
-                               </div>
-
-                               <div className="space-y-8">
-                                  <h4 className="text-[10px] font-black text-slate-300 uppercase tracking-[0.4em] flex items-center gap-2">
-                                     <History size={14} className="text-emerald-500" /> Lịch sử xác thực (Audit Trail)
-                                  </h4>
-                                  <div className="space-y-4">
-                                     {[
-                                       { label: "Data Capture", time: "T+0m", status: "Success", icon: Database },
-                                       { label: "Node Consensus", time: "T+2m", status: "Success", icon: Cpu },
-                                       { label: "Ledger Immutable", time: "T+5m", status: "Sealed", icon: Lock },
-                                       { label: "Block Confirmed", time: "T+8m", status: "Active", icon: LinkIcon }
-                                     ].map((step, i) => (
-                                       <div key={i} className="flex items-center justify-between p-4 bg-white border border-slate-100 rounded-2xl group hover:border-emerald-500 transition-all">
-                                          <div className="flex items-center gap-3">
-                                             <div className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 group-hover:text-emerald-500 transition-colors">
-                                                <step.icon size={16} />
-                                             </div>
-                                             <span className="text-xs font-bold text-slate-700">{step.label}</span>
-                                          </div>
-                                          <div className="text-right">
-                                             <p className="text-[9px] font-black text-emerald-500 uppercase">{step.status}</p>
-                                             <p className="text-[8px] font-mono text-slate-300">{step.time}</p>
-                                          </div>
-                                       </div>
-                                     ))}
-                                  </div>
-                               </div>
-                            </div>
-
-                            <div className="pt-10 border-t border-slate-100 flex flex-col md:flex-row gap-6 items-center justify-between">
-                               <div className="flex items-center gap-4">
-                                  <div className="w-12 h-12 rounded-2xl bg-natural-900 flex items-center justify-center text-emerald-500">
-                                     <ShieldCheck size={24} />
-                                  </div>
-                                  <div>
-                                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Blockchain Signature</p>
-                                     <p className="text-xs font-mono font-bold text-slate-900 break-all">{selectedNode.hash.substring(0, 32)}...</p>
-                                  </div>
-                               </div>
-                               <Link 
-                                 href={`/explorer/${selectedNode.txHash || selectedNode.hash}`}
-                                 className="px-8 py-4 bg-emerald-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest flex items-center gap-3 shadow-xl shadow-emerald-500/20"
-                               >
-                                  <Globe size={18} /> View Ledger
-                               </Link>
-                            </div>
-                         </div>
-                      </motion.div>
+                      </div>
                     )}
-                 </AnimatePresence>
+                  </motion.div>
+                ))}
               </div>
-           </div>
-        </section>
+            </section>
+          </div>
 
-        {/* AI & Sustainability Section */}
-        {product.sustainability && (
-           <section className="mt-24 grid grid-cols-1 lg:grid-cols-2 gap-12">
-              <div className="p-12 md:p-20 rounded-[4rem] bg-[#111b11] text-white relative overflow-hidden">
-                 <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none"></div>
-                 <div className="relative z-10">
-                    <div className="flex items-center gap-4 mb-10">
-                       <div className="w-14 h-14 rounded-2xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 border border-emerald-500/20"><Sparkles size={28} /></div>
-                       <span className="text-xs font-black uppercase tracking-[0.4em] text-emerald-400">AI Trust Synthesis</span>
+          {/* Right Column: Interactive Node Detail Viewer */}
+          <div className="lg:col-span-8">
+            <AnimatePresence mode="wait">
+              {selectedNode && (
+                <motion.div 
+                  key={selectedNode.id || selectedNode.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-white rounded-[2rem] md:rounded-[3rem] border border-slate-100 shadow-2xl overflow-hidden min-h-[500px] md:min-h-[700px] flex flex-col relative"
+                >
+                  {/* Immersive Banner */}
+                  <div className="h-48 md:h-80 relative overflow-hidden group">
+                    <img 
+                      src={selectedNode.images[0]} 
+                      alt={selectedNode.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-natural-950 via-natural-950/20 to-transparent"></div>
+                    <div className="absolute bottom-6 left-6 right-6 md:bottom-10 md:left-10 md:right-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+                      <div>
+                        <div className="flex flex-wrap items-center gap-2 mb-2 md:mb-3">
+                           <span className="px-2 py-0.5 rounded-md bg-white/20 backdrop-blur-md text-white text-[8px] font-black uppercase tracking-widest border border-white/20">
+                             {selectedNode.type}
+                           </span>
+                           <span className="px-2 py-0.5 rounded-md bg-emerald-500 text-white text-[8px] font-black uppercase tracking-widest shadow-lg shadow-emerald-500/20">
+                             Verified
+                           </span>
+                        </div>
+                        <h2 className="text-xl md:text-4xl font-extrabold text-white tracking-tight">{selectedNode.title}</h2>
+                      </div>
+                      <div className="flex flex-col md:items-end gap-3">
+                         <div className="flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-xl border border-white/10 text-white/80 text-[10px] font-mono">
+                            <Fingerprint size={12} className="text-emerald-400" />
+                            {selectedNode.hash.substring(0, 20)}...
+                         </div>
+                         <div className="flex items-center gap-4 text-white/50 text-[9px] font-bold uppercase tracking-widest">
+                            <span className="flex items-center gap-1"><Globe size={10} /> IPFS Secured</span>
+                            <span className="flex items-center gap-1"><ShieldCheck size={10} /> Signed by Node</span>
+                         </div>
+                      </div>
                     </div>
-                    <div className="flex items-end gap-4 mb-12">
-                       <h3 className="text-9xl font-black tracking-tighter leading-none">{product.sustainability.score}</h3>
-                       <div className="pb-4">
-                          <p className="text-xl font-bold text-emerald-400">/100</p>
-                          <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Trust Score</p>
-                       </div>
-                    </div>
-                    <div className="p-8 bg-white/5 rounded-[3rem] border border-white/10 italic text-lg leading-relaxed font-light text-slate-300">
-                       "{product.sustainability.ai_insight}"
-                    </div>
-                 </div>
-              </div>
+                  </div>
 
-              <div className="flex flex-col gap-8">
-                 <div className="p-12 rounded-[4rem] bg-white border border-slate-100 shadow-2xl flex-grow">
-                    <h3 className="text-2xl font-black text-natural-950 mb-6 tracking-tighter uppercase italic">Sản phẩm này được hình thành như thế nào?</h3>
-                    <p className="text-slate-500 font-light leading-relaxed mb-8">Hệ thống AgriChain ghi nhận từng biến số từ môi trường nuôi trồng đến quy trình tinh chế để tạo ra bản sao số (Digital Twin) hoàn hảo nhất.</p>
-                    <div className="grid grid-cols-2 gap-4">
-                       <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100">
-                          <p className="text-[9px] font-black text-slate-400 uppercase mb-1">Carbon</p>
-                          <p className="text-lg font-black">{product.sustainability.carbon_footprint}</p>
-                       </div>
-                       <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100">
-                          <p className="text-[9px] font-black text-slate-400 uppercase mb-1">Water</p>
-                          <p className="text-lg font-black">{product.sustainability.water_saved}</p>
-                       </div>
-                    </div>
-                 </div>
-                 
-                 <div 
-                   onClick={() => setShowHashModal(true)}
-                   className="p-10 rounded-[3rem] bg-emerald-500 text-white shadow-2xl shadow-emerald-500/30 flex items-center justify-between cursor-pointer hover:bg-emerald-600 transition-all"
-                 >
-                    <div className="flex items-center gap-6">
-                       <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center border border-white/20"><Hash size={28} /></div>
-                       <h3 className="text-xl font-black tracking-tighter">Verify Cryptographic Hash</h3>
-                    </div>
-                    <ArrowRight size={28} />
-                 </div>
-              </div>
-           </section>
-        )}
-      </div>
+                  {/* Blockchain Binding Bar */}
+                  <div className="bg-emerald-500/5 border-b border-emerald-500/10 p-4 md:px-10 flex flex-wrap items-center justify-between gap-4">
+                     <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                        <span className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.2em]">Dữ liệu được bảo chứng bởi Smart Contract</span>
+                     </div>
+                     <div className="flex items-center gap-6">
+                        <div className="flex flex-col">
+                           <span className="text-[7px] font-black text-slate-400 uppercase tracking-widest">Digital Signature</span>
+                           <span className="text-[10px] font-mono text-natural-900 font-bold">0x7F2...D9C4</span>
+                        </div>
+                        <div className="flex flex-col">
+                           <span className="text-[7px] font-black text-slate-400 uppercase tracking-widest">Merkle Proof</span>
+                           <span className="text-[10px] font-mono text-natural-900 font-bold">MATCHED ✅</span>
+                        </div>
+                     </div>
+                  </div>
 
-      {/* Footer CTA */}
-      <div className="mt-32 flex flex-col items-center gap-10">
-         <Link href="/" className="px-16 py-8 bg-natural-900 text-white rounded-[2.5rem] font-black text-sm uppercase tracking-[0.2em] flex items-center gap-4 shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-2 transition-all">
-            <QrCode size={28} /> Verify Another Product
-         </Link>
+                  <div className="p-6 md:p-14 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 flex-grow">
+                    {/* Detailed Context */}
+                    <div className="space-y-8 md:space-y-12">
+                      <div>
+                        <h3 className="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em] mb-4 md:mb-6">Mô tả quy trình</h3>
+                        <p className="text-slate-600 leading-relaxed text-xs md:text-sm font-light">
+                          {selectedNode.description}
+                        </p>
+                      </div>
+
+                      <div className="space-y-4 md:space-y-6">
+                        <div className="p-4 md:p-6 rounded-2xl md:rounded-[2rem] bg-natural-50 border border-natural-100 flex items-start gap-4 md:gap-5">
+                           <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white flex items-center justify-center text-natural-500 shadow-sm shrink-0">
+                             <MapPin size={20} />
+                           </div>
+                           <div>
+                             <p className="text-[8px] md:text-[10px] font-black text-natural-400 uppercase tracking-widest mb-1">Vị trí thực tế</p>
+                             <p className="text-sm md:text-base font-bold text-natural-900 leading-tight">{selectedNode.location}</p>
+                             <div className="mt-2 inline-flex items-center gap-1.5 px-2 py-0.5 bg-white rounded-full text-[8px] md:text-[10px] font-mono text-slate-500 border border-slate-100">
+                                <Globe size={10} /> {selectedNode.coordinates}
+                             </div>
+                           </div>
+                        </div>
+
+                        {/* Telemetry Section */}
+                        {selectedNode.telemetry && selectedNode.telemetry.length > 0 && (
+                          <TelemetryDashboard telemetry={selectedNode.telemetry} />
+                        )}
+
+                        <div className="p-6 md:p-8 rounded-[2.5rem] bg-gradient-to-br from-slate-900 to-black text-white relative overflow-hidden group border border-white/5 shadow-2xl">
+                            {/* Scanning pulse */}
+                            <div className="absolute inset-0 bg-emerald-500/5 animate-pulse pointer-events-none"></div>
+                            
+                            <div className="flex justify-between items-start mb-6 relative z-10">
+                              <div>
+                                <p className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.2em] mb-1">Blockchain Hash Signature</p>
+                                <p className="text-[8px] font-bold text-slate-500 uppercase tracking-widest">Secured by Ethereum Node #42</p>
+                              </div>
+                              <button 
+                                onClick={() => setShowHashModal(true)}
+                                className="text-[10px] font-black text-natural-900 bg-emerald-400 px-4 py-2 rounded-xl hover:bg-emerald-300 transition-all shadow-[0_0_20px_rgba(52,211,153,0.4)] flex items-center gap-2 active:scale-95"
+                              >
+                                <Hash size={14} /> KIỂM CHỨNG ETH
+                              </button>
+                            </div>
+                            <div className="bg-black/50 p-4 rounded-2xl border border-white/5 relative z-10 mb-4">
+                               <p className="text-[10px] md:text-sm font-mono text-emerald-400/90 break-all leading-relaxed tracking-wider">
+                                 {selectedNode.hash}
+                               </p>
+                            </div>
+                            <button 
+                              onClick={() => setShowExplorer(true)}
+                              className="w-full py-3 bg-white/10 hover:bg-white/20 rounded-xl text-[10px] font-bold text-white flex items-center justify-center gap-2 transition-all border border-white/5"
+                            >
+                               <ExternalLink size={12} /> XEM CHI TIẾT GIAO DỊCH (EXPLORER)
+                            </button>
+                         </div>
+                      </div>
+                    </div>
+
+                    {/* Visual Evidence & Paperwork */}
+                    <div className="space-y-8 md:space-y-12">
+                      <div>
+                        <h3 className="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em] mb-4 md:mb-6">Bảo chứng kỹ thuật số (Paperwork)</h3>
+                        <div className="grid grid-cols-1 gap-2 md:gap-3">
+                          {selectedNode.documents.map((doc, i) => (
+                            <motion.a 
+                              whileHover={{ scale: 1.01 }}
+                              whileTap={{ scale: 0.99 }}
+                              key={i}
+                              href={doc.url}
+                              className="flex items-center justify-between p-4 rounded-xl md:rounded-2xl bg-white border border-slate-100 hover:border-natural-900 transition-all shadow-sm group"
+                            >
+                              <div className="flex items-center gap-3 md:gap-4">
+                                <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-natural-50 group-hover:text-natural-600 transition-colors shrink-0">
+                                   <FileText size={18} />
+                                </div>
+                                <span className="text-xs font-bold text-slate-700 truncate max-w-[150px] sm:max-w-none">{doc.name}</span>
+                              </div>
+                              <ExternalLink size={16} className="text-slate-300 group-hover:text-natural-900 shrink-0" />
+                            </motion.a>
+                          ))}
+                        </div>
+
+                        {/* Merkle Binding Certificate */}
+                        <div className="mt-6 p-5 rounded-2xl bg-emerald-500/5 border border-emerald-500/10">
+                           <div className="flex items-center gap-2 mb-4">
+                              <ShieldCheck size={16} className="text-emerald-500" />
+                              <span className="text-[10px] font-black text-natural-900 uppercase tracking-widest">Blockchain Binding</span>
+                           </div>
+                           <div className="space-y-2.5">
+                              <div className="flex justify-between items-center bg-white/50 p-2 rounded-lg border border-white">
+                                 <span className="text-[8px] font-bold text-slate-400 uppercase">Storage</span>
+                                 <span className="text-[9px] font-bold text-blue-500 font-mono">IPFS://QmXo...Z2a</span>
+                              </div>
+                              <div className="flex justify-between items-center bg-white/50 p-2 rounded-lg border border-white">
+                                 <span className="text-[8px] font-bold text-slate-400 uppercase">Verification</span>
+                                 <span className="text-[9px] font-bold text-emerald-500">SIGNED & LOCKED 🔒</span>
+                              </div>
+                           </div>
+                        </div>
+
+                        <button className="w-full mt-4 py-4 border-2 border-dashed border-slate-200 rounded-2xl text-slate-400 text-xs font-bold hover:border-natural-900 hover:text-natural-900 transition-all flex items-center justify-center gap-2 group">
+                           <Download size={16} className="group-hover:animate-bounce" /> XUẤT CHỨNG CHỈ SỐ (PDF)
+                        </button>
+                      </div>
+
+                      <div>
+                        <h3 className="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em] mb-4 md:mb-6">Hình ảnh lưu trữ</h3>
+                        <div className="grid grid-cols-2 gap-3 md:gap-4">
+                          {selectedNode.images.map((img, i) => (
+                            <motion.div 
+                              key={i} 
+                              whileHover={{ scale: 1.05 }}
+                              className="aspect-[4/3] rounded-2xl md:rounded-3xl overflow-hidden border border-slate-100 shadow-sm cursor-zoom-in"
+                            >
+                              <img src={img} className="w-full h-full object-cover" alt="Verification Evidence" />
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="mt-12 flex flex-col items-center gap-6"
+            >
+               <div className="h-[1px] w-32 bg-slate-100"></div>
+               <Link href="/" className="px-10 py-5 bg-natural-900 text-white rounded-[2rem] font-bold flex items-center gap-3 shadow-2xl shadow-natural-900/30 hover:-translate-y-1 hover:bg-black transition-all active:scale-95 group">
+                  <QrCode size={20} className="group-hover:rotate-12 transition-transform" /> 
+                  <span>QUÉT SẢN PHẨM KHÁC</span>
+               </Link>
+               <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em]">End of Blockchain Record</p>
+            </motion.div>
+          </div>
+        </div>
       </div>
 
       <AnimatePresence>
         {showHashModal && selectedNode && (
           <HashSimulator node={selectedNode} onClose={() => setShowHashModal(false)} />
         )}
+        {showExplorer && selectedNode && (
+          <TransactionExplorer node={selectedNode} onClose={() => setShowExplorer(false)} />
+        )}
       </AnimatePresence>
     </main>
+  );
+}
+
+function TelemetryDashboard({ telemetry }: { telemetry: any[] }) {
+  return (
+    <div className="space-y-4">
+      <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2">
+        <Activity size={12} className="text-emerald-500" />
+        Thông số vận hành (IOT Telemetry)
+      </h3>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {telemetry.map((t, i) => (
+          <div key={i} className="p-4 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400">
+                  {t.label.includes('Nhiệt') ? <Thermometer size={16} /> : t.label.includes('Độ ẩm') ? <Droplets size={16} /> : <BarChart3 size={16} />}
+                </div>
+                <div>
+                  <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">{t.label}</p>
+                  <p className="text-lg font-black text-natural-900 leading-none">
+                    {t.data[t.data.length - 1].value}{t.unit}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-1 text-[8px] font-bold text-emerald-500 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100">
+                <TrendingUp size={10} /> STABLE
+              </div>
+            </div>
+            
+            {/* Simple Sparkline simulation with SVG */}
+            <div className="h-10 w-full flex items-end gap-1 px-1">
+              {t.data.map((d: any, idx: number) => {
+                const max = Math.max(...t.data.map((item: any) => item.value));
+                const min = Math.min(...t.data.map((item: any) => item.value));
+                const height = max === min ? 50 : ((d.value - min) / (max - min)) * 70 + 20;
+                return (
+                  <motion.div 
+                    key={idx}
+                    initial={{ height: 0 }}
+                    animate={{ height: `${height}%` }}
+                    className="flex-1 bg-emerald-500/20 rounded-t-sm relative group"
+                  >
+                    <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-natural-900 text-white text-[8px] px-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                      {d.value}
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+            <div className="flex justify-between mt-2">
+              <span className="text-[7px] font-mono text-slate-300">{t.data[0].time}</span>
+              <span className="text-[7px] font-mono text-slate-300">{t.data[t.data.length - 1].time}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -375,56 +639,231 @@ function HashSimulator({ node, onClose }: { node: BlockchainNode, onClose: () =>
   const [step, setStep] = useState(0);
   const [currentHash, setCurrentHash] = useState('');
   
-  const rawData = JSON.stringify({ id: node.id, type: node.type, title: node.title, location: node.location, timestamp: node.timestamp }, null, 2);
+  const rawData = JSON.stringify({
+    id: node.id,
+    type: node.type,
+    title: node.title,
+    location: node.location,
+    timestamp: node.timestamp
+  }, null, 2);
 
   useEffect(() => {
-    const t1 = setTimeout(() => setStep(1), 1000);
+    // Step 1: Parse Data
+    const t1 = setTimeout(() => setStep(1), 1500);
+
+    // Step 2: Hashing
     let interval: any;
     const t2 = setTimeout(() => {
       setStep(2);
       interval = setInterval(() => {
         setCurrentHash('0x' + Array.from({length: 64}, () => Math.floor(Math.random()*16).toString(16)).join(''));
-      }, 40);
-    }, 2000);
+      }, 50);
+    }, 3000);
+
+    // Step 3: Match Success
     const t3 = setTimeout(() => {
       clearInterval(interval);
       setCurrentHash(node.hash);
       setStep(3);
-      confetti({ particleCount: 150, spread: 120, origin: { y: 0.5 }, zIndex: 10000 });
-    }, 5000);
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearInterval(interval); };
+      confetti({ particleCount: 80, spread: 100, origin: { y: 0.5 }, zIndex: 10000 });
+    }, 6000);
+
+    return () => {
+      clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearInterval(interval);
+    };
   }, [node]);
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[100] bg-black/98 backdrop-blur-3xl flex items-center justify-center p-4">
-      <div className="w-full max-w-4xl bg-[#050805] border border-white/10 rounded-[4rem] overflow-hidden flex flex-col max-h-[90vh]">
-        <div className="p-10 border-b border-white/5 flex justify-between items-center bg-white/[0.02]">
-          <div className="flex items-center gap-5">
-             <div className="w-16 h-16 rounded-[2rem] bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/20"><Cpu size={32} /></div>
-             <div><h3 className="text-white font-black text-2xl uppercase italic">Hashing Node</h3></div>
+    <motion.div 
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
+    >
+      <div className="w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl flex flex-col">
+        <div className="p-4 border-b border-slate-800 flex justify-between items-center bg-slate-900/50">
+          <div className="flex items-center gap-3">
+             <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400">
+               <Activity size={16} />
+             </div>
+             <div>
+               <h3 className="text-white font-bold text-sm tracking-widest uppercase">EVM Node Simulator</h3>
+               <p className="text-slate-500 text-[10px] font-mono">Keccak-256 / SHA-256 Verification</p>
+             </div>
           </div>
-          <button onClick={onClose} className="w-16 h-16 rounded-[2rem] bg-white/5 text-white hover:bg-white/10 flex items-center justify-center"><X size={32} /></button>
+          <button onClick={onClose} className="text-slate-500 hover:text-white p-2"><ArrowLeft size={20} /></button>
         </div>
-        <div className="p-10 overflow-y-auto flex-grow flex flex-col gap-12">
-           <div className={`transition-all ${step >= 0 ? 'opacity-100' : 'opacity-0'}`}>
-             <p className="text-[11px] font-black text-slate-500 uppercase tracking-[0.5em] mb-4">01. Data Payload</p>
-             <pre className="bg-black p-8 rounded-[2rem] text-blue-400 text-sm font-mono border border-white/5">{rawData}</pre>
+        
+        <div className="p-6 md:p-8 flex-grow flex flex-col gap-6">
+           {/* Step 1: Raw Data Block */}
+           <div className={`transition-all duration-500 ${step >= 0 ? 'opacity-100' : 'opacity-0 translate-y-4'}`}>
+             <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 flex items-center gap-2">
+               <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span> 1. Khối dữ liệu gốc (Payload)
+             </p>
+             <pre className="bg-black/50 p-4 rounded-xl text-blue-400 text-xs font-mono overflow-x-auto border border-slate-800">
+               {rawData}
+             </pre>
            </div>
-           <div className={`transition-all ${step >= 1 ? 'opacity-100' : 'opacity-0'}`}>
-             <p className="text-[11px] font-black text-slate-500 uppercase tracking-[0.5em] mb-4">02. Hashing Progress</p>
-             <div className="bg-black p-8 rounded-[2rem] border border-white/5 font-mono text-amber-400 break-all">{step >= 2 ? currentHash : '...'}</div>
+
+           {/* Step 2: Hashing process */}
+           <div className={`transition-all duration-500 ${step >= 1 ? 'opacity-100' : 'opacity-0 translate-y-4'}`}>
+             <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 flex items-center gap-2">
+               <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span> 2. Chạy thuật toán băm (Merkle Tree Hashing)
+             </p>
+             <div className="bg-black/50 p-4 rounded-xl border border-slate-800 flex flex-col gap-4">
+               <div className="flex items-center gap-4">
+                 <Hash size={24} className={step === 2 ? "text-amber-500 animate-spin" : "text-slate-600"} />
+                 <p className={`font-mono text-[10px] break-all ${step === 2 ? 'text-amber-400' : 'text-slate-600'}`}>
+                   {step >= 2 ? currentHash : 'Waiting for payload...'}
+                 </p>
+               </div>
+               
+               {step >= 2 && (
+                 <div className="pt-4 border-t border-white/5 grid grid-cols-4 gap-2">
+                   {[1,2,3,4].map(i => (
+                     <motion.div 
+                       key={i}
+                       animate={{ opacity: [0.2, 1, 0.2] }}
+                       transition={{ duration: 1, delay: i * 0.2, repeat: Infinity }}
+                       className="h-1 bg-emerald-500/30 rounded-full"
+                     ></motion.div>
+                   ))}
+                 </div>
+               )}
+             </div>
            </div>
-           <div className={`transition-all ${step >= 3 ? 'opacity-100' : 'opacity-0'}`}>
-             <div className="bg-emerald-500/10 p-10 rounded-[3rem] border border-emerald-500/20 flex items-center gap-8 text-white">
-                <ShieldCheck size={64} className="text-emerald-500" />
-                <div>
-                   <h4 className="text-2xl font-black text-emerald-400 uppercase italic">Immutable Match</h4>
-                   <p className="text-slate-400">Dữ liệu được bảo chứng tại Block #{node.blockNumber}.</p>
-                </div>
+
+           {/* Step 3: Result Match */}
+           <div className={`transition-all duration-500 ${step >= 3 ? 'opacity-100' : 'opacity-0 translate-y-4'}`}>
+             <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 flex items-center gap-2">
+               <span className="w-2 h-2 rounded-full bg-emerald-500"></span> 3. Kết quả đối chiếu với sổ cái
+             </p>
+             <div className="bg-emerald-500/10 p-4 rounded-xl border border-emerald-500/20">
+               {step >= 3 ? (
+                 <div className="flex flex-col gap-4">
+                   <div className="flex items-start gap-3">
+                     <ShieldCheck size={24} className="text-emerald-400 shrink-0" />
+                     <div>
+                       <p className="text-emerald-400 font-bold text-sm mb-1">Xác minh toàn vẹn dữ liệu thành công!</p>
+                       <p className="text-slate-400 text-xs font-light">Chữ ký Hash trùng khớp tuyệt đối với dữ liệu trên mạng lưới. Không có bất kỳ sự thay đổi hay làm giả nào được phát hiện.</p>
+                     </div>
+                   </div>
+                   <div className="mt-2 p-3 bg-black/40 rounded-lg border border-emerald-500/10 text-[10px] font-mono space-y-1.5">
+                     <div className="flex justify-between"><span className="text-slate-500">Block Number:</span><span className="text-emerald-400">19,482,041</span></div>
+                     <div className="flex justify-between"><span className="text-slate-500">Gas Used:</span><span className="text-emerald-400">42,109 Gwei</span></div>
+                     <div className="flex justify-between"><span className="text-slate-500">Smart Contract:</span><span className="text-emerald-400">0x7a2d4E813F0C5...f9e1</span></div>
+                     <div className="flex justify-between"><span className="text-slate-500">Network:</span><span className="text-emerald-400">Ethereum Mainnet</span></div>
+                   </div>
+                 </div>
+               ) : (
+                 <p className="text-slate-600 text-xs font-mono">Awaiting verification...</p>
+               )}
              </div>
            </div>
         </div>
       </div>
+    </motion.div>
+  );
+}
+
+function TransactionExplorer({ node, onClose }: { node: BlockchainNode, onClose: () => void }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const txData = [
+    { label: "Transaction Hash", value: node.txHash || "0x7d2a...f1a", icon: Hash, isLink: true },
+    { label: "Status", value: "Success", icon: ShieldCheck, color: "text-emerald-500" },
+    { label: "Block", value: node.blockNumber?.toLocaleString() || "19,482,041", icon: Box, sub: "Confirmed by 42 Nodes" },
+    { label: "Timestamp", value: new Date(node.timestamp).toLocaleString('vi-VN'), icon: Clock },
+    { label: "From (Node)", value: "0x7a2d4E813F0C5...f9e1", icon: Fingerprint, isLink: true },
+    { label: "To (Contract)", value: "0xAgriChain_V3_Main", icon: FileText, isLink: true },
+    { label: "Value", value: "0 ETH", icon: Zap },
+    { label: "Gas Used", value: node.gasUsed || "21,000", icon: Activity },
+  ];
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] bg-[#060a06]/90 backdrop-blur-md flex items-center justify-center p-4"
+    >
+      <motion.div 
+        initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }}
+        className="w-full max-w-3xl bg-white rounded-[2rem] overflow-hidden shadow-2xl flex flex-col max-h-[90vh]"
+      >
+        <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+          <div className="flex items-center gap-3">
+             <div className="w-10 h-10 rounded-xl bg-natural-900 text-white flex items-center justify-center">
+                <Globe size={20} />
+             </div>
+             <div>
+               <h3 className="text-natural-900 font-black text-lg tracking-tight">Block Explorer</h3>
+               <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Eth-Mainnet Simulated Node</p>
+             </div>
+          </div>
+          <button onClick={onClose} className="p-2 hover:bg-slate-200 rounded-full transition-colors text-slate-400"><X size={24} /></button>
+        </div>
+
+        <div className="overflow-y-auto flex-grow">
+           <div className="p-8">
+              <div className="flex items-center justify-between mb-8">
+                 <div className="flex items-center gap-2 px-3 py-1 bg-emerald-100 text-emerald-700 rounded-lg text-[10px] font-bold uppercase">
+                    <ShieldCheck size={14} /> Transaction Verified
+                 </div>
+                 <button className="text-blue-500 text-xs font-bold hover:underline flex items-center gap-1">
+                    View on Etherscan <ExternalLink size={12} />
+                 </button>
+              </div>
+
+              <div className="space-y-6">
+                 {txData.map((item, i) => (
+                   <div key={i} className="grid grid-cols-1 md:grid-cols-12 gap-2 py-4 border-b border-slate-50 last:border-0 items-center">
+                      <div className="md:col-span-4 flex items-center gap-2 text-slate-400">
+                         <item.icon size={16} />
+                         <span className="text-xs font-bold uppercase tracking-widest">{item.label}:</span>
+                      </div>
+                      <div className="md:col-span-8 flex items-center justify-between gap-4">
+                         <div className="min-w-0">
+                            <span className={`text-sm font-mono break-all font-medium ${item.color || 'text-natural-900'} ${item.isLink ? 'text-blue-600 hover:underline cursor-pointer' : ''}`}>
+                               {item.value}
+                            </span>
+                            {item.sub && <p className="text-[10px] text-slate-400 mt-1">{item.sub}</p>}
+                         </div>
+                         {item.isLink && (
+                           <button onClick={() => handleCopy(item.value)} className="p-2 hover:bg-slate-100 rounded-lg text-slate-300 hover:text-natural-900 transition-all">
+                              <Copy size={14} />
+                           </button>
+                         )}
+                      </div>
+                   </div>
+                 ))}
+              </div>
+
+              <div className="mt-8 p-6 bg-natural-50 rounded-2xl border border-natural-100">
+                 <div className="flex items-center justify-between mb-4">
+                    <h4 className="text-[10px] font-black text-natural-900 uppercase tracking-widest">Input Data (Decoded)</h4>
+                    <span className="text-[10px] text-slate-400 font-mono">UTF-8 Raw</span>
+                 </div>
+                 <div className="bg-white p-4 rounded-xl border border-natural-100 font-mono text-[10px] text-slate-600 leading-relaxed">
+                    <p className="mb-2">Function: verifyProductData(bytes32 _dataHash, uint256 _timestamp)</p>
+                    <p className="text-emerald-600">MethodID: 0x42f9e1b2</p>
+                    <p className="mt-2 text-slate-400 italic">[0] _dataHash: {node.hash}</p>
+                    <p className="text-slate-400 italic">[1] _timestamp: {Math.floor(new Date(node.timestamp).getTime() / 1000)}</p>
+                 </div>
+              </div>
+           </div>
+        </div>
+
+        <div className="p-4 bg-slate-50 border-t border-slate-100 flex justify-center h-12">
+           {copied && (
+             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-xs font-bold text-emerald-600">
+                Copied to clipboard!
+             </motion.div>
+           )}
+        </div>
+      </motion.div>
     </motion.div>
   );
 }
