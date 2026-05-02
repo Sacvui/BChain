@@ -7,10 +7,13 @@ import {
   ShieldCheck, ArrowLeft, Filter, Cpu
 } from 'lucide-react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 
 export default function BlocksPage() {
   const [blocks, setBlocks] = useState<any[]>([]);
+
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,7 +27,7 @@ export default function BlocksPage() {
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
       <header className="bg-[#111b11] text-white border-b border-white/5 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
-          <Link href="/explorer" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-3 group">
             <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:rotate-12 transition-transform">
                <Globe size={18} />
             </div>
@@ -34,8 +37,36 @@ export default function BlocksPage() {
              <Link href="/explorer" className="hover:text-white transition-colors">Home</Link>
              <Link href="/explorer/blocks" className="text-emerald-400">Blocks</Link>
              <Link href="/explorer/transactions" className="hover:text-white transition-colors">Transactions</Link>
+             <Link href="/explorer/nodes" className="hover:text-white transition-colors">Nodes</Link>
+             <Link href="/explorer/resources" className="hover:text-white transition-colors">Resources</Link>
           </div>
+          <button 
+             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+             className="md:hidden p-2 text-slate-400 hover:text-white"
+           >
+              {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+           </button>
         </div>
+
+        {/* Mobile Menu Overlay */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div 
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden bg-[#1a251a] border-b border-white/5 overflow-hidden"
+            >
+              <div className="p-6 flex flex-col gap-4 text-xs font-bold uppercase tracking-[0.2em] text-slate-400">
+                 <Link href="/explorer" onClick={() => setIsMobileMenuOpen(false)} className="py-3 border-b border-white/5">Home</Link>
+                 <Link href="/explorer/blocks" onClick={() => setIsMobileMenuOpen(false)} className="py-3 border-b border-white/5 text-emerald-400">Blocks</Link>
+                 <Link href="/explorer/transactions" onClick={() => setIsMobileMenuOpen(false)} className="py-3 border-b border-white/5">Transactions</Link>
+                 <Link href="/explorer/nodes" onClick={() => setIsMobileMenuOpen(false)} className="py-3 border-b border-white/5">Nodes</Link>
+                 <Link href="/explorer/resources" onClick={() => setIsMobileMenuOpen(false)} className="py-3">Resources</Link>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       <main className="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-12">

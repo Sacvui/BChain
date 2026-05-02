@@ -7,7 +7,8 @@ import {
   ChevronRight, Database, ShieldCheck, Cpu, Clock, TrendingUp
 } from 'lucide-react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 
 export default function ExplorerHome() {
   const [stats, setStats] = useState<any>(null);
@@ -15,6 +16,8 @@ export default function ExplorerHome() {
   const [transactions, setTransactions] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [mounted, setMounted] = useState(false);
+
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -45,16 +48,43 @@ export default function ExplorerHome() {
              <Link href="/explorer" className="text-emerald-400">Home</Link>
              <Link href="/explorer/blocks" className="hover:text-white transition-colors">Blocks</Link>
              <Link href="/explorer/transactions" className="hover:text-white transition-colors">Transactions</Link>
-             <Link href="#" className="hover:text-white transition-colors">Nodes</Link>
+             <Link href="/explorer/nodes" className="hover:text-white transition-colors">Nodes</Link>
+             <Link href="/explorer/resources" className="hover:text-white transition-colors">Resources</Link>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 md:gap-4">
              <div className="hidden sm:flex items-center gap-2 text-[10px] font-bold text-slate-400 px-3 py-1 bg-white/5 rounded-full border border-white/10">
                 <ShieldCheck size={12} className="text-emerald-400" /> Mainnet
              </div>
-             <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-white text-xs font-bold">A</div>
+             <button 
+               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+               className="md:hidden p-2 text-slate-400 hover:text-white"
+             >
+                {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+             </button>
+             <div className="hidden sm:flex w-8 h-8 rounded-full bg-emerald-500 items-center justify-center text-white text-xs font-bold">A</div>
           </div>
         </div>
+
+        {/* Mobile Menu Overlay */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div 
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden bg-[#1a251a] border-b border-white/5 overflow-hidden"
+            >
+              <div className="p-6 flex flex-col gap-4 text-xs font-bold uppercase tracking-[0.2em] text-slate-400">
+                 <Link href="/explorer" onClick={() => setIsMobileMenuOpen(false)} className="py-3 border-b border-white/5 text-emerald-400">Home</Link>
+                 <Link href="/explorer/blocks" onClick={() => setIsMobileMenuOpen(false)} className="py-3 border-b border-white/5">Blocks</Link>
+                 <Link href="/explorer/transactions" onClick={() => setIsMobileMenuOpen(false)} className="py-3 border-b border-white/5">Transactions</Link>
+                 <Link href="/explorer/nodes" onClick={() => setIsMobileMenuOpen(false)} className="py-3 border-b border-white/5">Nodes</Link>
+                 <Link href="/explorer/resources" onClick={() => setIsMobileMenuOpen(false)} className="py-3">Resources</Link>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       {/* Hero Search Section */}
