@@ -528,6 +528,49 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                   <span>QUÉT SẢN PHẨM KHÁC</span>
                </Link>
                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em]">End of Blockchain Record</p>
+            {/* Professional Transparency Badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.4 }}
+              className="p-8 rounded-[3rem] bg-gradient-to-br from-natural-900 to-black text-white relative overflow-hidden shadow-2xl"
+            >
+              <div className="absolute top-0 right-0 p-8 opacity-10">
+                <ShieldCheck size={120} />
+              </div>
+              
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-6">
+                   <div className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/40">
+                      <ShieldCheck size={20} />
+                   </div>
+                   <div>
+                      <h3 className="text-sm font-black uppercase tracking-widest">Digital Passport</h3>
+                      <p className="text-[10px] text-emerald-400 font-bold">100% TRACEABLE ORIGIN</p>
+                   </div>
+                </div>
+
+                <div className="flex items-end gap-4 mb-8">
+                   <span className="text-5xl font-black tracking-tighter">9.8</span>
+                   <div className="mb-2">
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Transparency Score</p>
+                      <div className="flex gap-1">
+                         {[1,2,3,4,5].map(s => <div key={s} className={`w-3 h-1 rounded-full ${s <= 4 ? 'bg-emerald-500' : 'bg-slate-700'}`}></div>)}
+                      </div>
+                   </div>
+                </div>
+
+                <button 
+                  onClick={() => window.print()}
+                  className="w-full py-4 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 group"
+                >
+                  <Download size={14} className="group-hover:translate-y-0.5 transition-transform" />
+                  Xuất chứng nhận thực (PDF)
+                </button>
+              </div>
+
+              {/* Decorative blockchain pattern */}
+              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-transparent to-emerald-500 opacity-20"></div>
             </motion.div>
           </div>
         </div>
@@ -776,13 +819,16 @@ function TransactionExplorer({ node, onClose }: { node: BlockchainNode, onClose:
 
         <div className="overflow-y-auto flex-grow">
            <div className="p-8">
-              <div className="flex items-center justify-between mb-8">
+               <div className="flex items-center justify-between mb-8">
                  <div className="flex items-center gap-2 px-3 py-1 bg-emerald-100 text-emerald-700 rounded-lg text-[10px] font-bold uppercase">
-                    <ShieldCheck size={14} /> Transaction Verified
+                    <ShieldCheck size={14} /> Giao dịch được xác thực
                  </div>
-                 <button className="text-blue-500 text-xs font-bold hover:underline flex items-center gap-1">
-                    View on Etherscan <ExternalLink size={12} />
-                 </button>
+                 <Link 
+                   href={`/explorer/${node.txHash || node.hash}`} 
+                   className="text-blue-500 text-xs font-bold hover:underline flex items-center gap-1"
+                 >
+                    Xem trên AgriChain Explorer <ExternalLink size={12} />
+                 </Link>
               </div>
 
               <div className="space-y-6">
@@ -794,10 +840,13 @@ function TransactionExplorer({ node, onClose }: { node: BlockchainNode, onClose:
                       </div>
                       <div className="md:col-span-8 flex items-center justify-between gap-4">
                          <div className="min-w-0">
-                            <span className={`text-sm font-mono break-all font-medium ${item.color || 'text-natural-900'} ${item.isLink ? 'text-blue-600 hover:underline cursor-pointer' : ''}`}>
+                             <Link 
+                               href={`/explorer/${item.value}`}
+                               className={`text-sm font-mono break-all font-medium ${item.color || 'text-natural-900'} ${item.isLink ? 'text-blue-600 hover:underline cursor-pointer' : ''}`}
+                             >
                                {item.value}
-                            </span>
-                            {item.sub && <p className="text-[10px] text-slate-400 mt-1">{item.sub}</p>}
+                             </Link>
+                             {item.sub && <p className="text-[10px] text-slate-400 mt-1">{item.sub}</p>}
                          </div>
                          {item.isLink && (
                            <button onClick={() => handleCopy(item.value)} className="p-2 hover:bg-slate-100 rounded-lg text-slate-300 hover:text-natural-900 transition-all">

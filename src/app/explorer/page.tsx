@@ -18,9 +18,9 @@ export default function ExplorerHome() {
   useEffect(() => {
     const fetchData = async () => {
       const s = await db.getCollection('network_stats');
-      const b = await db.getCollection('latest_blocks');
-      const t = await db.getCollection('latest_transactions');
-      setStats(s[0]);
+      const b = await db.getCollection('blocks');
+      const t = await db.getCollection('transactions');
+      setStats(s[0] || { price: '$1.42', price_change: '+2.4%', market_cap: '$2.5B', tps: '14.2', gas_price: '12 Gwei' });
       setLatestBlocks(b);
       setLatestTxns(t);
     };
@@ -140,13 +140,13 @@ export default function ExplorerHome() {
                              <Layers size={18} />
                           </div>
                           <div>
-                             <p className="text-sm font-black text-blue-600 hover:underline">{block.height}</p>
-                             <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{block.timestamp}</p>
+                             <p className="text-sm font-black text-blue-600 hover:underline">{block.number}</p>
+                             <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{new Date(block.timestamp).toLocaleTimeString()}</p>
                           </div>
                        </div>
                        <div className="text-right">
                           <p className="text-[11px] font-bold text-slate-900">Validated by <span className="text-blue-600 hover:underline">{block.validator}</span></p>
-                          <p className="text-[10px] font-mono text-slate-400">{block.txns} txns in 12s</p>
+                          <p className="text-[10px] font-mono text-slate-400">{block.transactionCount} txns in 12s</p>
                        </div>
                        <div className="hidden sm:block px-3 py-1 bg-slate-50 rounded-lg border border-slate-100 text-[10px] font-black text-slate-500">
                           {block.reward}
@@ -176,8 +176,8 @@ export default function ExplorerHome() {
                              <Cpu size={18} />
                           </div>
                           <div className="min-w-0">
-                             <p className="text-sm font-black text-blue-600 hover:underline truncate max-w-[120px]">{tx.hash}</p>
-                             <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{tx.timestamp}</p>
+                             <p className="text-sm font-black text-blue-600 hover:underline truncate max-w-[120px]">{tx.hash.substring(0, 16)}...</p>
+                             <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{new Date(tx.timestamp).toLocaleTimeString()}</p>
                           </div>
                        </div>
                        <div className="flex-1 px-8 hidden md:block">

@@ -24,6 +24,34 @@ export interface BlockchainNode {
   }[];
 }
 
+export interface Transaction {
+  hash: string;
+  blockNumber: number;
+  from: string;
+  to: string;
+  value: string;
+  timestamp: string;
+  status: 'Success' | 'Pending' | 'Failed';
+  gasUsed: string;
+  gasPrice: string;
+  nonce: number;
+  inputData?: string;
+}
+
+export interface Block {
+  number: number;
+  hash: string;
+  parentHash: string;
+  validator: string;
+  timestamp: string;
+  transactionCount: number;
+  size: string;
+  gasUsed: string;
+  gasLimit: string;
+  reward: string;
+  baseFeePerGas: string;
+}
+
 export interface Product {
   id: string;
   category: string;
@@ -42,6 +70,69 @@ export interface Product {
 
 class NoSQLSim {
   private collections: Record<string, any[]> = {
+    blocks: [
+      {
+        number: 19482412,
+        hash: "0x8e2f0b4e6d8c0a2f4b6e8d0c2a4f6b8e0d4c6a2f8b0e4d6c8a2f0b4e6d8c0a2f",
+        parentHash: "0x7a2f0b4e6d8c0a2f4b6e8d0c2a4f6b8e0d4c6a2f8b0e4d6c8a2f0b4e6d8c0a1e",
+        validator: "0xNode_Alpha_77",
+        timestamp: "2026-04-15T09:00:00Z",
+        transactionCount: 142,
+        size: "1.2 MB",
+        gasUsed: "14,820,109",
+        gasLimit: "30,000,000",
+        reward: "2.14 ETH",
+        baseFeePerGas: "12.5 Gwei"
+      },
+      {
+        number: 19482289,
+        hash: "0x9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0",
+        parentHash: "0x8b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b9c",
+        validator: "0xNode_Beta_12",
+        timestamp: "2026-04-13T09:00:00Z",
+        transactionCount: 98,
+        size: "0.8 MB",
+        gasUsed: "9,210,442",
+        gasLimit: "30,000,000",
+        reward: "1.98 ETH",
+        baseFeePerGas: "10.2 Gwei"
+      },
+      {
+        number: 19482155,
+        hash: "0x3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4",
+        parentHash: "0x2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b",
+        validator: "0xNode_Gamma_05",
+        timestamp: "2026-04-12T14:20:00Z",
+        transactionCount: 215,
+        size: "2.1 MB",
+        gasUsed: "22,540,112",
+        gasLimit: "30,000,000",
+        reward: "3.5 ETH",
+        baseFeePerGas: "15.8 Gwei"
+      }
+    ],
+    network_stats: [
+      {
+        price: "$1.42",
+        price_change: "+2.4%",
+        market_cap: "$2.5B",
+        tps: "14.2",
+        gas_price: "12 Gwei",
+        total_blocks: "19,482,415",
+        total_txns: "500,214,882",
+        validators: "128 Active"
+      }
+    ],
+    latest_blocks: [
+      { height: 19482412, timestamp: "12s ago", txns: 142, validator: "Node_Alpha_77", reward: "2.14 ETH", size: "1.2 MB" },
+      { height: 19482289, timestamp: "45s ago", txns: 98, validator: "Node_Beta_12", reward: "1.98 ETH", size: "0.8 MB" },
+      { height: 19482155, timestamp: "2m ago", txns: 215, validator: "Node_Gamma_05", reward: "3.5 ETH", size: "2.1 MB" }
+    ],
+    latest_transactions: [
+      { hash: "0x7d2a...f1a", timestamp: "12s ago", from: "0xFarmer_NH", to: "0xAgri_V3", value: "0 ETH", fee: "0.0004 ETH" },
+      { hash: "0x3a4b...a4", timestamp: "45s ago", from: "0xLab_HCM", to: "0xAgri_V3", value: "0 ETH", fee: "0.0008 ETH" },
+      { hash: "0x9c0d...c0", timestamp: "2m ago", from: "0xLog_CL", to: "0xAgri_V3", value: "0 ETH", fee: "0.0006 ETH" }
+    ],
     products: [
       {
         id: "YEN-001",
