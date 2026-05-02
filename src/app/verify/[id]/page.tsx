@@ -6,7 +6,7 @@ import {
   ArrowLeft, ShieldCheck, MapPin, FileText, ImageIcon, ExternalLink, 
   Hash, Clock, Globe, Fingerprint, Activity, Layers, Sparkles, 
   Leaf, Package, Zap, Thermometer, Droplets, BarChart3, TrendingUp, Heart, Download,
-  Box, ChevronRight, Copy, X, QrCode, Check, Info
+  Box, ChevronRight, Copy, X, QrCode, Check,  Info, ShoppingCart, Factory, Beaker, Truck, Home, CheckCircle2
 } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -148,8 +148,60 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
       </nav>
 
       <div className="max-w-7xl mx-auto p-4 md:p-12 print:p-0">
-        <section className="mb-8 md:mb-16 print:hidden">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+        
+                    {/* Interactive Supply Chain Map */}
+                    <div className="mb-20">
+                      <div className="flex items-center gap-3 mb-8">
+                         <div className="w-8 h-8 rounded-xl bg-natural-900 text-white flex items-center justify-center shadow-lg">
+                            <MapPin size={16} />
+                         </div>
+                         <h3 className="text-xs font-black uppercase tracking-[0.2em] text-natural-900 italic">Hành trình Sản phẩm (Geographic Path)</h3>
+                      </div>
+                      
+                      <div className="relative p-12 md:p-20 rounded-[4rem] bg-natural-50 border border-natural-100 overflow-hidden shadow-inner">
+                         {/* Connection Line */}
+                         <div className="absolute top-1/2 left-20 right-20 h-[2px] bg-slate-200 -translate-y-1/2 hidden md:block">
+                            <motion.div 
+                              initial={{ width: 0 }}
+                              whileInView={{ width: '100%' }}
+                              transition={{ duration: 2, ease: "easeInOut" }}
+                              className="h-full bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.5)]"
+                            />
+                         </div>
+
+                         <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-12 md:gap-4">
+                            {[
+                              { label: "Nông trại", sub: "Lạc Dương", icon: Home, color: "bg-emerald-500" },
+                              { label: "Kiểm định", sub: "Lab Test", icon: Beaker, color: "bg-blue-500" },
+                              { label: "Nhà máy", sub: "Chế biến", icon: Factory, color: "bg-amber-500" },
+                              { label: "Logistics", sub: "Phân phối", icon: Truck, color: "bg-purple-500" },
+                              { label: "Cửa hàng", sub: "Retail", icon: ShoppingCart, color: "bg-natural-900" }
+                            ].map((step, i) => (
+                              <motion.div 
+                                key={i}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: i * 0.2 }}
+                                className="flex flex-col items-center gap-4 text-center group"
+                              >
+                                 <div className={`w-16 h-16 md:w-20 md:h-20 rounded-3xl ${step.color} text-white flex items-center justify-center shadow-2xl shadow-slate-900/10 group-hover:-translate-y-2 transition-all relative`}>
+                                    <step.icon size={28} />
+                                    <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-white rounded-full flex items-center justify-center text-emerald-500 shadow-lg scale-0 group-hover:scale-100 transition-transform">
+                                       <CheckCircle2 size={14} />
+                                    </div>
+                                 </div>
+                                 <div>
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-natural-900 mb-0.5">{step.label}</p>
+                                    <p className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">{step.sub}</p>
+                                 </div>
+                              </motion.div>
+                            ))}
+                         </div>
+                      </div>
+                    </div>
+
+                    {/* Supply Chain Audit List Header */}
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
             <div className="space-y-1">
               <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2 group cursor-help">
                 <Layers size={12} className="text-natural-900" />
