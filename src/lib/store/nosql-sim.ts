@@ -71,45 +71,11 @@ export interface Product {
 class NoSQLSim {
   private collections: Record<string, any[]> = {
     blocks: [
-      {
-        number: 19482412,
-        hash: "0x8e2f0b4e6d8c0a2f4b6e8d0c2a4f6b8e0d4c6a2f8b0e4d6c8a2f0b4e6d8c0a2f",
-        parentHash: "0x7a2f0b4e6d8c0a2f4b6e8d0c2a4f6b8e0d4c6a2f8b0e4d6c8a2f0b4e6d8c0a1e",
-        validator: "0xNode_Alpha_77",
-        timestamp: "2026-04-15T09:00:00Z",
-        transactionCount: 142,
-        size: "1.2 MB",
-        gasUsed: "14,820,109",
-        gasLimit: "30,000,000",
-        reward: "2.14 ETH",
-        baseFeePerGas: "12.5 Gwei"
-      },
-      {
-        number: 19482289,
-        hash: "0x9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0",
-        parentHash: "0x8b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b9c",
-        validator: "0xNode_Beta_12",
-        timestamp: "2026-04-13T09:00:00Z",
-        transactionCount: 98,
-        size: "0.8 MB",
-        gasUsed: "9,210,442",
-        gasLimit: "30,000,000",
-        reward: "1.98 ETH",
-        baseFeePerGas: "10.2 Gwei"
-      },
-      {
-        number: 19482155,
-        hash: "0x3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4",
-        parentHash: "0x2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b",
-        validator: "0xNode_Gamma_05",
-        timestamp: "2026-04-12T14:20:00Z",
-        transactionCount: 215,
-        size: "2.1 MB",
-        gasUsed: "22,540,112",
-        gasLimit: "30,000,000",
-        reward: "3.5 ETH",
-        baseFeePerGas: "15.8 Gwei"
-      }
+      { number: 19482415, hash: "0x8e...2f", parentHash: "0x7a...1e", validator: "Node_Omega_99", timestamp: "2026-04-15T09:05:00Z", transactionCount: 156, size: "1.4 MB", gasUsed: "15,200,000", gasLimit: "30,000,000", reward: "2.18 ETH", baseFeePerGas: "13.2 Gwei" },
+      { number: 19482412, hash: "0x8e2f0b4e6d8c0a2f4b6e8d0c2a4f6b8e0d4c6a2f8b0e4d6c8a2f0b4e6d8c0a2f", parentHash: "0x7a2f0b4e6d8c0a2f4b6e8d0c2a4f6b8e0d4c6a2f8b0e4d6c8a2f0b4e6d8c0a1e", validator: "Node_Alpha_77", timestamp: "2026-04-15T09:00:00Z", transactionCount: 142, size: "1.2 MB", gasUsed: "14,820,109", gasLimit: "30,000,000", reward: "2.14 ETH", baseFeePerGas: "12.5 Gwei" },
+      { number: 19482411, hash: "0x3d...f2", parentHash: "0x2c...e1", validator: "Node_Zeta_15", timestamp: "2026-04-15T08:58:00Z", transactionCount: 88, size: "0.7 MB", gasUsed: "8,500,000", gasLimit: "30,000,000", reward: "2.01 ETH", baseFeePerGas: "11.8 Gwei" },
+      { number: 19482289, hash: "0x9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0", parentHash: "0x8b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b9c", validator: "Node_Beta_12", timestamp: "2026-04-13T09:00:00Z", transactionCount: 98, size: "0.8 MB", gasUsed: "9,210,442", gasLimit: "30,000,000", reward: "1.98 ETH", baseFeePerGas: "10.2 Gwei" },
+      { number: 19482155, hash: "0x3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4", parentHash: "0x2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b", validator: "Node_Gamma_05", timestamp: "2026-04-12T14:20:00Z", transactionCount: 215, size: "2.1 MB", gasUsed: "22,540,112", gasLimit: "30,000,000", reward: "3.5 ETH", baseFeePerGas: "15.8 Gwei" }
     ],
     network_stats: [
       {
@@ -124,13 +90,6 @@ class NoSQLSim {
         nodes_online: "1,024",
         daily_volume: "45,000 AGRI"
       }
-    ],
-    blocks: [
-      { number: 19482415, hash: "0x8e...2f", parentHash: "0x7a...1e", validator: "Node_Omega_99", timestamp: "2026-04-15T09:05:00Z", transactionCount: 156, size: "1.4 MB", gasUsed: "15,200,000", gasLimit: "30,000,000", reward: "2.18 ETH", baseFeePerGas: "13.2 Gwei" },
-      { number: 19482412, hash: "0x8e2f0b4e6d8c0a2f4b6e8d0c2a4f6b8e0d4c6a2f8b0e4d6c8a2f0b4e6d8c0a2f", parentHash: "0x7a2f0b4e6d8c0a2f4b6e8d0c2a4f6b8e0d4c6a2f8b0e4d6c8a2f0b4e6d8c0a1e", validator: "Node_Alpha_77", timestamp: "2026-04-15T09:00:00Z", transactionCount: 142, size: "1.2 MB", gasUsed: "14,820,109", gasLimit: "30,000,000", reward: "2.14 ETH", baseFeePerGas: "12.5 Gwei" },
-      { number: 19482411, hash: "0x3d...f2", parentHash: "0x2c...e1", validator: "Node_Zeta_15", timestamp: "2026-04-15T08:58:00Z", transactionCount: 88, size: "0.7 MB", gasUsed: "8,500,000", gasLimit: "30,000,000", reward: "2.01 ETH", baseFeePerGas: "11.8 Gwei" },
-      { number: 19482289, hash: "0x9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0", parentHash: "0x8b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b9c", validator: "Node_Beta_12", timestamp: "2026-04-13T09:00:00Z", transactionCount: 98, size: "0.8 MB", gasUsed: "9,210,442", gasLimit: "30,000,000", reward: "1.98 ETH", baseFeePerGas: "10.2 Gwei" },
-      { number: 19482155, hash: "0x3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4", parentHash: "0x2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b", validator: "Node_Gamma_05", timestamp: "2026-04-12T14:20:00Z", transactionCount: 215, size: "2.1 MB", gasUsed: "22,540,112", gasLimit: "30,000,000", reward: "3.5 ETH", baseFeePerGas: "15.8 Gwei" }
     ],
     latest_blocks: [
       { height: 19482415, timestamp: "5s ago", txns: 156, validator: "Node_Omega_99", reward: "2.18 ETH", size: "1.4 MB" },
