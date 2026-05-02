@@ -14,8 +14,10 @@ export default function ExplorerHome() {
   const [blocks, setBlocks] = useState<any[]>([]);
   const [transactions, setTransactions] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const fetchData = async () => {
       const s = await db.getCollection('network_stats');
       const b = await db.getCollection('latest_blocks');
@@ -72,20 +74,31 @@ export default function ExplorerHome() {
                   <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
                      <Search className="text-slate-500 group-focus-within:text-emerald-400 transition-colors" size={20} />
                   </div>
-                  <input 
+                   <input 
                     type="text" 
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && searchQuery) {
+                        const target = searchQuery.length > 50 ? `/explorer/${searchQuery}` : searchQuery.startsWith('0x') ? `/explorer/address/${searchQuery}` : `/explorer/blocks`;
+                        window.location.href = target;
+                      }
+                    }}
                     placeholder="Tìm kiếm theo Txn Hash / Block / Address / Token" 
                     className="w-full bg-white/10 border border-white/20 rounded-2xl py-5 pl-14 pr-32 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:bg-white/15 transition-all"
                   />
                   <div className="absolute inset-y-2 right-2 flex items-center">
-                     <Link 
-                       href={searchQuery ? `/explorer/${searchQuery}` : '#'}
+                     <button 
+                       onClick={() => {
+                         if (searchQuery) {
+                           const target = searchQuery.length > 50 ? `/explorer/${searchQuery}` : searchQuery.startsWith('0x') ? `/explorer/address/${searchQuery}` : `/explorer/blocks`;
+                           window.location.href = target;
+                         }
+                       }}
                        className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 h-full rounded-xl flex items-center justify-center font-bold text-sm transition-all active:scale-95 shadow-lg shadow-emerald-500/20"
                      >
                         SEARCH
-                     </Link>
+                     </button>
                   </div>
                </div>
             </div>

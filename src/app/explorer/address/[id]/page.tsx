@@ -15,6 +15,7 @@ export default function AddressPage({ params }: { params: Promise<{ id: string }
   const addressId = unwrappedParams.id;
   const [copied, setCopied] = useState(false);
   const [transactions, setTransactions] = useState<any[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,6 +41,22 @@ export default function AddressPage({ params }: { params: Promise<{ id: string }
             </div>
             <span className="font-black tracking-tighter text-xl">AgriChain<span className="text-emerald-500 text-xs ml-1 uppercase tracking-widest">Explorer</span></span>
           </Link>
+          <div className="relative max-w-xs w-full hidden lg:block">
+             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={14} />
+             <input 
+               type="text" 
+               value={searchQuery}
+               onChange={(e) => setSearchQuery(e.target.value)}
+               onKeyDown={(e) => {
+                if (e.key === 'Enter' && searchQuery) {
+                  const target = searchQuery.length > 50 ? `/explorer/${searchQuery}` : searchQuery.startsWith('0x') ? `/explorer/address/${searchQuery}` : `/explorer/blocks`;
+                  window.location.href = target;
+                }
+              }}
+               placeholder="Search by Txn Hash / Block / Address" 
+               className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-10 pr-4 text-[11px] focus:outline-none focus:ring-1 focus:ring-emerald-500/50 transition-all"
+             />
+          </div>
         </div>
       </header>
 

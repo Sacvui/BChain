@@ -67,11 +67,11 @@ export default function Home() {
           </div>
           
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-500">
-            <a href="#" className="hover:text-natural-900 transition-colors">Hệ thống</a>
+            <Link href="/explorer" className="hover:text-natural-900 transition-colors">Hệ thống</Link>
             <Link href="/tools/qr" className="hover:text-natural-900 transition-colors flex items-center gap-1.5">
                <QrCode size={14} /> Trình tạo mã QR
             </Link>
-            <a href="#" className="px-5 py-2.5 bg-natural-900 text-white rounded-full hover:shadow-lg hover:shadow-natural-900/20 transition-all">Kết nối Node</a>
+            <Link href="/explorer/nodes" className="px-5 py-2.5 bg-natural-900 text-white rounded-full hover:shadow-lg hover:shadow-natural-900/20 transition-all">Kết nối Node</Link>
           </div>
 
           <button 
@@ -91,9 +91,9 @@ export default function Home() {
               exit={{ opacity: 0, y: -20 }}
               className="absolute top-20 left-4 right-4 bg-white rounded-3xl shadow-2xl z-50 p-8 flex flex-col gap-6 md:hidden border border-slate-100"
             >
-              <a href="#" className="text-lg font-bold text-natural-950">Hệ thống</a>
-              <a href="#" className="text-lg font-bold text-natural-950">Báo cáo</a>
-              <button className="w-full py-4 bg-natural-900 text-white rounded-2xl font-bold">Kết nối Node</button>
+              <Link href="/explorer" className="text-lg font-bold text-natural-950">Hệ thống</Link>
+              <Link href="/tools/qr" className="text-lg font-bold text-natural-950">Trình tạo mã QR</Link>
+              <Link href="/explorer/nodes" className="w-full py-4 bg-natural-900 text-white rounded-2xl font-bold text-center">Kết nối Node</Link>
             </motion.div>
           )}
         </AnimatePresence>
