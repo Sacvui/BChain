@@ -6,7 +6,7 @@ import {
   ArrowLeft, ShieldCheck, MapPin, FileText, ImageIcon, ExternalLink, 
   Hash, Clock, Globe, Fingerprint, Activity, Layers, Sparkles, 
   Leaf, Package, Zap, Thermometer, Droplets, BarChart3, TrendingUp, Heart, Download,
-  Box, ChevronRight, Copy, X, QrCode
+  Box, ChevronRight, Copy, X, QrCode, Check, Info
 } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -20,6 +20,8 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
   const [isScanning, setIsScanning] = useState(true);
   const [showHashModal, setShowHashModal] = useState(false);
   const [showExplorer, setShowExplorer] = useState(false);
+  const [auditProgress, setAuditProgress] = useState(0);
+  const [isAuditing, setIsAuditing] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,16 +31,31 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
       // Simulate scanning animation
       setTimeout(() => {
         setIsScanning(false);
+        setIsAuditing(true);
         setProduct(data);
         if (data && data.nodes.length > 0) {
           setSelectedNode(data.nodes[0]);
-          confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 },
-            colors: ['#10b981', '#3b82f6', '#fdfcf8']
-          });
         }
+        
+        // Start audit progress
+        let progress = 0;
+        const interval = setInterval(() => {
+          progress += 5;
+          setAuditProgress(progress);
+          if (progress >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+              setIsAuditing(false);
+              confetti({
+                particleCount: 150,
+                spread: 100,
+                origin: { y: 0.6 },
+                colors: ['#10b981', '#3b82f6', '#fdfcf8']
+              });
+            }, 800);
+          }
+        }, 50);
+        
         setLoading(false);
       }, 2000);
     };
@@ -78,6 +95,39 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
 
   return (
     <main className="min-h-screen bg-[#fdfcf8] text-[#1a2f1a] pb-12 md:pb-24">
+      {/* Initial Audit Overlay */}
+      <AnimatePresence>
+        {isAuditing && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center p-6 text-center"
+          >
+            <div className="w-24 h-24 relative mb-8">
+               <motion.div 
+                 animate={{ rotate: 360 }}
+                 transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                 className="absolute inset-0 border-4 border-slate-100 border-t-emerald-500 rounded-full"
+               ></motion.div>
+               <div className="absolute inset-0 flex items-center justify-center text-emerald-500">
+                  <ShieldCheck size={40} />
+               </div>
+            </div>
+            <h2 className="text-2xl font-black tracking-tighter uppercase italic mb-2">Đang đối soát <span className="text-emerald-500">Blockchain</span></h2>
+            <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-6">Đang kiểm tra tính toàn vẹn của 128 Node...</p>
+            <div className="w-64 h-1.5 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
+               <motion.div 
+                 className="h-full bg-emerald-500"
+                 initial={{ width: 0 }}
+                 animate={{ width: `${auditProgress}%` }}
+               ></motion.div>
+            </div>
+            <p className="mt-4 text-[10px] font-mono text-slate-300 uppercase tracking-widest">{auditProgress}% SECURED</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Premium Header Nav */}
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-100 px-4 md:px-6 py-4 print:hidden">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -101,9 +151,15 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
         <section className="mb-8 md:mb-16 print:hidden">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
             <div className="space-y-1">
-              <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2">
+              <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2 group cursor-help">
                 <Layers size={12} className="text-natural-900" />
                 Lịch sử chuỗi khối
+                <div className="relative group/tooltip">
+                   <Info size={10} className="text-slate-300" />
+                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-natural-900 text-white text-[8px] font-bold rounded-lg opacity-0 group-hover/tooltip:opacity-100 transition-opacity pointer-events-none z-50">
+                      Blockchain ghi lại mọi bước đi của sản phẩm, không thể thay đổi hoặc làm giả.
+                   </div>
+                </div>
               </h2>
               <p className="text-[8px] text-slate-400 font-bold uppercase tracking-widest">Global Ledger - Node Network</p>
             </div>
@@ -154,7 +210,12 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                       </div>
                     </div>
                     <div className="min-w-0 flex-1">
-                       <p className={`text-[7px] font-black uppercase tracking-widest mb-0.5 ${selectedNode === node ? 'text-emerald-500' : 'text-slate-400'}`}>{node.type}</p>
+                       <div className="flex items-center gap-2 mb-0.5">
+                          <p className={`text-[7px] font-black uppercase tracking-widest ${selectedNode === node ? 'text-emerald-500' : 'text-slate-400'}`}>{node.type}</p>
+                          <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 text-[6px] font-black">
+                             <Check size={6} /> SIGNED
+                          </div>
+                       </div>
                        <h4 className={`text-[11px] font-black truncate ${selectedNode === node ? 'text-natural-900' : 'text-slate-500'}`}>{node.title}</h4>
                     </div>
                   </div>
@@ -587,7 +648,15 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                           <div className="flex items-end gap-4 mb-6">
                              <span className="text-6xl font-black tracking-tighter text-emerald-500">9.8</span>
                              <div className="mb-2">
-                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Transparency Score</p>
+                                <div className="flex items-center gap-2 mb-1">
+                                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Transparency Score</p>
+                                   <div className="relative group/tooltip">
+                                      <Info size={10} className="text-slate-300 cursor-help" />
+                                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 p-3 bg-natural-900 text-white text-[8px] font-bold rounded-xl opacity-0 group-hover/tooltip:opacity-100 transition-opacity pointer-events-none z-50 leading-relaxed">
+                                         Điểm tin cậy được tính toán dựa trên: Tính đầy đủ của dữ liệu (40%), Xác thực chéo từ Node (30%), và Kiểm định độc lập (30%).
+                                      </div>
+                                   </div>
+                                </div>
                                 <div className="flex gap-1.5">
                                    {[1,2,3,4,5,6,7,8,9,10].map(s => <div key={s} className={`w-2 h-4 rounded-sm ${s <= 9 ? 'bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]' : 'bg-slate-700'}`}></div>)}
                                 </div>
