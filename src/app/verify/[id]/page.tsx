@@ -6,7 +6,8 @@ import {
   ArrowLeft, ShieldCheck, MapPin, FileText, ImageIcon, ExternalLink, 
   Hash, Clock, Globe, Fingerprint, Activity, Layers, Sparkles, 
   Leaf, Package, Zap, Thermometer, Droplets, BarChart3, TrendingUp, Heart, Download,
-  Box, ChevronRight, Copy, X, QrCode, Check,  Info, ShoppingCart, Factory, Beaker, Truck, Home, CheckCircle2
+  Box, ChevronRight, Copy, X, QrCode, Check,  Info, ShoppingCart, Factory, Beaker, Truck, Home, CheckCircle2,
+  FileCode, Terminal, Code
 } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -20,6 +21,7 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
   const [isScanning, setIsScanning] = useState(true);
   const [showHashModal, setShowHashModal] = useState(false);
   const [showExplorer, setShowExplorer] = useState(false);
+  const [showRawData, setShowRawData] = useState(false);
   const [auditProgress, setAuditProgress] = useState(0);
   const [isAuditing, setIsAuditing] = useState(false);
 
@@ -209,8 +211,53 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                       </div>
                     </div>
 
-                    {/* Supply Chain Audit List Header */}
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+                    {/* Core Tech Insights Dashboard */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
+              >
+                 {[
+                   { 
+                     title: "Immutable Ledger", 
+                     tech: "BLOCKCHAIN", 
+                     desc: "Dữ liệu được khóa vĩnh viễn, không thể chỉnh sửa hay làm giả.",
+                     icon: ShieldCheck,
+                     color: "text-emerald-500",
+                     bg: "bg-emerald-500/5"
+                   },
+                   { 
+                     title: "Live Telemetry", 
+                     tech: "IOT NETWORK", 
+                     desc: "Thông tin trực tiếp từ cảm biến tại vườn, loại bỏ sai sót con người.",
+                     icon: Activity,
+                     color: "text-blue-500",
+                     bg: "bg-blue-500/5"
+                   },
+                   { 
+                     title: "Quality Audit", 
+                     tech: "AI ANALYSIS", 
+                     desc: "Trí tuệ nhân tạo kiểm định chất lượng và độ thuần khiết tự động.",
+                     icon: Sparkles,
+                     color: "text-purple-500",
+                     bg: "bg-purple-500/5"
+                   }
+                 ].map((t, i) => (
+                   <div key={i} className={`p-6 rounded-[2rem] ${t.bg} border border-white/10 group hover:bg-white transition-all duration-500 cursor-help relative overflow-hidden`}>
+                      <div className="absolute -right-4 -bottom-4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
+                         <t.icon size={120} />
+                      </div>
+                      <t.icon className={`${t.color} mb-4`} size={32} />
+                      <p className="text-[9px] font-black tracking-[0.2em] uppercase text-slate-400 mb-1">{t.tech}</p>
+                      <h4 className="text-sm font-black text-natural-900 uppercase italic mb-2 tracking-tight">{t.title}</h4>
+                      <p className="text-[10px] text-slate-500 leading-relaxed font-medium">{t.desc}</p>
+                   </div>
+                 ))}
+              </motion.div>
+
+              {/* Action Tabs & Verification */}
+              <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
             <div className="space-y-1">
               <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2 group cursor-help">
                 <Layers size={12} className="text-natural-900" />
@@ -629,15 +676,27 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                         <div className="p-6 md:p-8 rounded-[2.5rem] bg-gradient-to-br from-slate-900 to-black text-white relative overflow-hidden group border border-white/5 shadow-2xl">
                             {/* Scanning pulse */}
                             <div className="absolute inset-0 bg-emerald-500/5 animate-pulse pointer-events-none"></div>
-                            
-                            <div className="flex justify-between items-start mb-6 relative z-10">
-                              <div>
-                                <p className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.2em] mb-1">Blockchain Hash Signature</p>
-                                <p className="text-[8px] font-bold text-slate-500 uppercase tracking-widest">Secured by Ethereum Node #42</p>
+                            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8 relative z-10">
+                              <div className="flex items-center gap-4">
+                                <div className="flex -space-x-3">
+                                   {[
+                                     { icon: ShieldCheck, color: "text-emerald-500", bg: "bg-emerald-500/20" },
+                                     { icon: Activity, color: "text-blue-500", bg: "bg-blue-500/20" },
+                                     { icon: Sparkles, color: "text-purple-500", bg: "bg-purple-500/20" }
+                                   ].map((t, i) => (
+                                     <div key={i} className={`w-10 h-10 rounded-full ${t.bg} border-2 border-slate-900 flex items-center justify-center shadow-lg`}>
+                                        <t.icon size={16} className={t.color} />
+                                     </div>
+                                   ))}
+                                </div>
+                                <div>
+                                  <p className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.2em] mb-1">Convergence Protocol</p>
+                                  <p className="text-[8px] font-bold text-slate-500 uppercase tracking-widest italic">Blockchain + IoT + AI Secured</p>
+                                </div>
                               </div>
                               <button 
                                 onClick={() => setShowHashModal(true)}
-                                className="text-[10px] font-black text-natural-900 bg-emerald-400 px-4 py-2 rounded-xl hover:bg-emerald-300 transition-all shadow-[0_0_20px_rgba(52,211,153,0.4)] flex items-center gap-2 active:scale-95"
+                                className="text-[10px] font-black text-natural-900 bg-emerald-400 px-4 py-2 rounded-xl hover:bg-emerald-300 transition-all shadow-[0_0_20px_rgba(52,211,153,0.4)] flex items-center gap-2 active:scale-95 w-full md:w-auto justify-center"
                               >
                                 <Hash size={14} /> KIỂM CHỨNG ETH
                               </button>
@@ -647,12 +706,47 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
                                  {selectedNode.hash}
                                </p>
                             </div>
-                            <button 
-                              onClick={() => setShowExplorer(true)}
-                              className="w-full py-3 bg-white/10 hover:bg-white/20 rounded-xl text-[10px] font-bold text-white flex items-center justify-center gap-2 transition-all border border-white/5"
-                            >
-                               <ExternalLink size={12} /> XEM CHI TIẾT GIAO DỊCH (EXPLORER)
-                            </button>
+                            <div className="grid grid-cols-2 gap-4 mb-4 relative z-10">
+                               <button 
+                                 onClick={() => setShowExplorer(true)}
+                                 className="py-3 bg-white/10 hover:bg-white/20 rounded-xl text-[10px] font-bold text-white flex items-center justify-center gap-2 transition-all border border-white/5"
+                               >
+                                  <ExternalLink size={12} /> EXPLORER
+                               </button>
+                               <button 
+                                 onClick={() => setShowRawData(true)}
+                                 className="py-3 bg-white/10 hover:bg-white/20 rounded-xl text-[10px] font-bold text-white flex items-center justify-center gap-2 transition-all border border-white/5"
+                               >
+                                  <FileCode size={12} /> RAW DATA
+                               </button>
+                            </div>
+                         </div>
+
+                         {/* Network Consensus Proof */}
+                         <div className="p-6 rounded-[2rem] bg-natural-900 text-white border border-white/5 shadow-2xl overflow-hidden relative group">
+                            <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:scale-110 transition-transform">
+                               <Layers size={40} />
+                            </div>
+                            <div className="relative z-10">
+                               <p className="text-[9px] font-black text-emerald-400 uppercase tracking-widest mb-4">Network Consensus Protocol</p>
+                               <div className="flex items-center gap-6">
+                                  <div className="flex -space-x-2">
+                                     {[1,2,3,4].map(i => (
+                                       <div key={i} className="w-8 h-8 rounded-full bg-natural-800 border-2 border-natural-900 flex items-center justify-center text-[10px] font-black text-emerald-500">
+                                          N{i}
+                                       </div>
+                                     ))}
+                                     <div className="w-8 h-8 rounded-full bg-emerald-500 border-2 border-natural-900 flex items-center justify-center text-[10px] font-black text-white">
+                                        +11
+                                     </div>
+                                  </div>
+                                  <div>
+                                     <p className="text-sm font-black">12/15 Nodes Confirmed</p>
+                                     <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest italic">Mechanism: Proof of Authority (PoA)</p>
+                                  </div>
+                               </div>
+                            </div>
+                         </div>
                          </div>
                       </div>
                     </div>
@@ -846,12 +940,14 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
       </div>
     </div>
 
-      <AnimatePresence>
         {showHashModal && selectedNode && (
           <HashSimulator node={selectedNode} onClose={() => setShowHashModal(false)} />
         )}
         {showExplorer && selectedNode && (
           <TransactionExplorer node={selectedNode} onClose={() => setShowExplorer(false)} />
+        )}
+        {showRawData && selectedNode && (
+          <RawDataModal node={selectedNode} onClose={() => setShowRawData(false)} />
         )}
       </AnimatePresence>
     </main>
@@ -1041,6 +1137,62 @@ function HashSimulator({ node, onClose }: { node: BlockchainNode, onClose: () =>
            </div>
         </div>
       </div>
+    </motion.div>
+  );
+}
+
+function RawDataModal({ node, onClose }: { node: any, onClose: () => void }) {
+  return (
+    <motion.div 
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+    >
+      <motion.div 
+        initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }}
+        className="bg-[#0d1117] w-full max-w-2xl rounded-[2.5rem] border border-white/10 overflow-hidden shadow-2xl"
+      >
+         <div className="p-8 border-b border-white/5 flex justify-between items-center bg-white/5">
+            <div className="flex items-center gap-3">
+               <Terminal className="text-emerald-500" size={20} />
+               <h3 className="text-xs font-black text-white uppercase tracking-[0.2em]">Raw Ledger Payload</h3>
+            </div>
+            <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-xl text-slate-400 transition-colors">
+               <X size={20} />
+            </button>
+         </div>
+         <div className="p-8 max-h-[60vh] overflow-y-auto font-mono text-[11px] leading-relaxed">
+            <pre className="text-emerald-400/90 whitespace-pre-wrap">
+{`{
+  "header": {
+    "version": "1.0.0",
+    "network": "AgriChain-Mainnet",
+    "consensus": "PoA-Consortium"
+  },
+  "payload": {
+    "node_id": "${node?.id || 'NODE-42'}",
+    "timestamp": "${node?.timestamp}",
+    "origin": "${node?.location}",
+    "data_hash": "${node?.hash}",
+    "signatures": [
+      { "id": "VALIDATOR-01", "sig": "0x${Math.random().toString(16).substring(2)}..." },
+      { "id": "PRODUCER-SIG", "sig": "0x${Math.random().toString(16).substring(2)}..." }
+    ],
+    "metadata": {
+      "gps_lock": "${node?.coordinates}",
+      "device_integrity": "verified",
+      "encryption": "AES-256-GCM"
+    }
+  }
+}`}
+            </pre>
+         </div>
+         <div className="p-8 bg-white/5 border-t border-white/5 flex justify-between items-center">
+            <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Public Key Disclosure Protocol</p>
+            <button className="px-6 py-2 bg-emerald-500 text-natural-950 rounded-xl text-[10px] font-black hover:bg-emerald-400 transition-all flex items-center gap-2">
+               <Download size={14} /> DOWNLOAD JSON
+            </button>
+         </div>
+      </motion.div>
     </motion.div>
   );
 }

@@ -111,8 +111,8 @@ export default function Home() {
               <span>Nền tảng minh bạch nông sản số 1</span>
             </div>
             <h1 className="text-4xl md:text-8xl font-bold mb-6 md:mb-8 text-natural-950 tracking-tighter leading-[1.1]">
-              Xác thực <span className="relative inline-block text-natural-500">
-                Sạch
+              Mockup thị phạm <span className="relative inline-block text-natural-500">
+                Minh bạch
                 <motion.svg 
                   className="absolute -bottom-1 md:-bottom-2 left-0 w-full h-2 md:h-3 text-natural-200" 
                   viewBox="0 0 100 10" 
@@ -120,10 +120,10 @@ export default function Home() {
                 >
                   <path d="M0 5 Q 25 0, 50 5 T 100 5" fill="none" stroke="currentColor" strokeWidth="4" />
                 </motion.svg>
-              </span> bằng Blockchain
+              </span> Blockchain
             </h1>
-            <p className="text-slate-500 text-sm md:text-xl max-w-2xl mx-auto font-light leading-relaxed mb-8 md:mb-12">
-              Mockup thị phạm xác minh sự kết hợp giữa Trí tuệ nhân tạo (AI) và Minh bạch chuỗi khối (Blockchain) theo đề án nghiên cứu của Nghiên cứu sinh Lê Phúc Hải.
+            <p className="text-slate-500 text-sm md:text-xl max-w-3xl mx-auto font-light leading-relaxed mb-8 md:mb-12">
+              Xác minh sự kết hợp giữa Trí tuệ nhân tạo (AI) và Minh bạch chuỗi khối (Blockchain) theo đề án nghiên cứu của Nghiên cứu sinh Lê Phúc Hải.
             </p>
             
             <div className="flex flex-col sm:flex-row justify-center gap-4 px-4">

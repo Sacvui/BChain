@@ -22,7 +22,7 @@ export default function Footer() {
               <span className="font-black tracking-tighter text-2xl uppercase italic">AgriChain</span>
             </Link>
             <p className="text-slate-400 text-sm md:text-lg font-light leading-relaxed max-w-md">
-              Nền tảng xác thực nguồn gốc nông sản thế hệ mới, kết hợp sức mạnh của Blockchain bất biến và Trí tuệ nhân tạo (AI) để kiến tạo niềm tin tuyệt đối cho người tiêu dùng.
+              Mô hình thị phạm xác thực nguồn gốc nông sản kết hợp AI và Blockchain. Đề án nghiên cứu của Nghiên cứu sinh Lê Phúc Hải.
             </p>
             <div className="flex gap-4">
               {[Twitter, Github, Linkedin].map((Icon, i) => (
@@ -91,8 +91,8 @@ export default function Footer() {
              <Link href="/legal/cookies" className="hover:text-white">Cookies</Link>
           </div>
           <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest text-center">
-            © 2026 AGRICHAIN PROTOCOL. ALL RIGHTS RESERVED. 
-            <span className="hidden md:inline ml-2">• SECURED BY NCS LEDGER</span>
+            © 2026 AGRICHAIN PROTOCOL. BY NCS LÊ PHÚC HẢI. ALL RIGHTS RESERVED. 
+            <span className="hidden md:inline ml-2">• SECURED BY BLOCKCHAIN TECHNOLOGY</span>
           </p>
         </div>
       </div>
