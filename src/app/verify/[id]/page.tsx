@@ -151,7 +151,7 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
             </div>
           </div>
         </div>
-      </nav>
+      </div>
 
       <div className="max-w-7xl mx-auto p-4 md:p-12 print:p-0">
         <section className="mb-8 md:mb-16 print:hidden">
