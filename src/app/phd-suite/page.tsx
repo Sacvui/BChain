@@ -96,6 +96,8 @@ export default function PhDSuiteDashboard() {
             </div>
           ))}
         </div>
+      </section>
+
       <section style={{ marginTop: '3rem', marginBottom: '3rem' }}>
         <h2 style={{ marginBottom: '1.5rem' }}>Contemporary Theory Hub</h2>
         <div className="grid-dashboard">
