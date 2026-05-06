@@ -2,259 +2,277 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Sprout, ShieldCheck, Zap, Globe, ArrowRight, Layers, Users, Award, Target, BookOpen, Cpu, BarChart3, Fingerprint, Lock, Database } from 'lucide-react';
+import { Sprout, ShieldCheck, Zap, Globe, ArrowRight, Layers, Users, Award, Target, BookOpen, Cpu, BarChart3, Fingerprint, Lock, Database, Heart, Microscope, PenTool, Sparkles, GraduationCap } from 'lucide-react';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-emerald-100 selection:text-emerald-900">
+    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-emerald-100 selection:text-emerald-900 overflow-x-hidden">
       <Header />
 
-      {/* Hero Section */}
-      <section className="relative pt-40 pb-32 overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[1200px] bg-emerald-50/40 rounded-full blur-3xl -z-10" />
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-bold uppercase tracking-[0.3em] mb-10 shadow-sm"
-          >
-            <Award size={14} />
-            <span>Đề án Nghiên cứu Tiến sĩ · NCS Lê Phúc Hải</span>
-          </motion.div>
-          
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-6xl md:text-8xl font-serif italic mb-10 leading-[1.1] text-slate-950"
-          >
-            Nâng tầm <span className="text-emerald-600 font-sans not-italic font-black uppercase tracking-tighter">Giá Trị</span> <br />
-            Nông sản Việt bằng Blockchain
-          </motion.h1>
+      {/* Hero Section: The Soul of the Land */}
+      <section className="relative pt-48 pb-32 overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1400px] h-[1400px] bg-gradient-to-b from-emerald-50/50 to-white rounded-full blur-[120px] -z-10" />
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex flex-col items-center text-center space-y-10">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="w-16 h-16 bg-emerald-600 text-white rounded-full flex items-center justify-center shadow-2xl shadow-emerald-600/30"
+            >
+              <Heart size={32} fill="currentColor" />
+            </motion.div>
 
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-xl md:text-2xl text-slate-500 font-light max-w-4xl mx-auto leading-relaxed mb-16"
-          >
-            Hệ sinh thái <span className="font-serif italic text-emerald-600 px-1">fwd</span> <span className="font-bold text-slate-900 uppercase">LIFEchain</span> là sự giao thoa giữa giá trị bản địa truyền thống và công nghệ sổ cái phân tán tiên tiến nhất.
-          </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 text-slate-500 text-[10px] font-black uppercase tracking-[0.4em] shadow-sm border border-slate-100"
+            >
+              <span>Di sản số cho Nông nghiệp Việt</span>
+            </motion.div>
+            
+            <motion.h1 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-6xl md:text-8xl font-serif italic mb-6 leading-[1.1] text-slate-950 max-w-5xl"
+            >
+              Nơi công nghệ <span className="text-emerald-600 font-sans not-italic font-black uppercase tracking-tighter">Bảo vệ</span> <br />
+              linh hồn của đất mẹ
+            </motion.h1>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3 }}
-            className="flex flex-wrap justify-center gap-6"
-          >
-            <div className="flex items-center gap-4 bg-slate-50 px-8 py-6 rounded-2xl border border-slate-100 shadow-sm">
-               <Database className="text-emerald-600" size={32} />
-               <div className="text-left">
-                  <div className="text-2xl font-black text-slate-900">Decentralized</div>
-                  <div className="text-xs text-slate-400 uppercase tracking-widest">Hạ tầng phi tập trung</div>
-               </div>
-            </div>
-            <div className="flex items-center gap-4 bg-slate-50 px-8 py-6 rounded-2xl border border-slate-100 shadow-sm">
-               <Fingerprint className="text-blue-600" size={32} />
-               <div className="text-left">
-                  <div className="text-2xl font-black text-slate-900">Immutable</div>
-                  <div className="text-xs text-slate-400 uppercase tracking-widest">Dữ liệu bất biến</div>
-               </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* The Problem Section */}
-      <section className="py-24 bg-slate-950 text-white relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
-            <div className="space-y-10">
-              <h2 className="text-xs font-black uppercase tracking-[0.4em] text-emerald-500">Thách thức hiện tại</h2>
-              <h3 className="text-4xl md:text-5xl font-serif italic leading-tight">Tại sao chúng ta cần một tiêu chuẩn mới?</h3>
-              <p className="text-slate-400 text-lg font-light leading-relaxed">
-                Trong một thế giới mà người tiêu dùng ngày càng thông minh, việc chỉ dán nhãn "Sạch" hay "Hữu cơ" là chưa đủ. Các lỗ hổng trong chuỗi cung ứng truyền thống dẫn đến:
-              </p>
-              <div className="space-y-6">
-                {[
-                  { t: 'Thiếu minh bạch', d: 'Dữ liệu dễ dàng bị thay đổi hoặc làm giả.' },
-                  { t: 'Đứt gãy thông tin', d: 'Người mua không biết sản phẩm thực sự đến từ nông trại nào.' },
-                  { t: 'Giá trị bị xói mòn', d: 'Nông sản chất lượng cao bị đánh đồng với hàng kém chất lượng.' }
-                ].map((item, i) => (
-                  <div key={i} className="flex gap-6 p-6 rounded-2xl bg-white/5 border border-white/10">
-                    <div className="w-12 h-12 rounded-full bg-red-500/20 text-red-500 flex items-center justify-center flex-shrink-0">
-                      <Lock size={20} />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-white mb-1">{item.t}</h4>
-                      <p className="text-slate-400 text-sm font-light">{item.d}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="relative">
-              <div className="absolute inset-0 bg-emerald-500/10 blur-[100px] rounded-full" />
-              <div className="grid grid-cols-2 gap-4 relative">
-                 <div className="aspect-[4/5] bg-white/5 rounded-3xl border border-white/10 p-8 flex flex-col justify-end">
-                    <BarChart3 className="text-emerald-500 mb-4" size={40} />
-                    <div className="text-2xl font-black text-white">85%</div>
-                    <p className="text-[10px] text-slate-500 uppercase tracking-widest">Tin tưởng hơn vào Blockchain</p>
-                 </div>
-                 <div className="aspect-[4/5] bg-white/5 rounded-3xl border border-white/10 p-8 flex flex-col justify-end mt-12">
-                    <Users className="text-blue-500 mb-4" size={40} />
-                    <div className="text-2xl font-black text-white">Gen Z</div>
-                    <p className="text-[10px] text-slate-500 uppercase tracking-widest">Phân khúc khách hàng mục tiêu</p>
-                 </div>
-              </div>
-            </div>
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="text-xl md:text-2xl text-slate-500 font-light max-w-3xl mx-auto leading-relaxed"
+            >
+              <span className="font-serif italic text-emerald-600">fwd</span> <span className="font-bold text-slate-950">LIFEchain</span> không chỉ là những dòng code khô khan. Đó là lời cam kết của một người con xứ đất đỏ, sử dụng tri thức Tiến sĩ để giữ gìn sự minh bạch cho từng mầm xanh.
+            </motion.p>
           </div>
         </div>
       </section>
 
-      {/* The FWD Philosophy Deep Dive */}
-      <section className="py-32 bg-white">
+      {/* The Calling: Why we exist */}
+      <section className="py-32 relative">
         <div className="max-w-7xl mx-auto px-6">
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
+              <div className="relative group">
+                 <div className="absolute -inset-4 bg-emerald-100 rounded-[4rem] blur-2xl opacity-30 group-hover:opacity-50 transition-opacity" />
+                 <div className="relative aspect-[4/5] bg-slate-100 rounded-[3rem] overflow-hidden shadow-2xl rotate-2">
+                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-transparent flex items-center justify-center p-12">
+                       <div className="text-center space-y-6">
+                          <Sprout size={120} className="mx-auto text-emerald-600/30" />
+                          <p className="text-xs font-mono text-slate-400 tracking-[0.5em]">ROOTS OF INTEGRITY</p>
+                       </div>
+                    </div>
+                 </div>
+                 <div className="absolute -bottom-10 -right-10 bg-white p-10 rounded-[2.5rem] shadow-2xl border border-slate-100 max-w-xs">
+                    <PenTool size={32} className="text-emerald-600 mb-6" />
+                    <p className="text-lg font-serif italic text-slate-900 leading-relaxed">
+                       "Tôi tin rằng mỗi trái chín, mỗi tổ yến đều mang trong mình một câu chuyện. Blockchain chính là người kể chuyện trung thực nhất."
+                    </p>
+                    <div className="mt-6 pt-6 border-t border-slate-100">
+                       <span className="text-xs font-black uppercase tracking-widest text-slate-400">NCS Lê Phúc Hải</span>
+                    </div>
+                 </div>
+              </div>
+              <div className="space-y-12">
+                 <div className="space-y-6">
+                    <h2 className="text-xs font-black uppercase tracking-[0.5em] text-emerald-500">Tầm nhìn & Sứ mệnh</h2>
+                    <h3 className="text-4xl md:text-5xl font-serif italic text-slate-950 leading-tight">Khi tri thức trở thành <br /> chiếc khiên bảo vệ</h3>
+                    <p className="text-slate-500 text-lg font-light leading-relaxed">
+                       Trong suốt hành trình làm nghiên cứu sinh (NCS), tôi nhận ra rằng nỗi đau lớn nhất của người nông dân không phải là sương gió, mà là sự đánh tráo giá trị. Một sản phẩm tâm huyết bị trộn lẫn với hàng kém chất lượng vì thiếu một hệ thống bảo chứng đủ tầm.
+                    </p>
+                 </div>
+                 <div className="grid grid-cols-1 gap-8">
+                    {[
+                       { title: 'Tâm (The Heart)', desc: 'Xây dựng dựa trên sự thấu hiểu và tôn trọng giá trị thật của sức lao động.' },
+                       { title: 'Tầm (The Vision)', desc: 'Hướng tới một tiêu chuẩn nông nghiệp số toàn cầu, nơi thương hiệu Việt được định vị đẳng cấp.' },
+                       { title: 'Lực (The Capability)', desc: 'Hạ tầng Blockchain độc lập, bảo mật cao và khả năng mở rộng không giới hạn.' }
+                    ].map((item, i) => (
+                       <div key={i} className="flex gap-6 items-start">
+                          <div className="w-2 h-2 rounded-full bg-emerald-500 mt-2 flex-shrink-0" />
+                          <div>
+                             <h4 className="text-xl font-bold text-slate-900">{item.title}</h4>
+                             <p className="text-slate-500 font-light mt-1">{item.desc}</p>
+                          </div>
+                       </div>
+                    ))}
+                 </div>
+              </div>
+           </div>
+        </div>
+      </section>
+
+      {/* The Deep Philosophy: F-W-D */}
+      <section className="py-32 bg-slate-50 border-y border-slate-100 relative overflow-hidden">
+        <div className="absolute top-0 right-0 p-20 opacity-5">
+           <Globe size={400} />
+        </div>
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="text-center mb-24">
-            <h2 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400 mb-4">Triết lý vận hành</h2>
-            <h3 className="text-4xl md:text-6xl font-serif italic text-slate-950">Mô hình fwd LIFE</h3>
-            <p className="mt-8 text-slate-500 text-lg max-w-2xl mx-auto font-light">
-              Chúng tôi không chỉ số hóa dữ liệu, chúng tôi số hóa niềm tin thông qua ba trụ cột chiến lược.
-            </p>
+            <h2 className="text-xs font-black uppercase tracking-[0.5em] text-slate-400 mb-4">Giá trị cốt lõi</h2>
+            <h3 className="text-5xl font-serif italic text-slate-950">Triết lý fwd LIFE</h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                letter: 'f',
+                letter: 'F',
                 title: 'Farm (Nông trại)',
-                subtitle: 'The Source of Truth',
-                desc: 'Mọi hành trình bắt đầu từ gốc rễ. Chúng tôi kết nối trực tiếp với người nông dân, ghi nhận nhật ký sản xuất thời gian thực bằng IoT và định vị GPS không thể chối cãi.',
+                meaning: 'Cội nguồn của sự sống',
+                description: 'Chúng tôi bắt đầu từ mảnh đất, từ bàn tay người nông dân. Mọi dữ liệu thô được ghi nhận bằng IoT tại vùng trồng là "Sự thật gốc" (Origin Truth) không thể xuyên tạc.',
                 icon: Sprout,
-                accent: 'emerald'
+                color: 'text-emerald-600',
+                bg: 'bg-emerald-50'
               },
               {
-                letter: 'w',
+                letter: 'W',
                 title: 'Worth (Giá trị)',
-                subtitle: 'Validated Quality',
-                desc: 'Mỗi sản phẩm là một thực thể số duy nhất. Giá trị được xác lập dựa trên chứng nhận thật, quy trình thật và sự giám sát đa phương của cộng đồng Blockchain.',
+                meaning: 'Bảo chứng sự tử tế',
+                description: 'Giá trị không đo bằng tiền, mà bằng sự minh bạch. Mỗi định danh số (NFT) cho sản phẩm là một tấm bằng chứng nhận cho sự tận tâm của người sản xuất.',
                 icon: ShieldCheck,
-                accent: 'blue'
+                color: 'text-blue-600',
+                bg: 'bg-blue-50'
               },
               {
-                letter: 'd',
+                letter: 'D',
                 title: 'Driven (Dẫn dắt)',
-                subtitle: 'Data-Driven Future',
-                desc: 'Sử dụng sức mạnh của AI để phân tích xu hướng tiêu dùng và tối ưu chuỗi cung ứng, dẫn dắt nông nghiệp Việt Nam vươn xa trên bản đồ thế giới.',
+                meaning: 'Tương lai số bền vững',
+                description: 'Dẫn dắt bởi dữ liệu và thuật toán, nhưng phục vụ con người. Chúng tôi sử dụng AI để dự báo và Blockchain để kết nối, tạo nên một cộng đồng cùng thịnh vượng.',
                 icon: Zap,
-                accent: 'amber'
+                color: 'text-amber-600',
+                bg: 'bg-amber-50'
               }
-            ].map((p, idx) => (
-              <div key={idx} className="relative p-10 rounded-[3rem] bg-slate-50 border border-slate-100 hover:bg-white hover:shadow-2xl hover:shadow-slate-200 transition-all duration-500 group">
-                <div className={`w-16 h-16 bg-${p.accent}-100 text-${p.accent}-600 rounded-2xl flex items-center justify-center mb-8 group-hover:rotate-12 transition-transform`}>
-                  <p.icon size={32} />
+            ].map((pillar, idx) => (
+              <motion.div 
+                key={idx}
+                whileHover={{ y: -10 }}
+                className="bg-white p-12 rounded-[3.5rem] border border-slate-100 shadow-sm transition-all duration-500 hover:shadow-2xl hover:shadow-slate-200"
+              >
+                <div className={`w-16 h-16 ${pillar.bg} ${pillar.color} rounded-2xl flex items-center justify-center mb-10`}>
+                  <pillar.icon size={32} />
                 </div>
-                <span className="text-7xl font-serif italic text-slate-200 absolute top-8 right-10 leading-none">{p.letter}</span>
-                <h4 className="text-2xl font-black text-slate-950 mb-1">{p.title}</h4>
-                <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-6">{p.subtitle}</p>
-                <p className="text-slate-500 leading-relaxed font-light">{p.desc}</p>
-                <div className="mt-8 pt-8 border-t border-slate-200">
-                   <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">
-                      <div className={`w-2 h-2 rounded-full bg-${p.accent}-500`} />
-                      Node Active
-                   </div>
+                <div className="mb-6">
+                  <span className="text-5xl font-serif italic text-slate-100 block mb-2">{pillar.letter}</span>
+                  <h4 className="text-2xl font-black text-slate-900">{pillar.title}</h4>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-600 mt-2">{pillar.meaning}</p>
                 </div>
-              </div>
+                <p className="text-slate-500 leading-relaxed font-light">
+                  {pillar.description}
+                </p>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Research Methodology */}
-      <section className="py-24 bg-emerald-50 relative overflow-hidden">
+      {/* The Capability: Technical Mastery */}
+      <section className="py-32 bg-slate-950 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 pointer-events-none">
+           <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #10b981 1px, transparent 0)', backgroundSize: '64px 64px' }}></div>
+        </div>
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="flex flex-col md:flex-row gap-20">
-             <div className="flex-1 space-y-8">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white text-emerald-700 text-[10px] font-bold uppercase tracking-widest">
-                  <BookOpen size={14} />
-                  <span>Phương pháp nghiên cứu</span>
-                </div>
-                <h2 className="text-4xl md:text-5xl font-serif italic leading-tight text-slate-950">
-                  Nền tảng học thuật vững chắc
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                   <div className="space-y-3">
-                      <h4 className="font-black text-slate-900 text-lg">Mô hình S-O-R</h4>
-                      <p className="text-sm text-slate-500 font-light">Phân tích hành vi người dùng Gen Z dựa trên các kích thích công nghệ.</p>
-                   </div>
-                   <div className="space-y-3">
-                      <h4 className="font-black text-slate-900 text-lg">Signaling Theory</h4>
-                      <p className="text-sm text-slate-500 font-light">Blockchain đóng vai trò là "tín hiệu" chất lượng cực mạnh gửi đến thị trường.</p>
-                   </div>
-                   <div className="space-y-3">
-                      <h4 className="font-black text-slate-900 text-lg">TAM / UTAUT2</h4>
-                      <p className="text-sm text-slate-500 font-light">Nghiên cứu mức độ chấp nhận công nghệ của người tiêu dùng và nông dân.</p>
-                   </div>
-                   <div className="space-y-3">
-                      <h4 className="font-black text-slate-900 text-lg">Green Marketing</h4>
-                      <p className="text-sm text-slate-500 font-light">Tích hợp các tiêu chuẩn xanh vào lõi của quá trình xác thực Blockchain.</p>
-                   </div>
-                </div>
-             </div>
-             <div className="flex-1 bg-white rounded-[3rem] p-12 shadow-xl border border-slate-100 flex flex-col justify-between">
-                <div className="space-y-6">
-                   <Target className="text-emerald-600" size={48} />
-                   <h4 className="text-2xl font-serif italic text-slate-950 leading-snug">
-                     "Mục tiêu tối thượng của tôi là xây dựng một cầu nối bền vững giữa công nghệ cao và bàn ăn của mọi gia đình Việt."
-                   </h4>
-                   <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center font-bold text-slate-400">LH</div>
-                      <div>
-                         <div className="font-bold text-slate-900">NCS Lê Phúc Hải</div>
-                         <div className="text-xs text-slate-400 uppercase tracking-widest">Founder & Lead Researcher</div>
-                      </div>
-                   </div>
-                </div>
-                <div className="mt-12 space-y-4">
-                   <div className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Affiliations</div>
-                   <div className="flex gap-4 opacity-50">
-                      <div className="h-8 w-24 bg-slate-200 rounded animate-pulse" />
-                      <div className="h-8 w-24 bg-slate-200 rounded animate-pulse" />
-                   </div>
-                </div>
-             </div>
-          </div>
+           <div className="flex flex-col md:flex-row gap-24 items-center">
+              <div className="flex-1 space-y-10">
+                 <div className="inline-flex items-center gap-2 text-emerald-500 font-bold uppercase tracking-[0.5em] text-[10px]">
+                    <Microscope size={16} />
+                    <span>Năng lực thực thi</span>
+                 </div>
+                 <h2 className="text-5xl md:text-6xl font-serif italic leading-tight">
+                    Công nghệ phục vụ <br /> 
+                    <span className="text-emerald-500 font-sans not-italic font-black uppercase tracking-tighter">Đạo đức</span>
+                 </h2>
+                 <p className="text-slate-400 text-xl font-light leading-relaxed">
+                    Chúng tôi không chạy theo xu hướng, chúng tôi xây dựng nền tảng từ những tiêu chuẩn khắt khe nhất của một luận án Tiến sĩ. Mỗi thuật toán đều được kiểm chứng để đảm bảo sự công bằng và minh bạch tuyệt đối.
+                 </p>
+                 <div className="grid grid-cols-2 gap-8 pt-6">
+                    <div>
+                       <div className="text-3xl font-black text-white">256-bit</div>
+                       <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-2">Mã hóa đa tầng</div>
+                    </div>
+                    <div>
+                       <div className="text-3xl font-black text-white">Zero-Leak</div>
+                       <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-2">Bảo mật dữ liệu</div>
+                    </div>
+                    <div>
+                       <div className="text-3xl font-black text-white">Hybrid-AI</div>
+                       <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-2">Phân tích rủi ro</div>
+                    </div>
+                    <div>
+                       <div className="text-3xl font-black text-white">P2P Mesh</div>
+                       <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-2">Hạ tầng mạng lưới</div>
+                    </div>
+                 </div>
+              </div>
+              <div className="flex-1">
+                 <div className="relative aspect-square">
+                    <div className="absolute inset-0 bg-emerald-500 rounded-full blur-[120px] opacity-20 animate-pulse" />
+                    <div className="relative w-full h-full bg-white/5 rounded-[4rem] border border-white/10 backdrop-blur-xl flex items-center justify-center p-16">
+                       <div className="text-center space-y-8">
+                          <Cpu size={120} className="mx-auto text-emerald-500/50" />
+                          <div className="space-y-2">
+                             <p className="text-2xl font-black uppercase tracking-tighter">LIFE ENGINE v2.0</p>
+                             <p className="text-[10px] font-mono text-slate-500 tracking-[0.5em]">AUTONOMOUS AUDIT PROTOCOL</p>
+                          </div>
+                          <div className="pt-8 flex flex-wrap justify-center gap-3">
+                             {['Consensus', 'IoT Sync', 'AI Audit', 'NFT Minting'].map((tag, i) => (
+                                <span key={i} className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[9px] font-bold uppercase tracking-widest text-slate-400">
+                                   {tag}
+                                </span>
+                             ))}
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
         </div>
       </section>
 
-      {/* Future Roadmap */}
-      <section className="py-32">
-        <div className="max-w-5xl mx-auto px-6">
-           <div className="text-center mb-20">
-             <h2 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400 mb-4">Lộ trình phát triển</h2>
-             <h3 className="text-4xl font-serif italic text-slate-950">Hành trình vươn tầm</h3>
-           </div>
-           
-           <div className="relative space-y-12">
-              <div className="absolute left-8 top-0 bottom-0 w-px bg-slate-100" />
-              {[
-                { phase: 'Giai đoạn 1', title: 'Hoàn thiện Proof of Concept (PoC)', desc: 'Xây dựng hạ tầng Blockchain và xác thực cho 3 dòng sản phẩm chủ lực.' },
-                { phase: 'Giai đoạn 2', title: 'Mở rộng Mạng lưới Node', desc: 'Kết nối với các hợp tác xã và doanh nghiệp logistics lớn tại Lâm Đồng và Khánh Hòa.' },
-                { phase: 'Giai đoạn 3', title: 'AI Integration', desc: 'Triển khai hệ thống dự báo nhu cầu thị trường dựa trên dữ liệu chuỗi cung ứng thực tế.' },
-                { phase: 'Giai đoạn 4', title: 'Hệ sinh thái Toàn diện', desc: 'Trở thành tiêu chuẩn xác thực hàng đầu cho nông sản xuất khẩu Việt Nam.' }
-              ].map((step, i) => (
-                <div key={i} className="relative pl-24 group">
-                   <div className="absolute left-6 top-0 w-4 h-4 bg-white border-4 border-emerald-500 rounded-full z-10 group-hover:scale-150 transition-transform" />
-                   <div className="text-xs font-black text-emerald-600 uppercase tracking-widest mb-2">{step.phase}</div>
-                   <h4 className="text-2xl font-serif italic text-slate-950 mb-3">{step.title}</h4>
-                   <p className="text-slate-500 font-light leading-relaxed max-w-xl">{step.desc}</p>
-                </div>
-              ))}
+      {/* The Commitment: Academic Rigor */}
+      <section className="py-32 bg-white">
+        <div className="max-w-5xl mx-auto px-6 text-center space-y-12">
+           <GraduationCap size={48} className="mx-auto text-slate-300" />
+           <h2 className="text-xs font-black uppercase tracking-[0.5em] text-slate-400">Cam kết học thuật</h2>
+           <h3 className="text-4xl md:text-5xl font-serif italic text-slate-950 leading-tight">
+             "Một dự án không chỉ để trình bày, <br /> mà để thay đổi tương lai."
+           </h3>
+           <p className="text-slate-500 text-lg font-light leading-relaxed max-w-3xl mx-auto">
+             fwd LIFEchain được phát triển dựa trên các nghiên cứu khoa học nghiêm túc về hành vi người tiêu dùng (mô hình S-O-R), lý thuyết tín hiệu (Signaling Theory) và sự chấp nhận công nghệ (TAM/UTAUT2). Mỗi bước đi của dự án đều có sự bảo chứng về mặt lý luận và thực tiễn.
+           </p>
+           <div className="pt-12">
+              <div className="inline-flex items-center gap-3 px-8 py-4 bg-slate-950 text-white rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-emerald-600 transition-all cursor-pointer">
+                 Xem Thesis Roadmap <ArrowRight size={16} />
+              </div>
            </div>
         </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-32 px-6">
+         <div className="max-w-6xl mx-auto">
+            <div className="bg-emerald-600 rounded-[4rem] p-16 md:p-24 text-center text-white relative overflow-hidden shadow-2xl shadow-emerald-600/40 group">
+               <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-[100px] -mr-48 -mt-48 group-hover:bg-white/20 transition-all duration-700" />
+               <div className="relative z-10 space-y-10">
+                  <h2 className="text-5xl md:text-7xl font-serif italic leading-none">Cùng chúng tôi viết tiếp <br /> chương mới cho Nông nghiệp</h2>
+                  <p className="text-emerald-100 text-xl font-light max-w-2xl mx-auto leading-relaxed">
+                    Sự tử tế của người nông dân cần được công nghệ bảo vệ. Hãy để fwd LIFEchain là người bảo chứng cho giá trị của bạn.
+                  </p>
+                  <div className="flex flex-col md:flex-row justify-center gap-6 pt-6">
+                    <Link href="/portal" className="px-12 py-6 bg-white text-emerald-950 rounded-2xl font-black uppercase tracking-widest hover:bg-slate-50 transition-all hover:-translate-y-1 shadow-xl">
+                      Khởi tạo Di sản số
+                    </Link>
+                    <Link href="/contact" className="px-12 py-6 bg-emerald-700 text-white rounded-2xl font-black uppercase tracking-widest hover:bg-emerald-800 transition-all border border-emerald-500">
+                      Kết nối chuyên gia
+                    </Link>
+                  </div>
+               </div>
+            </div>
+         </div>
       </section>
 
       <Footer />
