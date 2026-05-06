@@ -97,8 +97,8 @@ export default function Home() {
               Farm Worth <span className="text-slate-400 font-light italic">Driven</span>
             </h1>
             <p className="text-slate-500 text-sm md:text-xl max-w-3xl mx-auto font-light leading-relaxed mb-8 md:mb-12">
-              <span className="font-bold text-natural-900 uppercase tracking-widest text-xs md:text-sm block mb-4">FWD LifeChain</span>
-              Minh bạch hóa giá trị nông sản từ gốc rễ nông trại bằng công nghệ Blockchain & AI, 
+              <span className="font-bold text-natural-900 uppercase tracking-widest text-xs md:text-sm block mb-4">Dự án Mokup xác thực thông tin qua Blockchain - Lê Phúc Hải</span>
+              Giải pháp minh bạch hóa giá trị nông sản từ gốc rễ nông trại bằng công nghệ Blockchain & AI, 
               kiến tạo niềm tin bền vững cho thế hệ người tiêu dùng mới.
             </p>
             

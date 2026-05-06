@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "fwd LIFEchain | Farm · Worth · Driven",
-  description: "fwd LIFEchain là hệ sinh thái Blockchain minh bạch hóa chuỗi cung ứng nông nghiệp Việt Nam. Dự án nghiên cứu của NCS Lê Phúc Hải tập trung vào giá trị thực từ nông trại đến kỹ thuật số.",
+  title: "fwd LIFEchain | Dự án Mokup Xác thực Blockchain - Lê Phúc Hải",
+  description: "Dự án Mokup xác thực thông tin qua Blockchain của Lê Phúc Hải. fwd LIFEchain là hệ sinh thái minh bạch hóa chuỗi cung ứng nông nghiệp Việt Nam, tập trung vào giá trị sạch và an toàn.",
   keywords: ["fwd LIFEchain", "fwdlife.vn", "Farm Worth Driven", "Blockchain Agriculture", "Lê Phúc Hải", "Traceability", "Nông nghiệp số"],
   authors: [{ name: "Lê Phúc Hải" }],
   openGraph: {
-    title: "fwd LIFEchain | Farm · Worth · Driven",
+    title: "fwd LIFEchain | Dự án Mokup Xác thực Blockchain - Lê Phúc Hải",
     description: "Hệ thống minh bạch chuỗi cung ứng nông sản dựa trên Blockchain và AI.",
     url: "https://fwdlife.vn",
     siteName: "fwd LIFEchain",
