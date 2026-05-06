@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { 
   ShieldCheck, Leaf, Search, Package, QrCode, ArrowRight, Star, Globe, Zap, Menu, X,
-  Activity, Layers, Clock, BarChart3, Cpu, Lock, Eye, Truck, Users, Sparkles
+  Activity, Layers, Clock, BarChart3, Cpu, Lock, Eye, Truck, Users, Sparkles, Sprout
 } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';

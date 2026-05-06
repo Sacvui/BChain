@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Globe, ShieldCheck, Cpu, Github, Twitter, Linkedin, ArrowRight } from 'lucide-react';
+import { Globe, ShieldCheck, Cpu, Github, Twitter, Linkedin, ArrowRight, Sprout } from 'lucide-react';
 
 export default function Footer() {
   return (
