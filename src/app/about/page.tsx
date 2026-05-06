@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Sprout, ShieldCheck, Zap, Globe, ArrowRight, Layers, Users, Award, Target, BookOpen, Cpu, BarChart3, Fingerprint, Lock, Database, Heart, Microscope, PenTool, Sparkles, GraduationCap } from 'lucide-react';
+import { Sprout, ShieldCheck, Zap, Globe, ArrowRight, Layers, Users, Award, Target, BookOpen, Cpu, BarChart3, Fingerprint, Lock, Database, Heart, Microscope, PenTool, Sparkles, GraduationCap, Waves } from 'lucide-react';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -12,7 +12,7 @@ export default function AboutPage() {
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-emerald-100 selection:text-emerald-900 overflow-x-hidden">
       <Header />
 
-      {/* Hero Section: The Soul of the Land */}
+      {/* Hero Section: The Soul of the Mekong */}
       <section className="relative pt-48 pb-32 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1400px] h-[1400px] bg-gradient-to-b from-emerald-50/50 to-white rounded-full blur-[120px] -z-10" />
         <div className="max-w-6xl mx-auto px-6">
@@ -22,7 +22,7 @@ export default function AboutPage() {
               animate={{ opacity: 1, scale: 1 }}
               className="w-16 h-16 bg-emerald-600 text-white rounded-full flex items-center justify-center shadow-2xl shadow-emerald-600/30"
             >
-              <Heart size={32} fill="currentColor" />
+              <Waves size={32} />
             </motion.div>
 
             <motion.div
@@ -30,7 +30,7 @@ export default function AboutPage() {
               animate={{ opacity: 1, y: 0 }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 text-slate-500 text-[10px] font-black uppercase tracking-[0.4em] shadow-sm border border-slate-100"
             >
-              <span>Di sản số cho Nông nghiệp Việt</span>
+              <span>Vùng nguyên liệu Việt · Tầm nhìn Toàn cầu</span>
             </motion.div>
             
             <motion.h1 
@@ -39,40 +39,40 @@ export default function AboutPage() {
               transition={{ delay: 0.1 }}
               className="text-6xl md:text-8xl font-serif italic mb-6 leading-[1.1] text-slate-950 max-w-5xl"
             >
-              Nơi công nghệ <span className="text-emerald-600 font-sans not-italic font-black uppercase tracking-tighter">Bảo vệ</span> <br />
-              linh hồn của đất mẹ
+              Khi phù sa <span className="text-emerald-600 font-sans not-italic font-black uppercase tracking-tighter">Hội tụ</span> <br />
+              cùng công nghệ minh bạch
             </motion.h1>
 
             <motion.p 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="text-xl md:text-2xl text-slate-500 font-light max-w-3xl mx-auto leading-relaxed"
+              className="text-xl md:text-2xl text-slate-500 font-light max-w-4xl mx-auto leading-relaxed"
             >
-              <span className="font-serif italic text-emerald-600">fwd</span> <span className="font-bold text-slate-950">LIFEchain</span> không chỉ là những dòng code khô khan. Đó là lời cam kết của một người con xứ đất đỏ, sử dụng tri thức Tiến sĩ để giữ gìn sự minh bạch cho từng mầm xanh.
+              <span className="font-serif italic text-emerald-600">fwd</span> <span className="font-bold text-slate-950">LIFEchain</span> là lời cam kết của một người con miền Tây sông nước, mang khát vọng nâng tầm nông sản sạch từ chính vùng nguyên liệu Việt Nam vươn xa trên bản đồ thế giới.
             </motion.p>
           </div>
         </div>
       </section>
 
-      {/* The Calling: Why we exist */}
+      {/* The Insight: Deeply Personal */}
       <section className="py-32 relative">
         <div className="max-w-7xl mx-auto px-6">
            <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
               <div className="relative group">
                  <div className="absolute -inset-4 bg-emerald-100 rounded-[4rem] blur-2xl opacity-30 group-hover:opacity-50 transition-opacity" />
                  <div className="relative aspect-[4/5] bg-slate-100 rounded-[3rem] overflow-hidden shadow-2xl rotate-2">
-                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-transparent flex items-center justify-center p-12">
-                       <div className="text-center space-y-6">
-                          <Sprout size={120} className="mx-auto text-emerald-600/30" />
-                          <p className="text-xs font-mono text-slate-400 tracking-[0.5em]">ROOTS OF INTEGRITY</p>
+                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-transparent flex items-center justify-center p-12 text-center">
+                       <div className="space-y-6">
+                          <Waves size={120} className="mx-auto text-emerald-600/30" />
+                          <p className="text-xs font-mono text-slate-400 tracking-[0.5em]">MEKONG DELTA SOUL</p>
                        </div>
                     </div>
                  </div>
                  <div className="absolute -bottom-10 -right-10 bg-white p-10 rounded-[2.5rem] shadow-2xl border border-slate-100 max-w-xs">
-                    <PenTool size={32} className="text-emerald-600 mb-6" />
+                    <Heart size={32} className="text-emerald-600 mb-6" />
                     <p className="text-lg font-serif italic text-slate-900 leading-relaxed">
-                       "Tôi tin rằng mỗi trái chín, mỗi tổ yến đều mang trong mình một câu chuyện. Blockchain chính là người kể chuyện trung thực nhất."
+                       "Tôi lớn lên từ phù sa, tôi hiểu giá trị của sự an toàn. Blockchain không chỉ là kỹ thuật, nó là cách tôi bảo vệ sự tử tế của người nông dân mình."
                     </p>
                     <div className="mt-6 pt-6 border-t border-slate-100">
                        <span className="text-xs font-black uppercase tracking-widest text-slate-400">NCS Lê Phúc Hải</span>
@@ -82,16 +82,16 @@ export default function AboutPage() {
               <div className="space-y-12">
                  <div className="space-y-6">
                     <h2 className="text-xs font-black uppercase tracking-[0.5em] text-emerald-500">Tầm nhìn & Sứ mệnh</h2>
-                    <h3 className="text-4xl md:text-5xl font-serif italic text-slate-950 leading-tight">Khi tri thức trở thành <br /> chiếc khiên bảo vệ</h3>
+                    <h3 className="text-4xl md:text-5xl font-serif italic text-slate-950 leading-tight">Từ vùng nguyên liệu nội địa <br /> đến bàn ăn quốc tế</h3>
                     <p className="text-slate-500 text-lg font-light leading-relaxed">
-                       Trong suốt hành trình làm nghiên cứu sinh (NCS), tôi nhận ra rằng nỗi đau lớn nhất của người nông dân không phải là sương gió, mà là sự đánh tráo giá trị. Một sản phẩm tâm huyết bị trộn lẫn với hàng kém chất lượng vì thiếu một hệ thống bảo chứng đủ tầm.
+                       Trong suốt hành trình làm nghiên cứu sinh (NCS), tôi nhận thấy giá trị thực sự của nông sản Việt nằm ở sự sạch và an toàn. Tuy nhiên, sự thiếu hụt niềm tin đã khiến những sản phẩm chất lượng nhất bị đánh đồng. fwd LIFEchain ra đời để xóa tan rào cản đó, khẳng định đẳng cấp của nông sản từ vùng nguyên liệu Việt Nam.
                     </p>
                  </div>
                  <div className="grid grid-cols-1 gap-8">
                     {[
-                       { title: 'Tâm (The Heart)', desc: 'Xây dựng dựa trên sự thấu hiểu và tôn trọng giá trị thật của sức lao động.' },
-                       { title: 'Tầm (The Vision)', desc: 'Hướng tới một tiêu chuẩn nông nghiệp số toàn cầu, nơi thương hiệu Việt được định vị đẳng cấp.' },
-                       { title: 'Lực (The Capability)', desc: 'Hạ tầng Blockchain độc lập, bảo mật cao và khả năng mở rộng không giới hạn.' }
+                       { title: 'Tâm (The Heart)', desc: 'Xây dựng dựa trên sự thấu hiểu vùng đất Miền Tây và khát vọng bảo vệ người tiêu dùng bằng thực phẩm sạch.' },
+                       { title: 'Tầm (The Vision)', desc: 'Phát triển chuỗi giá trị nông sản nguyên liệu Việt Nam đạt chuẩn quốc tế thông qua công nghệ minh bạch.' },
+                       { title: 'Lực (The Capability)', desc: 'Hệ thống Blockchain & AI hiệu năng cao, tối ưu hóa cho việc xác thực nguồn gốc và chất lượng an toàn vệ sinh.' }
                     ].map((item, i) => (
                        <div key={i} className="flex gap-6 items-start">
                           <div className="w-2 h-2 rounded-full bg-emerald-500 mt-2 flex-shrink-0" />
@@ -107,14 +107,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* The Deep Philosophy: F-W-D */}
+      {/* The F-W-D Framework: Refined */}
       <section className="py-32 bg-slate-50 border-y border-slate-100 relative overflow-hidden">
-        <div className="absolute top-0 right-0 p-20 opacity-5">
-           <Globe size={400} />
-        </div>
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="text-center mb-24">
-            <h2 className="text-xs font-black uppercase tracking-[0.5em] text-slate-400 mb-4">Giá trị cốt lõi</h2>
+            <h2 className="text-xs font-black uppercase tracking-[0.5em] text-slate-400 mb-4">Giá trị vận hành</h2>
             <h3 className="text-5xl font-serif italic text-slate-950">Triết lý fwd LIFE</h3>
           </div>
 
@@ -122,18 +119,18 @@ export default function AboutPage() {
             {[
               {
                 letter: 'F',
-                title: 'Farm (Nông trại)',
-                meaning: 'Cội nguồn của sự sống',
-                description: 'Chúng tôi bắt đầu từ mảnh đất, từ bàn tay người nông dân. Mọi dữ liệu thô được ghi nhận bằng IoT tại vùng trồng là "Sự thật gốc" (Origin Truth) không thể xuyên tạc.',
+                title: 'Farm (Vùng nguyên liệu)',
+                meaning: 'Nơi khởi nguồn sự an toàn',
+                description: 'Chúng tôi bắt đầu từ chính những vùng trồng trù phú của Việt Nam. Dữ liệu sạch được ghi nhận trực tiếp, đảm bảo quy trình canh tác đạt chuẩn an toàn vệ sinh thực phẩm.',
                 icon: Sprout,
                 color: 'text-emerald-600',
                 bg: 'bg-emerald-50'
               },
               {
                 letter: 'W',
-                title: 'Worth (Giá trị)',
-                meaning: 'Bảo chứng sự tử tế',
-                description: 'Giá trị không đo bằng tiền, mà bằng sự minh bạch. Mỗi định danh số (NFT) cho sản phẩm là một tấm bằng chứng nhận cho sự tận tâm của người sản xuất.',
+                title: 'Worth (Giá trị thực)',
+                meaning: 'Sản phẩm sạch cho cộng đồng',
+                description: 'Giá trị nằm ở sức khỏe con người. Mỗi chứng nhận số (NFT) là lời cam kết về một sản phẩm nông sản sạch, không hóa chất, an toàn cho mọi gia đình.',
                 icon: ShieldCheck,
                 color: 'text-blue-600',
                 bg: 'bg-blue-50'
@@ -141,8 +138,8 @@ export default function AboutPage() {
               {
                 letter: 'D',
                 title: 'Driven (Dẫn dắt)',
-                meaning: 'Tương lai số bền vững',
-                description: 'Dẫn dắt bởi dữ liệu và thuật toán, nhưng phục vụ con người. Chúng tôi sử dụng AI để dự báo và Blockchain để kết nối, tạo nên một cộng đồng cùng thịnh vượng.',
+                meaning: 'Phát triển nông nghiệp Việt',
+                description: 'Dẫn dắt bởi công nghệ để tối ưu hóa nguồn lực nội địa. Chúng tôi sử dụng Blockchain để kết nối nông sản Việt trực tiếp với thị trường toàn cầu.',
                 icon: Zap,
                 color: 'text-amber-600',
                 bg: 'bg-amber-50'
@@ -170,109 +167,63 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* The Capability: Technical Mastery */}
+      {/* Technical Rigor: Năng lực & Tâm thế */}
       <section className="py-32 bg-slate-950 text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 pointer-events-none">
-           <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #10b981 1px, transparent 0)', backgroundSize: '64px 64px' }}></div>
-        </div>
         <div className="max-w-7xl mx-auto px-6 relative z-10">
            <div className="flex flex-col md:flex-row gap-24 items-center">
               <div className="flex-1 space-y-10">
                  <div className="inline-flex items-center gap-2 text-emerald-500 font-bold uppercase tracking-[0.5em] text-[10px]">
                     <Microscope size={16} />
-                    <span>Năng lực thực thi</span>
+                    <span>Năng lực thực thi chuyên sâu</span>
                  </div>
                  <h2 className="text-5xl md:text-6xl font-serif italic leading-tight">
-                    Công nghệ phục vụ <br /> 
-                    <span className="text-emerald-500 font-sans not-italic font-black uppercase tracking-tighter">Đạo đức</span>
+                    Công nghệ vì <br /> 
+                    <span className="text-emerald-500 font-sans not-italic font-black uppercase tracking-tighter">Thực phẩm sạch</span>
                  </h2>
                  <p className="text-slate-400 text-xl font-light leading-relaxed">
-                    Chúng tôi không chạy theo xu hướng, chúng tôi xây dựng nền tảng từ những tiêu chuẩn khắt khe nhất của một luận án Tiến sĩ. Mỗi thuật toán đều được kiểm chứng để đảm bảo sự công bằng và minh bạch tuyệt đối.
+                    Với tư cách là một nghiên cứu sinh, tôi không chỉ xây dựng phần mềm. Tôi xây dựng một hệ thống kiểm soát chất lượng tự động, nơi Blockchain và AI giám sát từng bước đi của nông sản từ vùng nguyên liệu Việt đến tay người dùng.
                  </p>
                  <div className="grid grid-cols-2 gap-8 pt-6">
                     <div>
-                       <div className="text-3xl font-black text-white">256-bit</div>
-                       <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-2">Mã hóa đa tầng</div>
+                       <div className="text-3xl font-black text-white">Secure-Trace</div>
+                       <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-2">Truy xuất 100%</div>
                     </div>
                     <div>
-                       <div className="text-3xl font-black text-white">Zero-Leak</div>
-                       <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-2">Bảo mật dữ liệu</div>
-                    </div>
-                    <div>
-                       <div className="text-3xl font-black text-white">Hybrid-AI</div>
-                       <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-2">Phân tích rủi ro</div>
-                    </div>
-                    <div>
-                       <div className="text-3xl font-black text-white">P2P Mesh</div>
-                       <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-2">Hạ tầng mạng lưới</div>
+                       <div className="text-3xl font-black text-white">Safe-Check</div>
+                       <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-2">Giám sát an toàn</div>
                     </div>
                  </div>
               </div>
-              <div className="flex-1">
-                 <div className="relative aspect-square">
-                    <div className="absolute inset-0 bg-emerald-500 rounded-full blur-[120px] opacity-20 animate-pulse" />
-                    <div className="relative w-full h-full bg-white/5 rounded-[4rem] border border-white/10 backdrop-blur-xl flex items-center justify-center p-16">
-                       <div className="text-center space-y-8">
-                          <Cpu size={120} className="mx-auto text-emerald-500/50" />
-                          <div className="space-y-2">
-                             <p className="text-2xl font-black uppercase tracking-tighter">LIFE ENGINE v2.0</p>
-                             <p className="text-[10px] font-mono text-slate-500 tracking-[0.5em]">AUTONOMOUS AUDIT PROTOCOL</p>
-                          </div>
-                          <div className="pt-8 flex flex-wrap justify-center gap-3">
-                             {['Consensus', 'IoT Sync', 'AI Audit', 'NFT Minting'].map((tag, i) => (
-                                <span key={i} className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[9px] font-bold uppercase tracking-widest text-slate-400">
-                                   {tag}
-                                </span>
-                             ))}
-                          </div>
-                       </div>
-                    </div>
+              <div className="flex-1 relative">
+                 <div className="w-full h-full bg-white/5 rounded-[4rem] border border-white/10 backdrop-blur-xl p-16 text-center">
+                    <Cpu size={80} className="mx-auto text-emerald-500/50 mb-8" />
+                    <h4 className="text-2xl font-black uppercase tracking-tighter mb-4">Vùng nguyên liệu Việt v2.0</h4>
+                    <p className="text-slate-400 text-sm font-light leading-relaxed">
+                       Hệ thống quản lý dữ liệu an toàn thực phẩm trên nền tảng Blockchain, được thiết kế riêng cho đặc thù nông nghiệp Việt Nam.
+                    </p>
                  </div>
               </div>
            </div>
         </div>
       </section>
 
-      {/* The Commitment: Academic Rigor */}
+      {/* The Commitment: Academic & Heart */}
       <section className="py-32 bg-white">
         <div className="max-w-5xl mx-auto px-6 text-center space-y-12">
            <GraduationCap size={48} className="mx-auto text-slate-300" />
-           <h2 className="text-xs font-black uppercase tracking-[0.5em] text-slate-400">Cam kết học thuật</h2>
+           <h2 className="text-xs font-black uppercase tracking-[0.5em] text-slate-400">Cam kết từ tâm</h2>
            <h3 className="text-4xl md:text-5xl font-serif italic text-slate-950 leading-tight">
-             "Một dự án không chỉ để trình bày, <br /> mà để thay đổi tương lai."
+             "Mục tiêu của tôi là mỗi sản phẩm Việt <br /> đều mang trong mình niềm tự hào về độ sạch và an toàn."
            </h3>
            <p className="text-slate-500 text-lg font-light leading-relaxed max-w-3xl mx-auto">
-             fwd LIFEchain được phát triển dựa trên các nghiên cứu khoa học nghiêm túc về hành vi người tiêu dùng (mô hình S-O-R), lý thuyết tín hiệu (Signaling Theory) và sự chấp nhận công nghệ (TAM/UTAUT2). Mỗi bước đi của dự án đều có sự bảo chứng về mặt lý luận và thực tiễn.
+             Kết hợp giữa nghiên cứu khoa học hàn lâm và sự thấu hiểu thực địa từ miền Tây sông nước, fwd LIFEchain cam kết xây dựng một tương lai nơi nông sản nguyên liệu Việt Nam là bảo chứng cho chất lượng cao cấp nhất.
            </p>
            <div className="pt-12">
-              <div className="inline-flex items-center gap-3 px-8 py-4 bg-slate-950 text-white rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-emerald-600 transition-all cursor-pointer">
-                 Xem Thesis Roadmap <ArrowRight size={16} />
-              </div>
+              <Link href="/portal" className="inline-flex items-center gap-3 px-8 py-4 bg-slate-950 text-white rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-emerald-600 transition-all">
+                 Khởi tạo giá trị sạch <ArrowRight size={16} />
+              </Link>
            </div>
         </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-32 px-6">
-         <div className="max-w-6xl mx-auto">
-            <div className="bg-emerald-600 rounded-[4rem] p-16 md:p-24 text-center text-white relative overflow-hidden shadow-2xl shadow-emerald-600/40 group">
-               <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-[100px] -mr-48 -mt-48 group-hover:bg-white/20 transition-all duration-700" />
-               <div className="relative z-10 space-y-10">
-                  <h2 className="text-5xl md:text-7xl font-serif italic leading-none">Cùng chúng tôi viết tiếp <br /> chương mới cho Nông nghiệp</h2>
-                  <p className="text-emerald-100 text-xl font-light max-w-2xl mx-auto leading-relaxed">
-                    Sự tử tế của người nông dân cần được công nghệ bảo vệ. Hãy để fwd LIFEchain là người bảo chứng cho giá trị của bạn.
-                  </p>
-                  <div className="flex flex-col md:flex-row justify-center gap-6 pt-6">
-                    <Link href="/portal" className="px-12 py-6 bg-white text-emerald-950 rounded-2xl font-black uppercase tracking-widest hover:bg-slate-50 transition-all hover:-translate-y-1 shadow-xl">
-                      Khởi tạo Di sản số
-                    </Link>
-                    <Link href="/contact" className="px-12 py-6 bg-emerald-700 text-white rounded-2xl font-black uppercase tracking-widest hover:bg-emerald-800 transition-all border border-emerald-500">
-                      Kết nối chuyên gia
-                    </Link>
-                  </div>
-               </div>
-            </div>
-         </div>
       </section>
 
       <Footer />
