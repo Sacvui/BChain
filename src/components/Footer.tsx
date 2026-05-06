@@ -15,14 +15,21 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24 mb-20">
           {/* Brand Column */}
           <div className="md:col-span-5 space-y-8">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:rotate-12 transition-transform">
-                <Globe size={22} />
+            <Link href="/" className="flex items-center gap-4 group">
+              <div className="w-12 h-12 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-500">
+                 <Sprout size={28} />
               </div>
-              <span className="font-black tracking-tighter text-2xl uppercase italic">AgriChain</span>
+              <div className="flex flex-col">
+                <div className="flex items-baseline gap-2">
+                   <span className="font-serif text-2xl font-light text-emerald-400 italic lowercase">fwd</span>
+                   <span className="font-sans text-3xl font-black text-white uppercase">LIFE</span>
+                   <span className="font-serif text-xl font-light text-slate-400 lowercase">chain</span>
+                </div>
+                <p className="text-[10px] font-medium text-slate-500 mt-2">Farm · Worth · Driven</p>
+              </div>
             </Link>
             <p className="text-slate-400 text-sm md:text-lg font-light leading-relaxed max-w-md">
-              Mô hình thị phạm xác thực nguồn gốc nông sản kết hợp AI và Blockchain. Đề án nghiên cứu của Nghiên cứu sinh Lê Phúc Hải.
+              Hệ sinh thái minh bạch hóa giá trị nông sản từ gốc rễ bằng Blockchain & AI. Đề án nghiên cứu của Nghiên cứu sinh Lê Phúc Hải.
             </p>
             <div className="flex gap-4">
               {[Twitter, Github, Linkedin].map((Icon, i) => (
@@ -40,6 +47,7 @@ export default function Footer() {
               <ul className="space-y-4">
                 {[
                   { name: "Trang chủ", href: "/" },
+                  { name: "Triết lý FWD", href: "/about" },
                   { name: "Blockchain Explorer", href: "/explorer" },
                   { name: "Cổng nhà sản xuất", href: "/portal" },
                   { name: "Xác thực nhanh", href: "/verify/YEN-001" },
@@ -91,8 +99,8 @@ export default function Footer() {
              <Link href="/legal/cookies" className="hover:text-white">Cookies</Link>
           </div>
           <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest text-center">
-            © 2026 AGRICHAIN PROTOCOL. BY NCS LÊ PHÚC HẢI. ALL RIGHTS RESERVED. 
-            <span className="hidden md:inline ml-2">• SECURED BY BLOCKCHAIN TECHNOLOGY</span>
+            © 2026 FWD LIFECHAIN. BY NCS LÊ PHÚC HẢI. ALL RIGHTS RESERVED. 
+            <span className="hidden md:inline ml-2">• SECURED BY FARM WORTH DRIVEN PROTOCOL</span>
           </p>
         </div>
       </div>

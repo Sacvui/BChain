@@ -62,17 +62,33 @@ export default function Home() {
       <main className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-12">
         {/* Navigation */}
         <nav className="flex justify-between items-center mb-12 md:mb-24 px-2">
-          <div className="flex items-center gap-2 font-bold text-lg md:text-xl tracking-tight text-natural-900">
-             <div className="w-8 h-8 md:w-10 md:h-10 bg-natural-900 rounded-xl flex items-center justify-center text-white">
-               <ShieldCheck size={20} />
+          <Link href="/" className="flex items-center gap-3 group">
+             <div className="w-10 h-10 bg-emerald-50 rounded-full flex items-center justify-center text-emerald-600 transition-transform group-hover:scale-110">
+                <Sprout size={24} />
              </div>
-             <span>AGRI<span className="text-natural-500">CHAIN</span></span>
-          </div>
+             <div className="flex flex-col">
+                <div className="flex items-baseline gap-1.5">
+                   <span className="font-serif text-2xl tracking-normal text-emerald-600 font-light italic lowercase px-1">fwd</span>
+                   <div className="flex items-baseline">
+                      <span className="font-sans text-2xl tracking-tighter text-natural-950 font-black uppercase">LIFE</span>
+                      <span className="font-serif text-xl tracking-tighter text-natural-900 font-light lowercase">chain</span>
+                   </div>
+                </div>
+                <div className="flex items-center gap-2 mt-0.5">
+                   <span className="text-[9px] font-medium text-slate-500">Farm</span>
+                   <div className="w-1 h-1 rounded-full bg-emerald-500/30"></div>
+                   <span className="text-[9px] font-medium text-slate-500">Worth</span>
+                   <div className="w-1 h-1 rounded-full bg-emerald-500/30"></div>
+                   <span className="text-[9px] font-medium text-slate-500">Driven</span>
+                </div>
+             </div>
+          </Link>
           
-          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-500">
+          <div className="hidden md:flex items-center gap-8 text-sm font-black uppercase tracking-widest text-slate-400">
+            <Link href="/about" className="hover:text-emerald-500 transition-colors">Philosophy</Link>
             <Link href="/explorer" className="hover:text-natural-900 transition-colors">Explorer</Link>
-            <Link href="/portal" className="hover:text-natural-900 transition-colors">Cổng nhà sản xuất</Link>
-            <Link href="/explorer/nodes" className="px-5 py-2.5 bg-natural-900 text-white rounded-full hover:shadow-lg hover:shadow-natural-900/20 transition-all">Kết nối Node</Link>
+            <Link href="/portal" className="hover:text-natural-900 transition-colors">Portal</Link>
+            <Link href="/explorer/nodes" className="px-6 py-3 bg-natural-900 text-white rounded-2xl hover:shadow-xl hover:shadow-emerald-500/10 transition-all hover:-translate-y-0.5">Connect Node</Link>
           </div>
 
           <button 
@@ -106,24 +122,17 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-white border border-natural-100 shadow-sm text-natural-600 text-[10px] md:text-xs font-bold mb-6 md:mb-8 uppercase tracking-widest">
-              <Star size={14} className="fill-natural-500 text-natural-500" />
-              <span>Nền tảng minh bạch nông sản số 1</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-white border border-slate-200 shadow-sm text-slate-500 text-[10px] md:text-xs font-bold mb-6 md:mb-8 uppercase tracking-widest">
+              <Star size={14} className="text-slate-400" />
+              <span>Hệ sinh thái Nông nghiệp Minh bạch</span>
             </div>
-            <h1 className="text-4xl md:text-8xl font-bold mb-6 md:mb-8 text-natural-950 tracking-tighter leading-[1.1]">
-              Xác thực <span className="relative inline-block text-natural-500">
-                Sạch
-                <motion.svg 
-                  className="absolute -bottom-1 md:-bottom-2 left-0 w-full h-2 md:h-3 text-natural-200" 
-                  viewBox="0 0 100 10" 
-                  preserveAspectRatio="none"
-                >
-                  <path d="M0 5 Q 25 0, 50 5 T 100 5" fill="none" stroke="currentColor" strokeWidth="4" />
-                </motion.svg>
-              </span> bằng Blockchain
+            <h1 className="text-4xl md:text-8xl font-black mb-6 md:mb-8 text-natural-950 tracking-tighter leading-[1.1]">
+              Farm Worth <span className="text-slate-400 font-light italic">Driven</span>
             </h1>
             <p className="text-slate-500 text-sm md:text-xl max-w-3xl mx-auto font-light leading-relaxed mb-8 md:mb-12">
-              Xây dựng niềm tin vững chắc cho người tiêu dùng Gen Z thông qua quy trình truy xuất nguồn gốc không thể thay đổi và trí tuệ nhân tạo.
+              <span className="font-bold text-natural-900 uppercase tracking-widest text-xs md:text-sm block mb-4">FWD LifeChain</span>
+              Minh bạch hóa giá trị nông sản từ gốc rễ nông trại bằng công nghệ Blockchain & AI, 
+              kiến tạo niềm tin bền vững cho thế hệ người tiêu dùng mới.
             </p>
             
             <div className="flex flex-col sm:flex-row justify-center gap-4 px-4">
@@ -247,7 +256,7 @@ export default function Home() {
           <div className="text-center mb-16 md:mb-24">
              <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-6 uppercase italic">Featured <span className="text-emerald-500">Assets</span></h2>
              <p className="text-slate-500 text-sm md:text-base max-w-xl mx-auto font-light leading-relaxed">
-                Các sản phẩm đạt tiêu chuẩn xác thực Blockchain khắt khe nhất trong hệ sinh thái AgriChain.
+                Các sản phẩm đạt tiêu chuẩn xác thực Blockchain khắt khe nhất trong hệ sinh thái FWD LifeChain.
              </p>
           </div>
 

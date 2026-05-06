@@ -2,21 +2,21 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Mockup thị phạm xác minh Minh bạch chuỗi khối (Blockchain) - NCS Lê Phúc Hải",
-  description: "Hệ thống xác thực nguồn gốc nông sản kết hợp AI và Blockchain. Đề án nghiên cứu của Nghiên cứu sinh Lê Phúc Hải.",
-  keywords: ["Blockchain", "AgriChain", "Minh bạch chuỗi khối", "Lê Phúc Hải", "Nghiên cứu sinh", "Xác thực nông sản"],
+  title: "fwd LIFEchain | Farm · Worth · Driven",
+  description: "fwd LIFEchain là hệ sinh thái Blockchain minh bạch hóa chuỗi cung ứng nông nghiệp Việt Nam. Dự án nghiên cứu của NCS Lê Phúc Hải tập trung vào giá trị thực từ nông trại đến kỹ thuật số.",
+  keywords: ["fwd LIFEchain", "fwdlife.vn", "Farm Worth Driven", "Blockchain Agriculture", "Lê Phúc Hải", "Traceability", "Nông nghiệp số"],
   authors: [{ name: "Lê Phúc Hải" }],
   openGraph: {
-    title: "AgriChain - Minh bạch chuỗi khối & AI",
-    description: "Hệ thống xác thực nguồn gốc nông sản kết hợp AI và Blockchain. Đề án nghiên cứu của Nghiên cứu sinh Lê Phúc Hải.",
-    url: "https://agrichain.lephuchai.com", // Giả định domain của bạn
-    siteName: "AgriChain",
+    title: "fwd LIFEchain | Farm · Worth · Driven",
+    description: "Hệ thống minh bạch chuỗi cung ứng nông sản dựa trên Blockchain và AI.",
+    url: "https://fwdlife.vn",
+    siteName: "fwd LIFEchain",
     images: [
       {
-        url: "/og-image.png", // Bạn nên đặt ảnh tôi vừa tạo vào thư mục public với tên này
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "AgriChain Preview",
+        alt: "fwd LIFEchain Preview",
       },
     ],
     locale: "vi_VN",
@@ -24,8 +24,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AgriChain - Minh bạch chuỗi khối & AI",
-    description: "Đề án nghiên cứu của Nghiên cứu sinh Lê Phúc Hải.",
+    title: "fwd LIFEchain | Farm · Worth · Driven",
+    description: "Minh bạch hóa giá trị nông sản từ gốc rễ.",
     images: ["/og-image.png"],
   },
   icons: {

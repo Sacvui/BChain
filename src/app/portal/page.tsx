@@ -36,10 +36,17 @@ export default function ProducerPortal() {
       <aside className="w-20 md:w-64 bg-[#0a0f0a] text-white flex flex-col sticky top-0 h-screen">
         <div className="p-6 md:p-8 border-b border-white/5">
            <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                 <Globe size={22} />
+              <div className="w-10 h-10 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-500">
+                 <Sprout size={20} />
               </div>
-              <span className="hidden md:block font-black tracking-tighter text-xl uppercase italic">AgriPortal</span>
+              <div className="flex flex-col">
+                 <div className="flex items-baseline gap-1">
+                    <span className="font-serif text-sm font-light text-emerald-400 italic lowercase">fwd</span>
+                    <span className="font-sans text-base font-black text-white uppercase ml-1">LIFE</span>
+                    <span className="font-serif text-sm font-light text-slate-400 lowercase">chain</span>
+                 </div>
+                 <p className="text-[7px] font-medium text-slate-500 mt-0.5">Farm · Worth · Driven</p>
+              </div>
            </Link>
         </div>
 
