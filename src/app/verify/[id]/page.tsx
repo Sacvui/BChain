@@ -12,6 +12,8 @@ import {
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default function VerifyPage({ params }: { params: Promise<{ id: string }> }) {
   const unwrappedParams = use(params);
@@ -130,18 +132,15 @@ export default function VerifyPage({ params }: { params: Promise<{ id: string }>
         )}
       </AnimatePresence>
 
-      {/* Premium Header Nav */}
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-100 px-4 md:px-6 py-4 print:hidden">
+      <Header />
+      
+      {/* Verify Info Bar */}
+      <div className="bg-slate-50 border-b border-slate-100 px-4 md:px-6 py-2 mt-20 print:hidden">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-3 font-bold group">
-             <div className="w-8 h-8 md:w-10 md:h-10 bg-emerald-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-500/20 group-hover:rotate-12 transition-transform">
-               <Globe size={18} />
-             </div>
-             <div className="flex flex-col">
-                <span className="font-black tracking-tighter leading-none text-xs md:text-sm text-natural-950 uppercase italic">FWD LifeChain</span>
-                <span className="text-[5px] font-bold tracking-[0.2em] text-emerald-500 uppercase">Farm · Worth · Driven</span>
-             </div>
-          </Link>
+          <div className="flex items-center gap-2 text-[9px] font-mono text-slate-400">
+             <Layers size={10} />
+             FWD PROTOCOL: {product.nodes?.[0]?.hash?.substring(0, 10) || '0x...'}...
+          </div>
           <div className="flex items-center gap-2 md:gap-6">
             <div className="hidden sm:flex items-center gap-2 text-[10px] font-mono text-slate-400 bg-slate-50 px-3 py-1 rounded-lg border border-slate-100">
                <Layers size={12} />

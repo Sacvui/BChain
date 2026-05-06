@@ -8,6 +8,8 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default function ExplorerHome() {
   const [stats, setStats] = useState<any>(null);
@@ -29,62 +31,25 @@ export default function ExplorerHome() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-emerald-100">
-      {/* Premium Navigation Header */}
-      <header className="bg-[#111b11] text-white border-b border-white/5 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:rotate-12 transition-transform">
-               <Globe size={18} />
+      <Header />
+      
+      {/* Search Header for Explorer */}
+      <div className="pt-24 bg-[#111b11] border-b border-white/5">
+         <div className="max-w-7xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between text-white">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-emerald-500">
+               <Globe size={14} />
+               <span>Explorer Protocol v2.0</span>
             </div>
-            <span className="font-black tracking-tighter text-xl">AgriChain<span className="text-emerald-500 text-xs ml-1 uppercase tracking-widest">Explorer</span></span>
-          </Link>
-
-          <div className="hidden md:flex items-center gap-6 text-[11px] font-bold uppercase tracking-widest text-slate-400">
-             <Link href="/explorer" className="text-emerald-400">Home</Link>
-             <Link href="/explorer/blocks" className="hover:text-white transition-colors">Blocks</Link>
-             <Link href="/explorer/transactions" className="hover:text-white transition-colors">Transactions</Link>
-             <Link href="/explorer/nodes" className="hover:text-white transition-colors">Nodes</Link>
-             <Link href="/explorer/resources" className="hover:text-white transition-colors">Resources</Link>
-          </div>
-
-          <div className="flex items-center gap-4">
-             <button 
-               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-               className="md:hidden p-2 text-slate-400 hover:text-white"
-             >
-                {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-             </button>
-             <div className="relative max-w-xs w-full hidden lg:block">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={14} />
-                <input 
-                  type="text" 
-                  placeholder="Search hash..." 
-                  className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-10 pr-4 text-[11px] focus:outline-none focus:ring-1 focus:ring-emerald-500/50 transition-all"
-                />
-             </div>
-          </div>
-        </div>
-
-        {/* Mobile Menu Overlay */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div 
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-[#1a251a] border-b border-white/5 overflow-hidden"
-            >
-              <div className="p-6 flex flex-col gap-4 text-xs font-bold uppercase tracking-[0.2em] text-slate-400">
-                 <Link href="/explorer" onClick={() => setIsMobileMenuOpen(false)} className="py-3 border-b border-white/5 text-emerald-400">Home</Link>
-                 <Link href="/explorer/blocks" onClick={() => setIsMobileMenuOpen(false)} className="py-3 border-b border-white/5">Blocks</Link>
-                 <Link href="/explorer/transactions" onClick={() => setIsMobileMenuOpen(false)} className="py-3 border-b border-white/5">Transactions</Link>
-                 <Link href="/explorer/nodes" onClick={() => setIsMobileMenuOpen(false)} className="py-3 border-b border-white/5">Nodes</Link>
-                 <Link href="/explorer/resources" onClick={() => setIsMobileMenuOpen(false)} className="py-3">Resources</Link>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </header>
+            <div className="relative max-w-md w-full hidden md:block">
+               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={14} />
+               <input 
+                 type="text" 
+                 placeholder="Search by Address / Txn Hash / Block..." 
+                 className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-10 pr-4 text-[11px] focus:outline-none focus:ring-1 focus:ring-emerald-500/50 transition-all"
+               />
+            </div>
+         </div>
+      </div>
 
       {/* Main Stats Bar - Dashboard Style */}
       <section className="bg-[#111b11] text-white py-16 md:py-24 relative overflow-hidden">

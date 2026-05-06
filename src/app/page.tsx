@@ -8,6 +8,8 @@ import {
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import QRScanner from '@/components/QRScanner';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const products = [
   {
@@ -59,45 +61,10 @@ export default function Home() {
         <div className="absolute top-[20%] -left-[10%] w-[50%] md:w-[30%] h-[30%] bg-emerald-100 rounded-full blur-[100px] opacity-30"></div>
       </div>
 
-      <main className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-12">
-        {/* Navigation */}
-        <nav className="flex justify-between items-center mb-12 md:mb-24 px-2">
-          <Link href="/" className="flex items-center gap-3 group">
-             <div className="w-10 h-10 bg-emerald-50 rounded-full flex items-center justify-center text-emerald-600 transition-transform group-hover:scale-110">
-                <Sprout size={24} />
-             </div>
-             <div className="flex flex-col">
-                <div className="flex items-baseline gap-1.5">
-                   <span className="font-serif text-2xl tracking-normal text-emerald-600 font-light italic lowercase px-1">fwd</span>
-                   <div className="flex items-baseline">
-                      <span className="font-sans text-2xl tracking-tighter text-natural-950 font-black uppercase">LIFE</span>
-                      <span className="font-serif text-xl tracking-tighter text-natural-900 font-light lowercase">chain</span>
-                   </div>
-                </div>
-                <div className="flex items-center gap-2 mt-0.5">
-                   <span className="text-[9px] font-medium text-slate-500">Farm</span>
-                   <div className="w-1 h-1 rounded-full bg-emerald-500/30"></div>
-                   <span className="text-[9px] font-medium text-slate-500">Worth</span>
-                   <div className="w-1 h-1 rounded-full bg-emerald-500/30"></div>
-                   <span className="text-[9px] font-medium text-slate-500">Driven</span>
-                </div>
-             </div>
-          </Link>
-          
-          <div className="hidden md:flex items-center gap-8 text-sm font-black uppercase tracking-widest text-slate-400">
-            <Link href="/about" className="hover:text-emerald-500 transition-colors">Philosophy</Link>
-            <Link href="/explorer" className="hover:text-natural-900 transition-colors">Explorer</Link>
-            <Link href="/portal" className="hover:text-natural-900 transition-colors">Portal</Link>
-            <Link href="/explorer/nodes" className="px-6 py-3 bg-natural-900 text-white rounded-2xl hover:shadow-xl hover:shadow-emerald-500/10 transition-all hover:-translate-y-0.5">Connect Node</Link>
-          </div>
+      <Header />
 
-          <button 
-            className="md:hidden p-2 text-natural-900"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X /> : <Menu />}
-          </button>
-        </nav>
+      <main className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 pt-32 pb-12">
+        {/* Hero Section */}
 
         {/* Mobile Menu Overlay */}
         <AnimatePresence>
