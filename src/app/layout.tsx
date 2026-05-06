@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
+import { Inter, EB_Garamond } from "next/font/google";
 import "./globals.css";
+
+const inter = Inter({ subsets: ["latin", "vietnamese"], variable: "--font-inter" });
+const ebGaramond = EB_Garamond({ subsets: ["latin", "vietnamese"], variable: "--font-garamond", style: ["italic", "normal"] });
 
 export const metadata: Metadata = {
   title: "fwd LIFEchain | Dự án Mokup Xác thực Blockchain - Lê Phúc Hải",
@@ -41,8 +45,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi">
-      <body>
+    <html lang="vi" className={`${inter.variable} ${ebGaramond.variable}`}>
+      <body className="antialiased font-sans">
         {children}
         <Footer />
       </body>

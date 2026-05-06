@@ -30,6 +30,10 @@ const config: Config = {
           sand: "#e9c46a",
         }
       },
+      fontFamily: {
+        sans: ["var(--font-inter)", "sans-serif"],
+        serif: ["var(--font-garamond)", "serif"],
+      },
     },
   },
   plugins: [],
